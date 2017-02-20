@@ -12,7 +12,7 @@ networks:
 
 services:
 
-  service:
+  nodejs:
     image: myuserindocker/:latest
     # ports:
     #   - 80:80
@@ -29,3 +29,12 @@ services:
     networks:
       - default
       - proxy_default
+
+  rethinkdb:
+    image: rethinkdb:latest
+    volumes:
+      - "/mnt/datadisk-1/rethinkdb/rethinkdbData:/rethinkdb_data/"
+    environment:
+      DEPLOYMENT: production
+    networks:
+      - default
