@@ -1,0 +1,16 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules"
+  ],
+  "verbose": true,
+  "watch": [
+    "*.js"
+  ],
+  "legacyWatch": true,
+  "env": {
+    "DEPLOYMENT": "development"
+  },
+  "ext": "js json"
+}
