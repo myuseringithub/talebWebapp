@@ -10,7 +10,7 @@ let routerAPI = new Router({ prefix: '/api/v1' })
 routerAPI.get('/test', customQuery.test)
 
 export default () => compose([
-    handleConnection, // Open connection on middleware downstream, Close connection on upstream.
+    handleConnection(), // Open connection on middleware downstream, Close connection on upstream.
     routerAPI.routes(),
     routerAPI.allowedMethods()
 ])

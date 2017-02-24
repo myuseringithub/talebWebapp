@@ -9,7 +9,8 @@ import route from 'middleware/route/route.js' // Routes & API
 import serverCommonFunctionality from 'middleware/serverCommonFunctionality.js' // Middleware extending server functionality
 import serverStaticFile from 'middleware/serverStaticFile.js' // Middleware extending server functionality
 import notFound from 'middleware/notFound.js'
-import restEndpointApi from 'middleware/database/restEndpointApi.js'
+import RestApi from 'middleware/database/restEndpointApi.js'
+let restEndpointApi = new RestApi('api/v1')
 
 import compose from 'koa-compose'
 import bodyParser from 'koa-bodyparser'
@@ -19,21 +20,21 @@ import _ from 'underscore'
 // TODO: install embeddedjs, underscore templating
 // TODO: koa-subdomain
 
-{
+// KOA Middleware 
 
 const serverKoa = module.exports = new Koa() // export if script is required.
 if(APP.DEPLOYMENT == 'development') serverKoa.subdomainOffset = 1 // i.e. localhost
 
 serverKoa
     .use(async (context, next) => {
-        context.SZN = global.SZN || {} // Initialize SZN namespace in koa server context
+        await (context.SZN = global.SZN || {}) // Initialize SZN namespace in koa server context
         await next()
     })
     .use(serverCommonFunctionality())
-    .use(notFound)
+    .use(notFound())
     .use(serverStaticFile())
     .use(route())
-    .use(restEndpointApi) 
+    .use(restEndpointApi.route()) 
 
 // Conneciton ports:
 if (!module.parent || module.parent) { // Dummy for future use // if loaded as a standart script.
@@ -51,4 +52,11 @@ if (!module.parent || module.parent) { // Dummy for future use // if loaded as a
     } 
 }
 
-}
+
+// PURE NODEJS _____________________________________________
+
+// http.createServer((request, response) => {
+//   response.writeHead(200, {'Content-Type': 'application/json'});
+//   response.end(response);
+// }).listen(80)
+
