@@ -1,0 +1,3 @@
+[submodule "appDeploymentLifecycle"]
+	path = appDeploymentLifecycle
+	url = https://github.com/myuseringithub/appDeploymentLifecycle
