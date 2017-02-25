@@ -17,9 +17,9 @@ let middleware = [
     error() // Error handler for pure-JSON Koa apps
 ]
 if(!serverConfig.ssl) { 
-    middleware.push(compress())  // Compress responses
-    middleware.push(enforceHTTPS())
-    middleware.push(helmet()) // Security header middleware collection
+    // middleware.push(compress())  // Compress responses
+    // middleware.push(enforceHTTPS())
+    // middleware.push(helmet()) // Security header middleware collection
 }
 
 export default () => compose(middleware)

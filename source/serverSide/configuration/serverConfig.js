@@ -1,9 +1,9 @@
 import path from 'path'
 
 export let 
-    serverBasePath = process.env.NODE_PATH || path.resolve(path.normalize(`${__dirname}`)),
+    serverBasePath = process.env.NODE_PATH || path.resolve(path.normalize(`${__dirname}/..`)),
     DEPLOYMENT = process.env.DEPLOYMENT || 'development',
-    PORT = process.env.PORT || 3000,
+    PORT = process.env.PORT || 80,
     SSL = (DEPLOYMENT == 'development') ? true : false
 
 export default { 

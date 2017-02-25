@@ -40,8 +40,6 @@ serverKoa
 if (!module.parent || module.parent) { // Dummy for future use // if loaded as a standart script.
     http.createServer(serverKoa.callback()).listen(APP.port)
     console.log(`listening on port ${APP.port}`)
-    http.createServer(serverKoa.callback()).listen(80)
-    console.log('listening on port 80')
     if(APP.ssl) {
         let options = {
             key: fs.readFileSync('./sampleSSL/server.key'),

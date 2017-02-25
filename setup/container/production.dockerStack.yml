@@ -12,13 +12,9 @@ networks:
 
 services:
 
+  # internal ports = 80, 443
   nodejs:
-    image: myuserindocker/:latest
-    # ports:
-    #   - 80:80
-    #   - 443:443
-    # volumes:
-      # - "/app"
+    image: myuserindocker/education-webapp:latest
     environment:
       DEPLOYMENT: production
     deploy:
@@ -29,7 +25,10 @@ services:
     networks:
       - default
       - proxy_default
+    # entrypoint: node babelCompile.entrypoint.js
+    # command: sleep 100000
 
+  # internal port = 8080
   rethinkdb:
     image: rethinkdb:latest
     volumes:

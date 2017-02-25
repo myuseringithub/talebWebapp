@@ -21,5 +21,9 @@ deployment.test() {
     echo \"Error: no test specified\" && exit 1
 }
 
+production() { # working directory is pointing to `app` folder inside container the result of distribution code.
+    node production.entrypoint.js
+}
+
 # Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/run.sh <functionName>".
 $@
