@@ -9,14 +9,16 @@ node("docker") {
         // "COMPOSE_FILE=docker-compose-test-local.yml",
         "DEPLOYMENT=production"
     ]) {
-    
+        
         // Pull the latest code from the repository
         stage("Pull") {
             git "https://github.com/myuseringithub/mobta3athWebapp"
         }
+
         stage("BuildSourceCode") {
             sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
         }
+
         stage("BuildImage") {
             sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml build --no-cache buildImage"
         }
