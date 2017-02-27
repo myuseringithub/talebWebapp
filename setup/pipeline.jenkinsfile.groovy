@@ -18,7 +18,8 @@ node("docker") {
             sh "chmod -R 777 /workspace"
         }
 
-        stage("BuildSourceCode") {
+        stage("BuildSourceCode") { 
+            sh "false; echo $?"
             sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
         }
 
