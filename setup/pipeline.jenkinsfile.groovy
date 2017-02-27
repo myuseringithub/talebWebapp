@@ -12,12 +12,13 @@ node("docker") {
         
         // Pull the latest code from the repository
         stage("Pull") {
-            // TODO: Add recursive flag 
+            // NOTE: don't forget to Add recursive flag in pipeline configuration screen (jenkins server) in options for reading/executing jenkins file.
             git "https://github.com/myuseringithub/mobta3athWebapp"
         }
 
         stage("BuildSourceCode") {
             sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
+            sh "sudo chmod 777 /workspace"
         }
 
         stage("BuildImage") {
