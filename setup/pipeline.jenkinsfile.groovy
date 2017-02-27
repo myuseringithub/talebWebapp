@@ -14,7 +14,7 @@ node("docker") {
         stage("Pull") {
             // NOTE: don't forget to Add recursive flag in pipeline configuration screen (jenkins server) in options for reading/executing jenkins file.
             git "https://github.com/myuseringithub/mobta3athWebapp"
-            sh "sudo chmod 777 /workspace"
+            sh "chmod -R 777 /workspace"
         }
 
         stage("BuildSourceCode") {
