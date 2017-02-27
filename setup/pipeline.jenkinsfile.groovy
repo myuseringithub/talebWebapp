@@ -19,7 +19,7 @@ node("docker") {
         }
 
         stage("BuildSourceCode") { 
-            sh "false; echo $?"
+            sh "true; echo $?"
             sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
         }
 
