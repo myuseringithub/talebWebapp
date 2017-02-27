@@ -12,6 +12,7 @@ node("docker") {
         
         // Pull the latest code from the repository
         stage("Pull") {
+            // TODO: Add recursive flag 
             git "https://github.com/myuseringithub/mobta3athWebapp"
         }
 
