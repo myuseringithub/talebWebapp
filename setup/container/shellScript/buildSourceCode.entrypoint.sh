@@ -11,7 +11,7 @@ cd /tmp/build/gulp_buildTool
 # (cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
 # npm install; npm update;)
 
-node 'process.exit(1)'
+node -e "process.exit(1)" 
 
 # ./run.sh build
 
