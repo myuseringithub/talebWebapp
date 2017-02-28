@@ -7,11 +7,11 @@ gulp -v;
 cd /tmp/build/gulp_buildTool
 
 # ⭐ install dependencies / node modules (from packages.json) in working directory "/tmp/build/gulp_buildTool/" & update to latest versions
-npm install; npm update; 
-(cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
-npm install; npm update;)
+# npm install; npm update; 
+# (cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
+# npm install; npm update;)
 
-node --harmony `which gulp` build --gulpfile /tmp/build/gulp_buildTool/babel_JSCompiler.entrypoint.js
+node --harmony `process.exit(1)` 
 
 # ./run.sh build
 
