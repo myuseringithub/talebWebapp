@@ -23,7 +23,8 @@ gulp.task('symlinkNodeModules', require(path.join(config.TaskImplementationPath,
 gulp.task('compile:babel', require(path.join(config.TaskImplementationPath, 'babel.js')) );
 gulp.task('compile', 
 	gulp.series(
-		'symlinkNodeModules', // make gulp node modules available to babel to use, because it is changing the cwd during gulp babel pipe (apparently).
+		// doesn'T WORK
+		// 'symlinkNodeModules', // make gulp node modules available to babel to use, because it is changing the cwd during gulp babel pipe (apparently).
 		gulp.parallel('compile:babel')
 	)
 );
@@ -41,8 +42,8 @@ gulp.task('buildSourceCode',
 gulp.task('build', 
 	gulp.series(
 		'copy:sourceToDistribution',
+		'install:dependencies', // install first as compile uses node_modules
 		'compile',
-		'install:dependencies',
 		// 'buildSourceCode'
 	)
 );
