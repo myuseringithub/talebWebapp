@@ -19,7 +19,11 @@ node("docker") {
         }
 
         stage("BuildSourceCode") {   
-            sh 'docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode && echo \\$?'
+            sh '''
+                docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode;
+                # Propagate internal exit code of docker-compose to external shell exit code.
+                docker-compose -f ./setup/container/deployment.dockerCompose.yml ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | while read code; do if [ "$code" == "1" ]; then exit -1 fi done            
+            '''
         }
  
         stage("BuildImage") {
