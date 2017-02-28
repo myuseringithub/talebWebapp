@@ -17,5 +17,7 @@ if [ "$DEPLOYMENT" = "development" ]; then
     ./run.sh watch
 fi
 
+exit 1; 
+
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.
 exec "$@"
