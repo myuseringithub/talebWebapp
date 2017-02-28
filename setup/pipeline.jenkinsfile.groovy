@@ -19,7 +19,7 @@ node("docker") {
         }
 
         stage("BuildSourceCode") {
-            sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
+            sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode && echo $?"
         }
 
         stage("BuildImage") {
