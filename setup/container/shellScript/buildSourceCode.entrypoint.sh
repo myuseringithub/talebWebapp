@@ -11,12 +11,11 @@ npm install; npm install --only=dev; npm update;
 (cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
 npm install; npm install --only=dev; npm update;)
 
-# ./run.sh build
-
-# if [ "$DEPLOYMENT" = "development" ]; then
-#     ./run.sh watch
-# fi
+./run.sh build
+  
+if [ "$DEPLOYMENT" = "development" ]; then
+    ./run.sh watch
+fi
 
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.
-sleep 100000 
-# exec "$@"
+exec "$@"
