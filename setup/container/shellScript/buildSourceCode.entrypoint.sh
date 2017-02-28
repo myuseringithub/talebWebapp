@@ -18,4 +18,5 @@ npm install; npm install --only=dev; npm update;)
 # fi
 
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.
-exec "sleep 1000000"
+sleep 100000 
+# exec "$@"
