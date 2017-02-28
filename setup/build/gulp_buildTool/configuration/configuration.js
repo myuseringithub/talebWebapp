@@ -12,6 +12,7 @@ const ConfigPath = __dirname,
 export default {
     // TODO: create object of constants http://stackoverflow.com/questions/10843572/how-to-create-javascript-constants-as-properties-of-objects-using-const-keyword
     ConfigPath,
+    GulpPath,
     SourceCodePath,
     DestinationPath,
     TaskModulePath,

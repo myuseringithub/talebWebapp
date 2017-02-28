@@ -17,7 +17,8 @@ module.exports = ()=> {
 			source('serverSide/**/*.js'),
 			'!'+ source('serverSide/node_modules/**/*.js')
 		],	
-		destination('serverSide/')
+		destination('serverSide/'),
+		config.GulpPath
 	);
     return merge(serverSide);
 };
