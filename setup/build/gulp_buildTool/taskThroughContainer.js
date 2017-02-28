@@ -41,7 +41,7 @@ gulp.task('buildSourceCode',
 gulp.task('build', 
 	gulp.series(
 		'copy:sourceToDistribution',
-		'compile:babel',
+		'compile',
 		'install:dependencies',
 		// 'buildSourceCode'
 	)
