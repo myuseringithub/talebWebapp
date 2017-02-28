@@ -19,9 +19,11 @@ gulp.task('install:dependencies',
 );
 
 // Compile from ES6 to released javascript version.
+gulp.task('symlinkNodeModules', require(path.join(config.TaskImplementationPath, 'symlinkNodeModules.js')) ); 
 gulp.task('compile:babel', require(path.join(config.TaskImplementationPath, 'babel.js')) );
 gulp.task('compile', 
 	gulp.series(
+		'symlinkNodeModules', // make gulp node modules available to babel to use, because it is changing the cwd during gulp babel pipe (apparently).
 		gulp.parallel('compile:babel')
 	)
 );
