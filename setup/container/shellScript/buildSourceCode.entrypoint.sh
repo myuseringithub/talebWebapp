@@ -11,11 +11,13 @@ npm install; npm update;
 (cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
 npm install; npm update;)
 
-./run.sh build
+node --harmony `which gulp` build --gulpfile /tmp/build/gulp_buildTool/babel_JSCompiler.entrypoint.js
 
-if [ "$DEPLOYMENT" = "development" ]; then
-    ./run.sh watch
-fi
+# ./run.sh build
+
+# if [ "$DEPLOYMENT" = "development" ]; then
+#     ./run.sh watch
+# fi
 
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.
 exec "$@"
