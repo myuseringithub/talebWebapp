@@ -36,6 +36,8 @@
     "babel-preset-node6": "^11.0.0",
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.23.0",
+    "gulp-babel": "^6.1.2",
+    "babel-runtime": "^6.23.0",
     "nodemon": "^1.11.0"
   }
 }
