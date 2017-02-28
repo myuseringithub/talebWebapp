@@ -54,7 +54,7 @@ node("docker") {
         // Tag Docker images and push them to the registry 
         stage("Publish") {
             // BUILD_NUMBER - is jenkins build-in environment variables that hols the value of the currently executing build ID.
-            sh "docker login -u myuserindocker -p ${env.DOCKER_CREDENTIALS}"
+            sh "docker login -u myuserindocker -p ${env.DOCKERHUB_CREDENTIALS}"
             sh "docker tag myuserindocker/education-webapp myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
             sh "docker push myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
         }
