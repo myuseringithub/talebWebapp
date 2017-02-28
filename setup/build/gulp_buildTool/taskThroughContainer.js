@@ -41,9 +41,9 @@ gulp.task('buildSourceCode',
 
 gulp.task('build', 
 	gulp.series(
-		'copy:sourceToDistribution',
 		'install:dependencies', // install first as compile uses node_modules
-		'compile',
+		'copy:sourceToDistribution',
+		'compile'
 		// 'buildSourceCode'
 	)
 );
