@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-
+set -ex; 
+ 
 build() { # ⭐ Gulp - run bulid tasks
     node --harmony `which gulp` build --gulpfile ./babel_JSCompiler.entrypoint.js
 }

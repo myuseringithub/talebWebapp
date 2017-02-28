@@ -3,7 +3,6 @@ set -ex;
 echo "Deploying as ${DEPLOYMENT}";
 
 gulp -v;
-exit 1;  
 
 cd /tmp/build/gulp_buildTool
 
