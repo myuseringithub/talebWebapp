@@ -19,11 +19,11 @@ node("docker") {
         }
 
         stage("BuildSourceCode") {
-            sh "set -ex; docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
+            sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode"
         }
 
         stage("BuildImage") {
-            sh "set -ex; docker-compose -f ./setup/container/deployment.dockerCompose.yml build --no-cache buildImage"
+            sh "docker-compose -f ./setup/container/deployment.dockerCompose.yml build --no-cache buildImage"
         }
 
         // // Run unit tests and build the service and Docker images 
@@ -48,8 +48,8 @@ node("docker") {
         // Tag Docker images and push them to the registry 
         stage("Publish") {
             // BUILD_NUMBER - is jenkins build-in environment variables that hols the value of the currently executing build ID.
-            sh "set -ex; docker tag myuserindocker/education-webapp myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
-            sh "set -ex; docker push myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
+            sh "docker tag myuserindocker/education-webapp myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
+            sh "docker push myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
         }
 
         // //  Use the latest image to update the service running in production-like environment and run tests 
@@ -82,7 +82,7 @@ node("docker") {
                 // sh "docker service update \
                 // --image myuserindocker/education-webapp:1.${env.BUILD_NUMBER} \
                 // go-demo"
-                sh "set -ex; docker stack deploy -c ./setup/container/production.dockerStack.yml educationwebapp"
+                sh "docker stack deploy -c ./setup/container/production.dockerStack.yml educationwebapp"
             }
 
             // withEnv(["HOST_IP=${env.PROD_IP}"]) {
