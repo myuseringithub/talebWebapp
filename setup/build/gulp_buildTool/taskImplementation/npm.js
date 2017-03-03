@@ -12,7 +12,7 @@ let config = require('configuration/configuration.js'),
 export default ()=> {
 	return async ()=> {
 		// In gulp 4, you can return a child process to signal task completion
-		let process = childProcess.execSync('npm install; npm install --only=dev;', { cwd: source('serverSide/'), shell: true, stdio:[0,1,2] });
-		return await process;
+		let process = await childProcess.execSync('npm install; npm install --only=dev;', { cwd: source('serverSide/'), shell: true, stdio:[0,1,2] });
+		return process;
 	}
 };

@@ -12,7 +12,8 @@ npm install; npm install --only=dev; npm update;
 npm install; npm install --only=dev; npm update;)
 
 ./run.sh build
-  
+
+echo "Gulp watch ? ";
 if [ "$DEPLOYMENT" = "development" ]; then
     ./run.sh watch
 fi
