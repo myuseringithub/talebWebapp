@@ -57,6 +57,8 @@ node("docker") {
             sh "docker login -u myuserindocker -p ${env.DOCKERHUB_CREDENTIALS}"
             sh "docker tag myuserindocker/education-webapp myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
             sh "docker push myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
+            sh "docker tag myuserindocker/education-webapp myuserindocker/education-webapp:latest"
+            sh "docker push myuserindocker/education-webapp:latest"
         }
 
         // //  Use the latest image to update the service running in production-like environment and run tests 
