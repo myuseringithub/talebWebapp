@@ -22,7 +22,7 @@ node("docker") {
             sh '''
                 # remove stopped containers from previous builds.
                 docker rm -v $(docker ps -a -q) || true;
-                docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode;
+                docker-compose -f ./setup/container/deployment.dockerCompose.yml up --force-recreate buildDistributionCode;
                 # Propagate internal exit code of docker-compose to external shell exit code.
                 docker-compose -f ./setup/container/deployment.dockerCompose.yml ps -q | xargs docker inspect -f '{{ .State.ExitCode }}' | while read code; do if [ "$code" == "1" ]; then exit -1; fi; done;
             '''

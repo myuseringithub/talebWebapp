@@ -9,10 +9,7 @@ let config = require('configuration/configuration.js'),
 	source = subpath => { return joinPath(config.SourceCodePath, subpath) },
 	destination = subpath => { return joinPath(config.DestinationPath, subpath) }
 
-export default ()=> {
-	return async ()=> {
-		// In gulp 4, you can return a child process to signal task completion
-		let process = await childProcess.execSync('npm install; npm install --only=dev;', { cwd: source('serverSide/'), shell: true, stdio:[0,1,2] });
-		return process;
-	}
+export default async ()=> {
+	// In gulp 4, you can return a child process to signal task completion
+	return childProcess.execSync('npm install; npm install --only=dev;', { cwd: source('/serverSide/'), shell: true, stdio:[0,1,2] });
 };
