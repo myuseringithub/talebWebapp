@@ -9,12 +9,18 @@ services:
       - "3000:3000"
       - "80:80"
       - "443:443"
+      # BrowserSync ports:
+      - "9901:9901"
+      - "9902:9902"
+      - "9903:9903"
     depends_on:
       - rethinkdb
     links:
       - rethinkdb
     volumes:
       - ../../source:/app/
+      - ../../setup/build:/tmp/build/
+      - ../../appDeploymentLifecycle:/tmp/appDeploymentLifecycle/
     working_dir: /app/
     command: bash -c "sleep 100000000;"
 

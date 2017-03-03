@@ -17,6 +17,7 @@
     "koa-helmet": "^3.1.0",
     "koa-json-error": "^3.1.0",
     "koa-logger": "^2.0.1",
+    "koa-mount": "^2.0.0",
     "koa-response-time": "^2.0.0",
     "koa-router": "^7.0.1",
     "koa-sendfile": "^2.0.0",

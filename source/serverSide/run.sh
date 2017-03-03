@@ -16,6 +16,9 @@ development.babelES6() {
 development.babel() {
     nodemon babelCompile.entrypoint.js
 }
+developmentharmonybabel() {
+    node --harmony babelCompile.entrypoint.js
+}
 
 deployment.test() {
     echo \"Error: no test specified\" && exit 1
