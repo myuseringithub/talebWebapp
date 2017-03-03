@@ -11,5 +11,5 @@ let config = require('configuration/configuration.js'),
 
 export default async ()=> {
 	// In gulp 4, you can return a child process to signal task completion
-	return childProcess.execSync('bower install;', { cwd: source('/clientSide/bower_packageManager/'), shell: true, stdio:[0,1,2] });
+	return childProcess.execSync('bower install --allow-root;', { cwd: source('/clientSide/bower_packageManager/'), shell: true, stdio:[0,1,2] });
 };
