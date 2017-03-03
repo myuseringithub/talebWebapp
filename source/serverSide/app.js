@@ -50,7 +50,7 @@ if (!module.parent || module.parent) { // Dummy for future use // if loaded as a
         console.log(`listening on port ${App.config.port}`)
         // eventEmitter.emit('listening')
         // process.emit('listening')
-        process.send({ message: 'Server listening'});
+        if(App.config.DEPLOYMENT == 'development') process.send({ message: 'Server listening'});
     })
     // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })
     http.on
