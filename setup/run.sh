@@ -16,9 +16,19 @@ development() {
     # Download exe and run exe - https://www.rethinkdb.com/docs/install/windows/
     # grab the files created in new directory to the volume that will be mounted to the container.
 
-    # . 
+    # 1. Hosts local development environment
+    # http://serverfault.com/questions/115282/can-i-configure-the-windows-hosts-file-to-use-ip-address-plus-port
+    # map 'cdn.localhost' & 'api.localhost' to localhost:8081 & localhost:8082 respectively
+    # Using Fiddler (because hosts file doesn't support mapping to ports.) in Tool -> HOSTS:
+    # localhost:8081      cdn.localhost
+    # localhost:8082      api.localhost
+
+    # 2. 
     export DEPLOYMENT=development
-    docker-compose -f ./setup/container/development.dockerCompose.yml up -d 
+    docker-compose -f ./setup/container/development.dockerCompose.yml up -d --force-recreate
+
+    # 3. Run services using gulp
+    /tmp/build/gulp_buildTool/run.sh watch.livereload
 }
 
 deployment.buildDistribution() { # ⭐

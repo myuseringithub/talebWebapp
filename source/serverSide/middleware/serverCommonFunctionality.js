@@ -9,12 +9,18 @@ import helmet from 'koa-helmet'
 import error from 'koa-json-error'
 import enforceHTTPS from 'koa-sslify'
 
-let middleware = [
+// Database
+import rethinkdbConfig from 'configuration/rethinkdbConfig.js'
+import r from 'rethinkdb'
+import { handleConnection } from 'middleware/database/commonDatabaseFunctionality.js'
+
+let middlewareArray = [
     responseTime(), // Response time x-response-time
     logger(), // Console logger
     bodyParser(),
     // cors(), // Cross-Origin Resource Sharing(CORS)
-    error() // Error handler for pure-JSON Koa apps
+    error(), // Error handler for pure-JSON Koa apps
+    handleConnection(), // Open connection on middleware downstream, Close connection on upstream.
 ]
 if(!serverConfig.ssl) { 
     // middleware.push(compress())  // Compress responses
@@ -22,4 +28,4 @@ if(!serverConfig.ssl) {
     // middleware.push(helmet()) // Security header middleware collection
 }
 
-export default () => compose(middleware)
+export default () => compose(middlewareArray)

@@ -1,12 +1,13 @@
 import childProcess from 'child_process'
 import gulp from 'gulp'
-var browserSync = require('browser-sync').create();
+import proxyMiddleware from 'http-proxy-middleware'
+var browserSync80 = require('browser-sync').create('Info - locahost:80 server');
 let node;
 
 // ⌚ Gulp watch settings 
 // Fix high CPU usage for mounted filesystem in docker. And allow legacy file changes checking using flag 'usePolling' for chokidar.
 // IMPORTANT: should maybe increase fs limit for number files that can be watched https://github.com/gulpjs/gulp/issues/217 https://discourse.roots.io/t/gulp-watch-error-on-ubuntu-14-04-solved/3453/6
-const INTERVAL = 10000;
+const INTERVAL = 5000;
 const usePolling = true;
 
 function sleep(ms) {
@@ -19,7 +20,7 @@ function serverLivereload() {
     node = childProcess.fork('babelCompile.entrypoint.js', { cwd: '/app/serverSide', stdio:'inherit' })
     node.on('message', (m) => {
         // console.log('Server ready & listening.', m);
-        browserSync.reload()
+        browserSync80.reload()
     });
     // node = childProcess.spawn('node', ['babelCompile.entrypoint.js'], { cwd: '/app/serverSide', stdio:[0,1,2] })
     node.on('close', (code) => {
@@ -69,7 +70,7 @@ gulp.task('livereload:clientSide', ()=> {
         ], // equals to '!/app/{node_modules,node_modules/**/*}'
 		{ interval: INTERVAL, usePolling: usePolling }, 
 		async (done) => {
-            browserSync.reload()
+            browserSync80.reload()
             done()
         }        
 	);
@@ -79,22 +80,24 @@ gulp.task('watch:livereload',
 	gulp.series(
 		gulp.parallel(
             () => {
+
                 // initialize server & reload
                 // Serve files from the root of this project
-                browserSync.init({
+                browserSync80.init({
+                    host: 'localhost',
+                    port: 9903,
                     proxy: {
                         target: 'localhost',
                         // ws: true // when localhost webapp uses websocket also.
                     },
-                    logLevel: 'debug',
-                    logConnections: true,
                     ui: {
                         port: 9901,
                         weinre: {
                             port: 9902
                         }
                     },
-                    port: 9903,
+                    logLevel: 'debug',
+                    logConnections: true,
                     open: false // open browser false.
                 });
                 serverLivereload()

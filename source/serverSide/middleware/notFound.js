@@ -6,6 +6,6 @@ export default () => {
     return async (context, next) => { // fallback to sending the app index. If not found.
         await next()
         if(404 != context.status) return;
-        return send(context, path.normalize(`${config.rootPath}/entrypoint.html`))
+        return send(context, path.normalize(`${config.serverBasePath}/../clientSide/root/entrypoint.html`))
     }
 }

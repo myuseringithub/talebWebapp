@@ -10,7 +10,12 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
 <link rel="import" href="../my-icons.html">
+<link rel="import" href="../my-view1.html">
+<link rel="import" href="../my-view2.html">
+<link rel="import" href="../my-view3.html">
+<link rel="import" href="../my-view404.html">
 
 <dom-module id="web-app">
   <template>
@@ -28,6 +33,10 @@
       }
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
+      }
+
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
       }
 
       .drawer-list {
@@ -57,12 +66,12 @@
 
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
-      <app-drawer id="drawer" align="right">
+      <app-drawer id="drawer" slot="drawer" align="right" swipe-open>
         <app-toolbar style="flex-direction: row-reverse; font-weight: bold;">موقع تعليم</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="/view1">مواضيع التعليم</a>
-          <a name="view2" href="/view2">تسجيل فردي</a>
-          <a name="view3" href="/view3">تسجيل عن طريق وكيل</a>
+          <a name="view1" href="http://localhost/view1">مواضيع التعليم</a>
+          <a name="view2" href="http://localhost/view2">تسجيل فردي</a>
+          <a name="view3" href="http://localhost/view3">تسجيل عن طريق وكيل</a>
         </iron-selector>
       </app-drawer>
 
@@ -91,38 +100,58 @@
   </template>
 
   <script>
-    Polymer({
-      is: 'web-app',
+  {
+    class Element extends Polymer.Element {
+      static get is() { return 'web-app'; }
+      static get properties() {
+        return { /* properties metadata */ 
+          // routeBasePath: App.setting.location.routeBasePath
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+        }
+      }
 
-      properties: {
-        page: {
-          type: String,
-          reflectToAttribute: true,
-          observer: '_pageChanged',
-        },
-      },
-
-      observers: [
+      static get observers() { return [ /* observer descriptors */
         '_routePageChanged(routeData.page)',
-      ],
+      ] }
 
-      _routePageChanged: function(page) {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      _routePageChanged(page) {
         this.page = page || 'view1';
 
         if (!this.$.drawer.persistent) {
           this.$.drawer.close();
         }
-      },
+      }
 
-      _pageChanged: function(page) {
+      _pageChanged(page, oldPage) {
         // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('../my-' + page + '.html');
-        this.importHref(resolvedPageUrl, null, this._showPage404, true);
-      },
+        if (page != null) {
+            var callback = this._showPage404;
+            var resolvedPageUrl = this.resolveUrl('../my-' + page + '.html');
+            Polymer.importHref(
+              resolvedPageUrl,
+              null, callback, true);
+        }
+      }
 
-      _showPage404: function() {
+      _showPage404() {
         this.page = 'view404';
-      },
-    });
+      }
+
+    }
+    // Register custom element definition using standard platform API
+    customElements.define(Element.is, Element);
+  }
   </script>
 </dom-module>
