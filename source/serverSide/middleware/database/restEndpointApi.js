@@ -42,7 +42,7 @@ export default class RestApi {
             pathArray.forEach(pathSection => query = query(pathSection))
 
             query = query
-                .run(context.SZN.rethinkdbConn)
+                .run(context.rethinkdbConnection)
             
             if(!pathArray[1] || true) {
                 query = query

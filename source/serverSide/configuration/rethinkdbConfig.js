@@ -2,7 +2,7 @@ import {DEPLOYMENT as development} from 'configuration/serverConfig.js'
 
 let host = 'rethinkdb',
     port = 28015,
-    database = 'mobta3athWebapp'
+    database = 'webapp'
 
 export default {
   development: {

@@ -98,7 +98,8 @@ gulp.task('watch:livereload',
                     },
                     logLevel: 'debug',
                     logConnections: true,
-                    open: false // open browser false.
+                    open: false, // open browser false.
+                    scriptPath: () => 'http://HOST/browser-sync/browser-sync-client.js?v=2.18.8'.replace("HOST", 'localhost')
                 });
                 serverLivereload()
             },

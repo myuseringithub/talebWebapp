@@ -6,6 +6,11 @@
 
     <link rel="import" href="/asset/metadata/metadata.html">
 
+    <!-- JSPM -->
+    <script src="/asset/javascript/jspm_packages/system.js"></script>
+    <script> System.config({ baseURL: "/asset/javascript/" }); </script>
+    <script src="/asset/javascript/jspm.config.js"></script>
+
     <!-- entrypoint.js (common js) -->
     <script src="/asset/javascript/entrypoint.js"></script>
     
@@ -15,15 +20,6 @@
     <link rel="import" href="/asset/webcomponent/web-app/web-app.html">
     <link rel="stylesheet" href="/asset/stylesheet/default.css">
 
-    <style>
-      body {
-        margin: 0;
-        font-family: 'Roboto', 'Noto', sans-serif;
-        line-height: 1.5;
-        min-height: 100vh;
-        background-color: #eeeeee;
-      }
-    </style>
   </head>
   <body>
 
@@ -38,29 +34,26 @@
       </template>
       <script>
         {
-          const App = window.App || {}; // TODO: implement Polymer behaviors
+          const App = window.App || {}; 
           // Extend Polymer.Element base class
-          class Element extends Polymer.Element {
+          class Element extends App.mixin.setting(Polymer.Element) {
             static get is() { return 'main-document-element'; }
             static get properties() {
               return { /* properties metadata */ 
-                // routeBasePath: App.setting.location.routeBasePath
               }
             }
             static get observers() { return [ /* observer descriptors */ ] }
             constructor() {
-              super();
+                super()
             }
             connectedCallback() {
               super.connectedCallback();
             }
           }
-          // Register custom element definition using standard platform API
-          customElements.define(Element.is, Element);
-          // HTMLImports.whenReady(()=>{
-          // });
-          // document.addEventListener('WebComponentsReady', () => {
-          // })
+          window.addEventListener('WebComponentsReady', () => {
+            // Register custom element definition using standard platform API
+            window.customElements.define(Element.is, Element);
+          })
         }
       </script>
     </dom-module>

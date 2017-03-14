@@ -6,15 +6,23 @@ services:
   nodejs: 
     image: myuserindocker/deployment-environment:latest
     ports:
-      - "3000:3000"
       - "80:80"
       - "443:443"
       - "8081:8081"
       - "8082:8082"
+      - "8083:8083"
+      - "8084:8084"
+      - "8085:8085"
+      - "8086:8086"
+      - "8087:8087"
+      - "8088:8088"
+      - "8089:8089"
+      - "8090:8090"
       # BrowserSync ports:
       - "9901:9901"
       - "9902:9902"
       - "9903:9903"
+      - "3000:3000"
     depends_on:
       - rethinkdb
     links:

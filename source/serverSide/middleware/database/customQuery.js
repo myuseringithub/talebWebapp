@@ -6,7 +6,7 @@ export async function test(context, next) {
     // get universities
     await r
         .table('authors')
-        .run(context.SZN.rethinkdbConn)
+        .run(context.rethinkdbConnection)
         .then((cursor) => {
             return cursor.toArray()
         })

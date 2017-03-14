@@ -12,7 +12,7 @@ import enforceHTTPS from 'koa-sslify'
 // Database
 import rethinkdbConfig from 'configuration/rethinkdbConfig.js'
 import r from 'rethinkdb'
-import { handleConnection } from 'middleware/database/commonDatabaseFunctionality.js'
+import { handleConnection, createDatabase, createTable } from 'middleware/database/commonDatabaseFunctionality.js'
 
 let middlewareArray = [
     responseTime(), // Response time x-response-time
@@ -21,6 +21,8 @@ let middlewareArray = [
     // cors(), // Cross-Origin Resource Sharing(CORS)
     error(), // Error handler for pure-JSON Koa apps
     handleConnection(), // Open connection on middleware downstream, Close connection on upstream.
+    createDatabase(),
+    createTable(),
 ]
 if(!serverConfig.ssl) { 
     // middleware.push(compress())  // Compress responses

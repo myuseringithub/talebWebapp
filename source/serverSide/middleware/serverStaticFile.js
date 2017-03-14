@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 
 // let staticMiddlewareSetting = r
 //     .table('setting') // first field assigns name of table
-//     .run(context.SZN.rethinkdbConn)
+//     .run(context.rethinkdbConnection)
 //     .then((cursor) => {
 //         return cursor.toArray()
 //     })
