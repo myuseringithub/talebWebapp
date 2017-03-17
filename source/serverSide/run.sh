@@ -19,6 +19,9 @@ development.babel() {
 developmentharmonybabel() {
     node --harmony babelCompile.entrypoint.js
 }
+developmentChrome() {
+    node --inspect=localhost:9229 --debug-brk babelCompile.entrypoint.js
+}
 
 deployment.test() {
     echo \"Error: no test specified\" && exit 1

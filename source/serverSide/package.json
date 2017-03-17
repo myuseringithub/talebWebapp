@@ -25,6 +25,7 @@
     "koa-session": "^3.4.0",
     "koa-sslify": "^2.1.0",
     "koa-static": "^3.0.0",
+    "mixwith": "^0.1.1",
     "rethinkdb": "^2.3.3",
     "underscore": "^1.8.3"
   },

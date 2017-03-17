@@ -14,13 +14,14 @@ import RestApi from 'middleware/database/restEndpointApi.js'
 let restEndpointApi = new RestApi('api/v1')
 // require(`${App.config.serverBasePath}/configuration.js`) // Load configuration settings.
 import AppClass from 'class/App.class.js'
-
-
+import ConditionTree from 'class/ConditionTree.class.js'
+import Condition from 'class/Condition.class.js'
 
 
 // global.App = new AppClass()
-let App = new AppClass()
-// let staticContentServer = App.classInstanceArray['StaticContent']
+let App = new AppClass(false, [ConditionTree, Condition])
+
+// let staticContentServer = App.extendedSubclass.instance['StaticContent']
 App.middlewareArray = [
     async (context, next) => {
         await (AppClass.context = context)
@@ -31,9 +32,9 @@ App.middlewareArray = [
     // rootStaticFile(),
     serverCommonFunctionality(),
     async (context, next) => {
-        App.applyConditionCallback()
+        await App.applyConditionCallback()
         await next()
-    },
+    }, 
 ]
 App.applyKoaMiddleware()
 // App server
@@ -59,7 +60,7 @@ if(App.config.ssl) {
 
 
 
-let StaticContent = App.constructor.classInstanceArray['StaticContent']
+let StaticContent = App.constructor.extendedSubclass.instance['StaticContent']
 StaticContent.middlewareArray = [
     async (context, next) => {
         await (context.SZN = global.SZN || {}) // Initialize SZN namespace in koa server context
@@ -78,7 +79,7 @@ http.createServer(StaticContent.serverKoa.callback())
 
 
 
-let Api = App.constructor.classInstanceArray['Api']
+let Api = App.constructor.extendedSubclass.instance['Api']
 Api.middlewareArray = [
     async (context, next) => {
         // context.body = template
@@ -98,23 +99,25 @@ http.createServer(Api.serverKoa.callback())
 
 
 
-let Test = App.constructor.classInstanceArray['Test']
-Test.middlewareArray = [
-    async (context, next) => {
-        context.set('Access-Control-Allow-Origin', '*')
-        context.body = 'Using Middleware of Test Server.'
-        await next()
-    },
-    async (context, next) => {
-        context.body = require('file/function/getUrlPathLevel2.js')(context)
-        await next()
-    },
-]
-Test.applyKoaMiddleware()
-http.createServer(Test.serverKoa.callback())
-    .listen(Test.port, ()=> {
-        console.log(`${Test.constructor.name} listening on port ${Test.port}`.green)
-    })
+// let Test = App.constructor.extendedSubclass.instance['Test']
+// Test.middlewareArray = [
+//     async (context, next) => {
+//         await (AppClass.context = context)
+//         context.set('Access-Control-Allow-Origin', '*')
+//         context.body = 'Using Middleware of Test Server.'
+//         await next()
+//     }, 
+//     serverCommonFunctionality(),
+//     async (context, next) => {
+//         Test.applyConditionCallback()
+//         await next()
+//     },
+// ]
+// Test.applyKoaMiddleware()
+// http.createServer(Test.serverKoa.callback())
+//     .listen(Test.port, ()=> {
+//         console.log(`${Test.constructor.name} listening on port ${Test.port}`.green)
+//     })
 
 // _____________________________________________
 

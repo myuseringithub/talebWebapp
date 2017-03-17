@@ -1,6 +1,7 @@
 // API server
 import Koa from 'koa' // Koa applicaiton server
 import AppClass from 'class/App.class.js'
+import ConditionTreeClass from 'class/ConditionTree.class.js'
 
 class Test extends AppClass {
 

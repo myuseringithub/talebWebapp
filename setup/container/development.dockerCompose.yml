@@ -23,6 +23,7 @@ services:
       - "9902:9902"
       - "9903:9903"
       - "3000:3000"
+      - "9229:9229"
     depends_on:
       - rethinkdb
     links:
