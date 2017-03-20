@@ -1,7 +1,8 @@
 import getUrlPathAsArray from 'file/function/getUrlPathAsArray.js'
 
-export default (context) => {
-    let pathArray = getUrlPathAsArray(context)
+export default async (self) => {
+    let context = self.context
+    let pathArray = await getUrlPathAsArray(self)
     if(pathArray[1] == null) {
         return false
     } else {

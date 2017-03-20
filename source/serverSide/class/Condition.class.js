@@ -1,19 +1,31 @@
 import Unit from 'class/Unit.class.js'
 import getCondition from 'database/query/getCondition.query.js'
+import getValueReturningFile from 'database/query/getValueReturningFile.query.js'
 
 const self = class Condition extends Unit {
 
-    static instance = [] // conditionKey -> { Json data, properties } 
-
+    static getDocumentQuery = getCondition
+    
     constructor(conditionKey) {
-        super()
-        self.instance[conditionKey] = this;
+        super(true)
+        return this
     }
     
-    static async checkCondition(connection, conditionKey) {
-        // [1] Instance.
-        await self.createInstance(connection, conditionKey, getCondition)
-        console.log(self.instance['c639cd53-c764-4967-b052-1e1652107923'])
+    async checkCondition(AppInstance) {
+        // [1] get valueReturningFile
+        let valueReturningFileKey = await this.valueReturningFileKey
+        if(!('valueReturningFile' in this)) {
+            this.valueReturningFile = await getValueReturningFile(self.rethinkdbConnection, valueReturningFileKey)
+        }
+        // [2] require & check condition
+        if(!this.conditionResult) {
+            let expectedReturn = this.expectedReturn
+            let filePath = this.valueReturningFile.filePath
+            let returnedValue = await require(filePath)(AppInstance)
+            // console.log(`conditionKey: ${conditionKey} ${filePath}. expected: ${expectedReturn} == ${returnedValue}. compare: ${(returnedValue == expectedReturn)}`)
+            this.conditionResult = (returnedValue == expectedReturn) ? true : false;            
+        }
+        return  this.conditionResult
     }
 }
 

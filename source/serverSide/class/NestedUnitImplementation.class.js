@@ -1,20 +1,15 @@
-import AppClass from 'class/App.class.js'
+import NestedUnitController from 'class/NestedUnitController.class.js'
 import commonMethod from 'class/mixin/commonMethod.mixin.js'
 import { mix } from 'mixwith'
 
-const self = class NestedUnitImplementation extends mix(AppClass).with(commonMethod) {
-
-    // static defaultPropertyName = {
-    //     unit: 'unit',
-    //     unitKey: ''
-
-    // }
+const self = class NestedUnitImplementation extends mix(NestedUnitController).with(commonMethod) {
 
     constructor(skipConstructor = false) {
         super(true)
         if(skipConstructor) return;
+        return this
     }
 
- }
+}
 
- export default self
+export default self

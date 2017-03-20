@@ -1,8 +1,8 @@
-import AppClass from 'class/App.class.js'
+import NestedUnitController from 'class/NestedUnitController.class.js'
 import commonMethod from 'class/mixin/commonMethod.mixin.js'
 import { mix } from 'mixwith'
 
- const self = class Unit extends mix(AppClass).with(commonMethod) {
+ const self = class Unit extends mix(NestedUnitController).with(commonMethod) {
 
     constructor(skipConstructor = false) {
         super(true) 

@@ -1,27 +1,23 @@
 // Static content server - could be upgraded to Content Delivery Network
 import Koa from 'koa' // Koa applicaiton server
-import AppClass from 'class/App.class.js'
+import Application from 'class/Application.class.js'
 
-class StaticContent extends AppClass {
+const self = class StaticContent extends Application {
 
+    static serverKoa;
+    static port;
+    static middlewareArray = []
     middlewareArray = []
     
+    static initializeStaticClass() {
+        super.initializeStaticClass()
+        self.port = 8081
+    }
     constructor() {
         super(true)
-        this.port = 8081
-        this.createKoaServer()
-    }
-
-    createKoaServer() {
-        this.serverKoa = new Koa() // export if script is required.
-    }
-
-    applyKoaMiddleware() {
-        this.middlewareArray.forEach((middleware) => {
-            this.serverKoa.use(middleware)
-        }, this);
     }
 
 }
 
-export default StaticContent
+self.initializeStaticClass() // initialize static properties on class.
+export default self

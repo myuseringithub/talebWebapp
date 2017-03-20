@@ -1,27 +1,23 @@
 // API server
 import Koa from 'koa' // Koa applicaiton server
-import AppClass from 'class/App.class.js'
+import Application from 'class/Application.class.js'
 
-class Api extends AppClass {
+const self = class Api extends Application {
 
+    static serverKoa;
+    static port;
+    static middlewareArray = []
     middlewareArray = []
 
+    static initializeStaticClass() {
+        super.initializeStaticClass()
+        self.port = 8082
+    }
     constructor() {
         super(true)
-        this.port = 8082
-        this.createKoaServer()
-    }
-
-    createKoaServer() {
-        this.serverKoa = new Koa() // export if script is required.
-    }
-
-    applyKoaMiddleware() {
-        this.middlewareArray.forEach((middleware) => {
-            this.serverKoa.use(middleware)
-        }, this);
     }
 
 }
 
-export default Api
+self.initializeStaticClass() // initialize static properties on class.
+export default self
