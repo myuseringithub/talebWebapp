@@ -22,7 +22,7 @@ const self = class Condition extends Unit {
             let expectedReturn = this.expectedReturn
             let filePath = this.valueReturningFile.filePath
             let returnedValue = await require(filePath)(AppInstance)
-            // console.log(`conditionKey: ${conditionKey} ${filePath}. expected: ${expectedReturn} == ${returnedValue}. compare: ${(returnedValue == expectedReturn)}`)
+            console.log(`conditionKey: ${this.key} ${filePath}. expected: ${expectedReturn} == ${returnedValue}. compare: ${(returnedValue == expectedReturn)}`)
             this.conditionResult = (returnedValue == expectedReturn) ? true : false;            
         }
         return  this.conditionResult

@@ -1,4 +1,6 @@
 // r.db("webapp").table("setting")
+r.dbCreate('webapp');
+r.db("webapp").tableCreate('setting');
 r.db("webapp").table("setting").insert([
 	{
     id: 'valueReturningFile',
@@ -23,6 +25,14 @@ r.db("webapp").table("setting").insert([
 	{
     id: 'viewTree',
     viewTree: []
+  },
+	{
+    id: 'customDatasetSchema',
+    customDatasetSchema: []
+  },
+	{
+    id: 'fieldDataType',
+    fieldDataType: []
   },
 
 ],

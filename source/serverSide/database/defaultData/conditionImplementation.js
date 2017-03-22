@@ -32,6 +32,24 @@ data.conditionImplementation = [
         expectedReturn: 'subpath',
         valueReturningFileKey: 'd3b24455-3c21-4b5d-80b6-55bd9cdb98e2',
     },
+
+    // /api/v1/
+    {
+        key: '41c1a07a-cfa4-4568-a728-afda3415a47d',
+        label: {
+            name: '/<api>/'
+        },
+        expectedReturn: 'api',
+        valueReturningFileKey: '956a0f0f-437a-4cdf-9bcd-f205fc8336f9',
+    },
+    {
+        key: 'b62cb56a-1932-42fd-9829-76d8bda4ff12',
+        label: {
+            name: '<>/<v1>'
+        },
+        expectedReturn: 'v1',
+        valueReturningFileKey: 'd3b24455-3c21-4b5d-80b6-55bd9cdb98e2',
+    },
 ];
 
 r.db("webapp").table("setting").get("conditionImplementation").update({ conditionImplementation: data.conditionImplementation}, { nonAtomic: true });

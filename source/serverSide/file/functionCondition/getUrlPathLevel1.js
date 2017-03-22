@@ -1,4 +1,4 @@
-import getUrlPathAsArray from 'file/function/getUrlPathAsArray.js'
+import getUrlPathAsArray from 'file/functionCondition/getUrlPathAsArray.js'
 
 export default async (self) => {
     let context = self.context

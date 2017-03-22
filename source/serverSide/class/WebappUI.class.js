@@ -48,7 +48,7 @@ const self = class WebappUI extends Application {
     }
 
     async handleFunctionMiddleware(filePath) {
-        let middleware = await require(`${filePath}`)()
+        let middleware = await require(`${filePath}`)
         middleware(this.context, this.next)
     }
 

@@ -20,6 +20,12 @@ import ApiClass from 'class/Api.class.js'
 import ConditionTree from 'class/ConditionTree.class.js'
 import Condition from 'class/Condition.class.js'
 
+// TODO: Custom Dataset Schema/structure/blueprint, data document, custom dataset type, custom fields, custom content type.
+// TODO: Condition Tree:
+// • Ability to decide insertion position of unit in subtree. e.g. before, after, first, last.
+// • Check non immediate children for each insertion point to insert them in their correct destination.
+// • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
+
 Application.initialize([ConditionTree, Condition]) // allows calling a child class from its parent class.
 
 {

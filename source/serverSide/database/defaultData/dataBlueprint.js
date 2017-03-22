@@ -33,6 +33,11 @@ r.db("webapp").table("setting").insert([
         insertionPoint: 'Array',
         children: 'Array'
       },
+      customDatasetSchema: {
+        key: 'String',
+        name: 'String',
+        blueprint: 'Array'
+      }
     }
   },
 ],
