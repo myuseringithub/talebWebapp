@@ -13,7 +13,7 @@ node("docker") {
         // Pull the latest code from the repository
         stage("Pull") {
             // NOTE: don't forget to Add recursive flag in pipeline configuration screen (jenkins server) in options for reading/executing jenkins file.
-            git "https://github.com/myuseringithub/mobta3athWebapp"
+            git "https://github.com/myuseringithub/talebWebapp"
             sh "git submodule update --init --recursive -f"
             sh "chmod -R 777 /workspace; chown jenkins /workspace"
         }
@@ -55,10 +55,10 @@ node("docker") {
         stage("Publish") {
             // BUILD_NUMBER - is jenkins build-in environment variables that hols the value of the currently executing build ID.
             sh "docker login -u myuserindocker -p ${env.DOCKERHUB_CREDENTIALS}"
-            sh "docker tag myuserindocker/education-webapp myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
-            sh "docker push myuserindocker/education-webapp:1.${env.BUILD_NUMBER}"
-            sh "docker tag myuserindocker/education-webapp myuserindocker/education-webapp:latest"
-            sh "docker push myuserindocker/education-webapp:latest"
+            sh "docker tag myuserindocker/taleb-webapp myuserindocker/taleb-webapp:1.${env.BUILD_NUMBER}"
+            sh "docker push myuserindocker/taleb-webapp:1.${env.BUILD_NUMBER}"
+            sh "docker tag myuserindocker/taleb-webapp myuserindocker/taleb-webapp:latest"
+            sh "docker push myuserindocker/taleb-webapp:latest"
         }
 
         // //  Use the latest image to update the service running in production-like environment and run tests 
@@ -89,9 +89,9 @@ node("docker") {
                 "DOCKER_CERT_PATH=/machines/${env.PROD_NAME}"
             ]) {
                 // sh "docker service update \
-                // --image myuserindocker/education-webapp:1.${env.BUILD_NUMBER} \
+                // --image myuserindocker/taleb-webapp:1.${env.BUILD_NUMBER} \
                 // go-demo"
-                sh "docker stack deploy -c ./setup/container/production.dockerStack.yml educationwebapp"
+                sh "docker stack deploy -c ./setup/container/production.dockerStack.yml talebwebapp"
             }
 
             // withEnv(["HOST_IP=${env.PROD_IP}"]) {

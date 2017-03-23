@@ -14,7 +14,7 @@ services:
 
   # internal ports = 80, 443
   nodejs:
-    image: myuserindocker/education-webapp:latest
+    image: myuserindocker/taleb-webapp:latest
     environment:
       DEPLOYMENT: production
     deploy:
@@ -37,3 +37,4 @@ services:
       DEPLOYMENT: production
     networks:
       - default
+      - proxy_default

@@ -7,7 +7,7 @@ production.stack() {
     sudo mkdir -p $VolumeBasePath/rethinkdbData
 
     # 2.
-    docker stack deploy -c ./setup/container/production.dockerStack.yml educationwebapp
+    docker stack deploy -c ./setup/container/production.dockerStack.yml talebwebapp
 }
 
 development() {

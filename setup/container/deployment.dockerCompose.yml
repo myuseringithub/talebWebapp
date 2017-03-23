@@ -55,7 +55,7 @@ services:
             dockerfile: ./setup/container/service.dockerfile
             args:
                 - DEPLOYMENT=${DEPLOYMENT:-production}
-        image: myuserindocker/education-webapp:latest
+        image: myuserindocker/taleb-webapp:latest
         # name of local image to be built
         environment:
             DEPLOYMENT: ${DEPLOYMENT:-production}
