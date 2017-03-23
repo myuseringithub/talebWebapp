@@ -7,7 +7,7 @@
       "baseURL": ".."
     },
     "configFiles": {
-      "jspm": "./jspm.config.js"
+      "jspm": "jspm.config.js"
     },
     "dependencies": {
       "polymer@2.0-preview": "github:Polymer/polymer@2.0-preview",
@@ -21,4 +21,4 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.21"
     }
   }
-}
+}

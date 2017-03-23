@@ -9,7 +9,10 @@ let config = require('configuration/configuration.js'),
 	source = subpath => { return joinPath(config.SourceCodePath, subpath) },
 	destination = subpath => { return joinPath(config.DestinationPath, subpath) }
 
-export default async ()=> {
-	// In gulp 4, you can return a child process to signal task completion
-	return childProcess.execSync('jspm install;', { cwd: source('/clientSide/jspm_packageManager/'), shell: true, stdio:[0,1,2] });
-};
+module.exports = (nodejsVersion)=> {
+	return async ()=> {
+		// In gulp 4, you can return a child process to signal task completion
+		var process = childProcess.execSync('n stable; jspm install; n ' + nodejsVersion, { cwd: source('/clientSide/jspm_packageManager/'), shell: true, stdio:[0,1,2] });
+		return await process;
+	}
+}

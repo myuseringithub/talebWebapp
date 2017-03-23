@@ -13,7 +13,7 @@ gulp.task('copy:sourceToDistribution',
 // Install dependencies (in distribution volume)
 gulp.task('install:npm', require(path.join(config.TaskImplementationPath, 'npm.js')) );
 gulp.task('install:bower', require(path.join(config.TaskImplementationPath, 'bower.js')) );
-gulp.task('install:jspm', require(path.join(config.TaskImplementationPath, 'jspm.js')) );
+gulp.task('install:jspm', require(path.join(config.TaskImplementationPath, 'jspm.js'))(process.env.NODEJS_VERSION) );
 gulp.task('install:dependencies', 
 	gulp.series(
 		gulp.parallel('install:npm', 'install:bower', 'install:jspm')
