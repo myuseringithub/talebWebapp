@@ -3,7 +3,7 @@ const settingMixin = (superclass) => class extends superclass {
         return {
             setting: {
                 location: {
-                    routeBasePath: "http://localhost"
+                    routeBasePath: "https://taleb.io"
                 }
             }
         };

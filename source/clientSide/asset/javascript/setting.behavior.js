@@ -1,6 +1,6 @@
  let settingProperty = { 
   location: {
-    routeBasePath: "http://localhost"
+    routeBasePath: "https://taleb.io"
   }
 }
  
