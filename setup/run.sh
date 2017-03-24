@@ -5,8 +5,11 @@ production.stack() {
     docker-machine ssh $VM-1
     VolumeBasePath=/mnt/datadisk-1/rethinkdb
     sudo mkdir -p $VolumeBasePath/rethinkdbData
-
+    
     # 2.
+    
+
+    # 3.
     docker stack deploy -c ./setup/container/production.dockerStack.yml talebwebapp
 }
 
