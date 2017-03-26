@@ -1,8 +1,9 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view404">
   <template>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block;
 
@@ -10,11 +11,10 @@
       }
     </style>
 
-    <!-- 
-      If deploying in a folder replace href="/" with the full path to your site.
-      Such as: href=="http://polymerelements.github.io/polymer-starter-kit"
-    -->
-    Oops you hit a 404. <a href="/">Head back to home.</a>
+    <div class="card" style="text-align: center;">
+      <h1>😨 أووبس.. خطأ 404 - الصفحة غير موجودة, كيف وصلت إلى هنا ! </h1>
+      <p><a href="{{baseUrl}}">الرجوع للصفحة الرئيسية.</a></p>
+    </div>
   </template>
 
   <script>
@@ -22,7 +22,13 @@
     class Element extends Polymer.Element {
       static get is() { return 'my-view404'; }
       static get properties() {
-        return {}
+        return {
+          baseUrl: {
+            type: String,
+            reflectToAttribute: true,
+            value: `${App.config.PROTOCOL}${App.config.HOST}`
+          },
+        }
       }
     }
     customElements.define(Element.is, Element);

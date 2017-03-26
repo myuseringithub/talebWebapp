@@ -78,9 +78,9 @@
       <app-drawer id="drawer" slot="drawer" align="right">
         <app-toolbar>موقع طالب</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href$="{{url}}/view1">مقدمة عن التعليم في رومانيا</a>
-          <a name="view2" href$="{{url}}/view2">تسجيل فردي</a>
-          <a name="view3" href$="{{url}}/view3">تسجيل عن طريق وكيل</a>
+          <a name="view1" href$="{{baseUrl}}/view1">مقدمة عن التعليم في رومانيا</a>
+          <a name="view2" href$="{{baseUrl}}/view2">تسجيل فردي</a>
+          <a name="view3" href$="{{baseUrl}}/view3">تسجيل عن طريق وكيل</a>
         </iron-selector>
       </app-drawer>
 
@@ -121,7 +121,7 @@
             reflectToAttribute: true,
             observer: '_pageChanged',
           },
-          url: {
+          baseUrl: {
             type: String,
             reflectToAttribute: true,
             value: `${App.config.PROTOCOL}${App.config.HOST}`
@@ -156,6 +156,8 @@
       }
 
       _pageChanged(page, oldPage) {
+                console.log(this.page)
+
         // Load page import on demand. Show 404 page if fails
         if (page != null) {
             var callback = this._showPage404;

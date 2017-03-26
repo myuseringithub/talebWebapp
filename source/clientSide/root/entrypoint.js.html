@@ -1,5 +1,17 @@
+<!-- JSPM -->
+<script src="/asset/javascript/jspm_packages/system.js"></script>
+<script> System.config({ baseURL: "/asset/javascript/" }); </script>
+<script src="/asset/javascript/jspm.config.js"></script>
+
+<!-- Load Custom Elements es5 adapter - Fixing (supposedly) workaround ES5-style classes cannot properly extend ES6 classes - https://github.com/webcomponents/webcomponentsjs#custom-elements-es5-adapterjs --> 
+<!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+<script src="/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js"></script>-->
+
+<script>
 // SZN App global class
 {
+
+    window.App = JSON.parse('<%= JSON.stringify(Application.frontend) %>');
     // Initialize the window object 'App' That will contain all utility functions and behaviors for the app //
     class App {
         constructor() {
@@ -25,7 +37,9 @@
     // }
     // window.App.module.Mixin = (superclass) => new MixinBuilder(superclass);   
 }
+</script>    
 
+<script>    
 // Polymer settings, Polyfill
 {
     // Load Polymer (importing through the bower using the first webcomponent to be imported to the document, which includes `../polymer/polymer.html` import) 
@@ -68,7 +82,9 @@
         })
     }
 }
-    
+</script>    
+
+<script>    
 // Service Worker
 {
     // Load pre-caching Service Worker
@@ -78,3 +94,4 @@
         });
     }
 }
+</script>

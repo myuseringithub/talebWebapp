@@ -1,11 +1,11 @@
 import http from 'http'
 import https from 'https'
-import fs from 'fs'
 import path from 'path'
 let eventEmitter = new (require('events').EventEmitter)
 import colors from 'colors' // https://github.com/marak/colors.js/
 import views from 'koa-views'
 import _ from 'underscore'
+import filesystem from 'fs'
 
 import route from 'middleware/route/route.js' // Routes & API
 import serverCommonFunctionality from 'middleware/serverCommonFunctionality.js' // Middleware extending server functionality
@@ -34,11 +34,7 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
     let Class = WebappUIClass
 
     // Templating engine & associated extention.
-    Class.serverKoa.use(views('../clientSide/', {
-        map: {
-            html: 'underscore'
-        }
-    }));
+    Class.serverKoa.use(views('../clientSide/', { map: { html: 'underscore', js: 'underscore' } } ));
 
     Class.middlewareArray = [
         async (context, next) => {
@@ -56,8 +52,13 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
             await next()
         }, 
         async (context, next) => {
+            let entrypointJSFile = await filesystem.readFileSync('../clientSide/root/entrypoint.js.html', 'utf-8')
+            let view = {
+                header: _.template(entrypointJSFile)
+            }
             await context.render('root/entrypoint.html', {
-                Application: Application
+                Application,
+                view
             });
             await next()
         }, 
@@ -74,8 +75,8 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
     // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })
     if(Class.config.ssl) {
         let options = {
-            key: fs.readFileSync('./sampleSSL/server.key'),
-            cert: fs.readFileSync('./sampleSSL/server.crt')
+            key: filesystem.readFileSync('./sampleSSL/server.key'),
+            cert: filesystem.readFileSync('./sampleSSL/server.crt')
         }
         https.createServer(options, Class.serverKoa.callback())
             .listen(443, () => {

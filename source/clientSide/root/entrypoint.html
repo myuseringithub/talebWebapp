@@ -8,23 +8,12 @@
 
     <link rel="import" href="/asset/metadata/metadata.html">
 
-    <!-- JSPM -->
-    <script src="/asset/javascript/jspm_packages/system.js"></script>
-    <script> System.config({ baseURL: "/asset/javascript/" }); </script>
-    <script src="/asset/javascript/jspm.config.js"></script>
-
-    <!-- Load Custom Elements es5 adapter - Fixing (supposedly) workaround ES5-style classes cannot properly extend ES6 classes - https://github.com/webcomponents/webcomponentsjs#custom-elements-es5-adapterjs --> 
-    <!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>-->
-    <!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js"></script>-->
     <!-- entrypoint.js (common js) -->
-    <script>
-      window.App = JSON.parse('<%= JSON.stringify(Application.frontend) %>');
-    </script>
-    <script src="/asset/javascript/entrypoint.js"></script>
+    <!--<script src="/asset/javascript/entrypoint.js"></script>-->
+    <%= view['header']({ Application, view })  %> 
 
     <!-- Polymer - imported for `main-document-element` -->
     <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer.html">
-
     <link rel="import" href="/asset/webcomponent/web-app/web-app.html">
     <link rel="stylesheet" href="/asset/stylesheet/default.css">
 
