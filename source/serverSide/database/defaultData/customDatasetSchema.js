@@ -49,15 +49,15 @@ let universities = [
             short: 'Universitatea de Bucharest',
             long: 'USMF'
         },
-        logo: 'http://taleb.io/image3',
+        logo: 'http://localhost/image3',
         gallery: [
             {
                 imageTitle: 'Main office building',
-                imageURL: 'http://taleb.io/image1'
+                imageURL: 'http://localhost/image1'
             },
             {
                 imageTitle: 'logo',
-                imageURL: 'http://taleb.io/image2'
+                imageURL: 'http://localhost/image2'
             },
         ],
     },
@@ -67,15 +67,15 @@ let universities = [
             short: 'Iasi University',
             long: 'USMU'
         },
-        logo: 'http://taleb.io/image3',
+        logo: 'http://localhost/image3',
         gallery: [
             {
                 imageTitle: 'Main office building',
-                imageURL: 'http://taleb.io/image1'
+                imageURL: 'http://localhost/image1'
             },
             {
                 imageTitle: 'logo',
-                imageURL: 'http://taleb.io/image2'
+                imageURL: 'http://localhost/image2'
             },
         ],
     },

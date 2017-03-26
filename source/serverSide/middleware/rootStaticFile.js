@@ -7,7 +7,7 @@ let staticMiddlewareSetting = [
         urlPath: '/',
         options: {
             gzip: true,
-            index: 'entrypoint.html'
+            // index: 'entrypoint.html'
         },
         functionPath: 'middleware/static/serveStaticDirectory.middlewareGenerator.js'
     },
@@ -17,7 +17,7 @@ let staticMiddlewareSetting = [
         urlPath: '/serviceWorker',
         options: {
             gzip: true,
-            index: 'entrypoint.html'
+            // index: 'entrypoint.html'
         },
         functionPath: 'middleware/static/serveStaticDirectory.middlewareGenerator.js'
     },

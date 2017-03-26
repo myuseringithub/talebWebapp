@@ -1,6 +1,6 @@
 import { Mixin } from 'mixwith'
 
-let mixin = Mixin((superclass) => {
+let mixin = Mixin(superclass => {
     const self = class extends superclass {
 
         constructor(...args) {

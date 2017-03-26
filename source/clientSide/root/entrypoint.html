@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <!-- Verify google -->
-    <meta name="google-site-verification" content="89K1GQkrgPnsAXcd5ZrNd2CZTOh_lGS9PktQ4eZrkWk" /> 
+    <meta name="google-site-verification" content="89K1GQkrgPnsAXcd5ZrNd2CZTOh_lGS9PktQ4eZrkWk" />
     <!-- base url for all relative urls.  -->
-    <base target="_top" href="https://cdn.taleb.io/">
+    <base target="_top" href="<%= Application.extendedSubclass.static['StaticContent'].url %>/">
 
     <link rel="import" href="/asset/metadata/metadata.html">
 
@@ -12,10 +12,16 @@
     <script src="/asset/javascript/jspm_packages/system.js"></script>
     <script> System.config({ baseURL: "/asset/javascript/" }); </script>
     <script src="/asset/javascript/jspm.config.js"></script>
-    
+
+    <!-- Load Custom Elements es5 adapter - Fixing (supposedly) workaround ES5-style classes cannot properly extend ES6 classes - https://github.com/webcomponents/webcomponentsjs#custom-elements-es5-adapterjs --> 
+    <!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>-->
+    <!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js"></script>-->
     <!-- entrypoint.js (common js) -->
+    <script>
+      window.App = JSON.parse('<%= JSON.stringify(Application.frontend) %>');
+    </script>
     <script src="/asset/javascript/entrypoint.js"></script>
-    
+
     <!-- Polymer - imported for `main-document-element` -->
     <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer.html">
 
@@ -38,7 +44,8 @@
         {
           const App = window.App || {}; 
           // Extend Polymer.Element base class
-          class Element extends App.mixin.setting(Polymer.Element) {
+          // class Element extends App.mixin.setting(Polymer.Element) {
+          class Element extends Polymer.mixinBehaviors([ App.behavior.setting ], Polymer.Element) {
             static get is() { return 'main-document-element'; }
             static get properties() {
               return { /* properties metadata */ 

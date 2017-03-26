@@ -6,12 +6,14 @@ const self = class Api extends Application {
 
     static serverKoa;
     static port;
+    static url;
     static middlewareArray = []
     middlewareArray = []
 
     static initializeStaticClass() {
         super.initializeStaticClass()
         self.port = 8082
+        self.url = `${self.config.PROTOCOL}api.${self.config.HOST}/`
     }
     constructor() {
         super(true)

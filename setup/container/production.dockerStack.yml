@@ -17,6 +17,7 @@ services:
     image: myuserindocker/taleb-webapp:latest
     environment:
       DEPLOYMENT: production
+      HOST: taleb.io
     deploy:
       replicas: 1
       update_config:
@@ -32,7 +33,7 @@ services:
   rethinkdb:
     image: rethinkdb:latest
     volumes:
-      - "/mnt/datadisk-1/rethinkdb/rethinkdbData:/rethinkdb_data/"
+      - "/mnt/datadisk-1/taleb/rethinkdbData:/data/rethinkdb_data/"
     environment:
       DEPLOYMENT: production
     networks:

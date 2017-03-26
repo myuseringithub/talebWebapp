@@ -1,19 +1,22 @@
-const settingMixin = (superclass) => class extends superclass {
+const mixin = superclass => class extends superclass {
+
+    constructor(...args) {
+        // mixins should either 1) not define a constructor, 2) require a specific
+        // constructor signature, or 3) pass along all arguments.
+        super(...args);
+    }
+
     static get properties() {
         return {
             setting: {
                 location: {
-                    routeBasePath: "https://taleb.io"
+                    routeBasePath: "http://localhost"
                 }
             }
         };
     }
 
-    constructor() {
-        super()
-    }
-
 }
 
-window.settingMixin = settingMixin
-export default settingMixin
+// window.settingMixin = settingMixin
+export default mixin

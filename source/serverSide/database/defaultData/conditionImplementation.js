@@ -52,4 +52,4 @@ data.conditionImplementation = [
     },
 ];
 
-r.db("webapp").table("setting").get("conditionImplementation").update({ conditionImplementation: data.conditionImplementation}, { nonAtomic: true });
+r.db("webapp").table("setting").get("conditionImplementation").update({ conditionImplementation: data.conditionImplementation}, { nonAtomic: true, returnChanges: 'always' });

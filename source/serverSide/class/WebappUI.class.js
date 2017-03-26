@@ -31,7 +31,7 @@ const self = class WebappUI extends Application {
         let conditionTreeController = await new NestedUnitController(false)
         let callback = await conditionTreeController.initializeConditionTree(entrypointConditionTree, this)
         // [2] Use callback
-        // console.log(self.count); console.log(`Choosen callback is:`); console.log(callback)
+        console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)
         let isCalledNext = false
         switch(callback.type) {
             case 'functionMiddleware':
@@ -42,7 +42,7 @@ const self = class WebappUI extends Application {
                 await this.handleTemplateDocument(callback.name)
                 break;
             default: 
-                console.log('SZN - callback doesn\'t match any kind.')
+                console.log('SZN - %c callback doesn\'t match any kind.', self.config.style.red)
         }
         return isCalledNext;
     }

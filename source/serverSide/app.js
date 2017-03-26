@@ -4,6 +4,8 @@ import fs from 'fs'
 import path from 'path'
 let eventEmitter = new (require('events').EventEmitter)
 import colors from 'colors' // https://github.com/marak/colors.js/
+import views from 'koa-views'
+import _ from 'underscore'
 
 import route from 'middleware/route/route.js' // Routes & API
 import serverCommonFunctionality from 'middleware/serverCommonFunctionality.js' // Middleware extending server functionality
@@ -26,10 +28,17 @@ import Condition from 'class/Condition.class.js'
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
-Application.initialize([ConditionTree, Condition]) // allows calling a child class from its parent class.
+Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
 
 {
     let Class = WebappUIClass
+
+    // Templating engine & associated extention.
+    Class.serverKoa.use(views('../clientSide/', {
+        map: {
+            html: 'underscore'
+        }
+    }));
 
     Class.middlewareArray = [
         async (context, next) => {
@@ -44,8 +53,12 @@ Application.initialize([ConditionTree, Condition]) // allows calling a child cla
         async (context, next) => {
             let isCalledNext = await context.instance.applyConditionCallback(next)
             if(!isCalledNext) next()
+            await next()
         }, 
         async (context, next) => {
+            await context.render('root/entrypoint.html', {
+                Application: Application
+            });
             await next()
         }, 
     ]
@@ -53,7 +66,7 @@ Application.initialize([ConditionTree, Condition]) // allows calling a child cla
 
     http.createServer(Class.serverKoa.callback())
         .listen(Class.port, ()=> {
-            console.log(`${Class.name} listening on port ${Class.port}`.green)
+            console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
             // eventEmitter.emit('listening')
             // process.emit('listening')
             if(Class.config.DEPLOYMENT == 'development') process.send({ message: 'Server listening'});
@@ -66,10 +79,9 @@ Application.initialize([ConditionTree, Condition]) // allows calling a child cla
         }
         https.createServer(options, Class.serverKoa.callback())
             .listen(443, () => {
-                console.log(`${Class.name} listening on port 443`.green)
+                console.log(`☕%c ${Class.name} listening on port 443`, Class.config.style.green)
             })  
     }
-    
 }
 
 
@@ -88,7 +100,7 @@ Application.initialize([ConditionTree, Condition]) // allows calling a child cla
     Class.applyKoaMiddleware()
     http.createServer(Class.serverKoa.callback())
         .listen(Class.port, ()=> {
-            console.log(`${Class.name} listening on port ${Class.port}`.green)
+            console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
         })
 }
 
@@ -113,7 +125,7 @@ Application.initialize([ConditionTree, Condition]) // allows calling a child cla
 
     http.createServer(Class.serverKoa.callback())
         .listen(Class.port, ()=> {
-            console.log(`${Class.name} listening on port ${Class.port}`.green)
+            console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
         })
 }
 

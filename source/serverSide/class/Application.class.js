@@ -7,6 +7,7 @@ const self = class Application {
 
     static rethinkdbConnection = {}
     static config = configuration // Array
+    static frontend;
     static extendedSubclass = {
         instance: [],
         static: []
@@ -23,7 +24,11 @@ const self = class Application {
         // ]
     }
 
-    static initialize(staticSubclassArray) {
+    static initialize(staticSubclassArray) { // One-time initialization of Applicaiton Class.
+        console.info(`☕%c Running Application as ${self.config.DEPLOYMENT} - '${self.config.PROTOCOL}${self.config.HOST}'`, self.config.style.green)
+        self.frontend = { // Configurations passed to frontend 
+            config: self.config
+        }
         staticSubclassArray.map((subclass) => {
             self.registerStaticSubclass(subclass)
         })

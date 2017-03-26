@@ -3,14 +3,19 @@ import path from 'path'
 export let 
     serverBasePath = process.env.NODE_PATH || path.resolve(path.normalize(`${__dirname}/..`)),
     DEPLOYMENT = process.env.DEPLOYMENT || 'development',
-    PORT = process.env.PORT || 80,
-    SSL = (DEPLOYMENT == 'development') ? true : false
+    PORT = (DEPLOYMENT == 'development') ? '9903' : process.env.PORT || 80,
+    SSL = (DEPLOYMENT == 'development') ? true : false,
+    HOST = (DEPLOYMENT == 'development') ? 'localhost' : process.env.HOST,
+    PROTOCOL = (DEPLOYMENT == 'development') ? 'http://' : 'https://'
 
 export default { 
   deployment: DEPLOYMENT,
   serverBasePath,
   port: PORT,
   ssl: SSL,
+  DEPLOYMENT,
+  HOST,
+  PROTOCOL
  }
 
 // export default {

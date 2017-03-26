@@ -3,13 +3,13 @@
 production.stack() {
     # 1.
     docker-machine ssh $VM-1
-    VolumeBasePath=/mnt/datadisk-1/rethinkdb
+    VolumeBasePath=/mnt/datadisk-1/taleb
     sudo mkdir -p $VolumeBasePath/rethinkdbData
     
-    # 2.
-    
+    # 2. Add raw Github reverse proxy file to Redbird proxy.
 
     # 3.
+    export DEPLOYMENT=production
     docker stack deploy -c ./setup/container/production.dockerStack.yml talebwebapp
 }
 
@@ -31,7 +31,7 @@ development() {
     docker-compose -f ./setup/container/development.dockerCompose.yml up -d --force-recreate
 
     # 3. Run services using gulp
-    /tmp/build/gulp_buildTool/run.sh watch.livereload.chrome
+    (cd /tmp/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
 }
 
 deployment.buildDistribution() { # ⭐

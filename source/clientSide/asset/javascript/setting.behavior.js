@@ -1,10 +1,10 @@
- let settingProperty = { 
+let settingProperty = {
   location: {
-    routeBasePath: "https://taleb.io"
+    routeBasePath: `${App.config.PROTOCOL}${App.config.HOST}`
   }
 }
- 
- const settingBehavior = {
+
+ const behavior = {
     properties: {
       setting: {
         type: Object,
@@ -13,4 +13,4 @@
     },
 };
 
-export default settingBehavior
+export default behavior

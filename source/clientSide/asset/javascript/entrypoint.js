@@ -7,10 +7,23 @@
     } 
     // Global Object that handles the app and other stuff.
     window.App = window.App || new App();
+    window.App.module = window.App.module || {}; // polymer behaviors that include functions and properties.
     window.App.behavior = window.App.behavior || {}; // polymer behaviors that include functions and properties.
-    window.App.mixin = window.App.mixin || {};
-    System.import('setting.behavior.js').then((exports)=>{window.App.behavior.setting = exports.default});
-    System.import('setting.mixin.js').then((exports)=>{window.App.mixin.setting = exports.default});
+    System.import('setting.behavior.js').then(exports => window.App.behavior.setting = exports.default);
+    // Mixins are not supported curretly by Polymer, and babel as a side effect of hacks created.
+    // window.App.mixin = window.App.mixin || {};
+    // System.import('setting.mixin.js').then(exports => window.App.mixin.setting = exports.default);
+
+    // class MixinBuilder {  
+    //     constructor(superclass) {
+    //         this.superclass = superclass;
+    //     }
+
+    //     with(...mixins) { 
+    //         return mixins.reduce((c, mixin) => mixin(c), this.superclass);
+    //     }
+    // }
+    // window.App.module.Mixin = (superclass) => new MixinBuilder(superclass);   
 }
 
 // Polymer settings, Polyfill
@@ -39,7 +52,7 @@
         && 'content' in document.createElement('template')
     );
     if (!webComponentsSupported) {
-        console.info('☕ Polyfill webcomponents.')
+        console.info('☕ Polyfill webcomponents. Loading webcomponents javascript.')
         let script = document.createElement('script');
         script.async = true;
         script.src = '/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js';
@@ -49,8 +62,10 @@
         // JSPM Causes `detected as amd but didn't execute correctly.` which needs configuration. Using bower istead.
         // System.import('webcomponentsjs/webcomponents-lite.js')
     } else {
-        console.info('☕ Native webcomponents.')
-        onload();
+        console.info('☕ Native webcomponents. Dispaching \'WebComponentsReady\' event manually.')
+        window.addEventListener('load', () => { // inorder for the event listener to be registered before dispatching it.
+            onload();
+        })
     }
 }
     
