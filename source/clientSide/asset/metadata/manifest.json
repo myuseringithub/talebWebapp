@@ -1,7 +1,7 @@
 {
-  "name": "Study Abroad",
-  "short_name": "Study Abroad",
-  "start_url": "/?homescreen=1",
+  "name": "Taleb.io | طالب",
+  "short_name": "طالب",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#3f51b5",
   "background_color": "#3f51b5",

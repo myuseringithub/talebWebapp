@@ -49,17 +49,9 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
         async (context, next) => {
             let isCalledNext = await context.instance.applyConditionCallback(next)
             if(!isCalledNext) next()
-            await next()
         }, 
         async (context, next) => {
-            let entrypointJSFile = await filesystem.readFileSync('../clientSide/root/entrypoint.js.html', 'utf-8')
-            let view = {
-                header: _.template(entrypointJSFile)
-            }
-            await context.render('root/entrypoint.html', {
-                Application,
-                view
-            });
+            console.log('Last Middleware.')
             await next()
         }, 
     ]
@@ -81,7 +73,7 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
         https.createServer(options, Class.serverKoa.callback())
             .listen(443, () => {
                 console.log(`☕%c ${Class.name} listening on port 443`, Class.config.style.green)
-            })  
+            })
     }
 }
 

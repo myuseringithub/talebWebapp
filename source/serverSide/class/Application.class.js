@@ -2,6 +2,7 @@ import configuration from 'configuration/configuration.export.js' // Load config
 import Koa from 'koa' // Koa applicaiton server
 import compose from 'koa-compose'
 import rethinkdbConfig from 'configuration/rethinkdbConfig.js'
+import _ from 'underscore'
 
 const self = class Application {
 
@@ -32,6 +33,12 @@ const self = class Application {
         staticSubclassArray.map((subclass) => {
             self.registerStaticSubclass(subclass)
         })
+
+        _.templateSettings = { // initial underscore template settings on first import gets applied on the rest.
+            evaluate: /\{\%(.+?)\%\}/g,
+            interpolate: /\{\%=(.+?)\%\}/g,
+            escape: /\{\%-(.+?)\%\}/g
+        };
     }
     constructor(skipConstructor = false) {
         if(skipConstructor) return;

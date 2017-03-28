@@ -7,8 +7,8 @@ data.conditionTree = [
         },
         conditionImplementation: 'c639cd53-c764-4967-b052-1e1652107923',
         callback: { // fallback function.
-            name: 'middleware/route/route.js',
-            type: 'functionMiddleware'
+            name: 'entrypoint',
+            type: 'document'
         },
         insertionPoint: [
             {
@@ -102,7 +102,7 @@ data.conditionTree = [
     {
         key: '8009c3d2-b7c3-4f68-bb0a-045822647960',
         label: {
-            name: '<>/<false>'
+            name: '/<*>/<EMPTY>'
         },
         conditionImplementation: '3baa9ad3-aff2-4486-a046-0b07ed7882be',
         callback: { // fallback function.
@@ -115,7 +115,7 @@ data.conditionTree = [
     {
         key: 'c6cede34-70f0-456e-863b-73f5f3a76a54',
         label: {
-            name: '<>/<subpath>'
+            name: '/<*>/<subpath>'
         },
         conditionImplementation: 'cb7b1733-12c9-436e-bbef-4e6039eea431',
         callback: { // fallback function.

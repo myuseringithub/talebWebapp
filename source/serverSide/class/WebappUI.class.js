@@ -1,6 +1,8 @@
 import Application from 'class/Application.class.js'
 import NestedUnitController from 'class/NestedUnitController.class.js'
 import { connect, getConditionTreeEntrypoint } from 'middleware/database/commonDatabaseFunctionality.js'
+import _ from 'underscore'
+import filesystem from 'fs'
 
 const self = class WebappUI extends Application {
 
@@ -53,8 +55,25 @@ const self = class WebappUI extends Application {
     }
 
     async handleTemplateDocument(documentKey) {
-        console.log(documentKey)
+        switch (documentKey) {
+            case 'entrypoint':
+                let entrypointJSFile = await filesystem.readFileSync('../clientSide/template/root/entrypoint.js.html', 'utf-8')
+                let view = {
+                    header: _.template(entrypointJSFile)
+                }
+                let argument = {
+                    webappElement: 'web-app'
+                }
+                await this.context.render('template/root/entrypoint.html', {
+                    Application,
+                    view,
+                    argument
+                });
+                break;
+            default:
+        }
     }
+    
 }
 
 self.initializeStaticClass() // initialize static properties on class.

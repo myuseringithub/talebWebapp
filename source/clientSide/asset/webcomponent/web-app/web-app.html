@@ -11,11 +11,11 @@
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 
-<link rel="import" href="../my-icons.html">
-<link rel="import" href="../my-view1.html">
-<link rel="import" href="../my-view2.html">
-<link rel="import" href="../my-view3.html">
-<link rel="import" href="../my-view404.html">
+<link rel="import" href="../view-icons.html">
+<link rel="import" href="../view-view1.html">
+<link rel="import" href="../view-view2.html">
+<link rel="import" href="../view-view3.html">
+<link rel="import" href="../view-view404.html">
 
 <dom-module id="web-app">
   <template>
@@ -90,7 +90,7 @@
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <div main-title>الدراسة في الخارج</div>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button icon="view-icons:menu" drawer-toggle></paper-icon-button>
           </app-toolbar>
         </app-header>
 
@@ -99,10 +99,18 @@
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
-          <my-view404 name="view404"></my-view404>
+          <view-university-multiple name="university"></view-university-multiple>
+          <view-country-multiple name="country"></view-country-multiple>
+          <view-subject-multiple name="subject"></view-subject-multiple>
+          <view-degree-multiple name="degree"></view-degree-multiple>
+          <view-university-single name="university"></view-university-single>
+          <view-country-single name="country"></view-country-single>
+          <view-subject-single name="subject"></view-subject-single>
+          <view-degree-single name="degree"></view-degree-single>
+          <view-view1 name="view1"></view-view1>
+          <view-view2 name="view2"></view-view2>
+          <view-view3 name="view3"></view-view3>
+          <view-view404 name="view404"></view-view404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -156,12 +164,10 @@
       }
 
       _pageChanged(page, oldPage) {
-                console.log(this.page)
-
         // Load page import on demand. Show 404 page if fails
         if (page != null) {
             var callback = this._showPage404;
-            var resolvedPageUrl = this.resolveUrl('../my-' + page + '.html');
+            var resolvedPageUrl = this.resolveUrl('../view-' + page + '.html');
             Polymer.importHref(
               resolvedPageUrl,
               null, callback, true);

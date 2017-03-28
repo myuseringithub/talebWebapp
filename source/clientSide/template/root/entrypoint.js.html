@@ -11,7 +11,7 @@
 // SZN App global class
 {
 
-    window.App = JSON.parse('<%= JSON.stringify(Application.frontend) %>');
+    window.App = JSON.parse('{%= JSON.stringify(Application.frontend) %}');
     // Initialize the window object 'App' That will contain all utility functions and behaviors for the app //
     class App {
         constructor() {
@@ -87,11 +87,12 @@
 <script>    
 // Service Worker
 {
+    let App = window.App
     // Load pre-caching Service Worker
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-            navigator.serviceWorker.register(`${window.location.origin}/serviceWorker/service-worker.js`);
-        });
-    }
+    navigator.serviceWorker && window.addEventListener('load', function() {
+            navigator.serviceWorker.register(`${window.location.origin}/serviceWorker.js`, {scope: `${App.config.PROTOCOL}${App.config.HOST}/`}).then(registration => {
+                console.log(`☕ Service Worker - registered with scope: ${registration.scope}`)
+            })
+    });
 }
 </script>

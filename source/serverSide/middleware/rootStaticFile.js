@@ -2,19 +2,18 @@ import compose from 'koa-compose'
 
 let staticMiddlewareSetting = [
     {
-        name: 'Static root files',
-        directoryPath: '../clientSide/root/',
-        urlPath: '/',
+        name: 'Service worker file',
+        filePath: '../clientSide/asset/javascript/serviceWorker/serviceWorker.js',
+        urlPath: '/serviceWorker.js', // determines the scope of the service worker.
         options: {
             gzip: true,
-            // index: 'entrypoint.html'
         },
-        functionPath: 'middleware/static/serveStaticDirectory.middlewareGenerator.js'
+        functionPath: 'middleware/static/serveStaticSingleFile.middlewareGenerator.js'
     },
     {
-        name: 'Service worker',
-        directoryPath: '../clientSide/asset/javascript/serviceWorker/',
-        urlPath: '/serviceWorker',
+        name: 'Static root files',
+        directoryPath: '../clientSide/template/',
+        urlPath: '/',
         options: {
             gzip: true,
             // index: 'entrypoint.html'

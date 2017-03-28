@@ -17,5 +17,6 @@
             "name": "Attach to Process",
             "port": 5858
         }
-    ]
+    ],
+    "externalConsole": true
 }
