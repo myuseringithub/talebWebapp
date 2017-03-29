@@ -8,52 +8,14 @@
 
     <!-- entrypoint.js (common js) -->
     <!--<script src="/asset/javascript/entrypoint.js"></script>-->
-    {%= view['header']({ Application, view })  %} 
+    {%= view['header']({ Application, view, argument })  %} 
 
-    <!-- Polymer - imported for `main-document-element` -->
-    <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer.html">
-    <link rel="stylesheet" href="/asset/stylesheet/default.css">
-    <link rel="import" href="/asset/webcomponent/{%= argument['webappElement'] %}/{%= argument['webappElement'] %}.html">
+    {%= view['headerElement']({ Application, view, argument })  %} 
 
   </head>
   <body>
 
-    <!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
-    <main-document-element>
-      <{%= argument['webappElement'] %}></{%= argument['webappElement'] %}>
-    </main-document-element>
-
-    <dom-module id="main-document-element">
-      <template>
-        <slot></slot>
-      </template>
-      <script>
-        {
-          const App = window.App || {}; 
-          // Extend Polymer.Element base class
-          // class Element extends App.mixin.setting(Polymer.Element) {
-          class Element extends Polymer.mixinBehaviors([ App.behavior.setting ], Polymer.Element) {
-            static get is() { return 'main-document-element'; }
-            static get properties() {
-              return { /* properties metadata */ 
-              }
-            }
-            static get observers() { return [ /* observer descriptors */ ] }
-            constructor() {
-                super()
-            }
-            connectedCallback() {
-              super.connectedCallback();
-            }
-          }
-          window.addEventListener('WebComponentsReady', () => {
-            // Register custom element definition using standard platform API
-            window.customElements.define(Element.is, Element);
-          })
-        }
-      </script>
-    </dom-module>
-
+    {%= view['body']({ Application, view, argument })  %} 
     <!-- With ❤ From AppScript.io -->
   
   </body>

@@ -1,0 +1,168 @@
+<!-- Allows usage of binding in main document. -->
+<dom-bind>
+    <template>
+        <!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
+        <document-element layout="{{layout}}" view="{{view}}" subroute="{{subroute}}" setting="{{setting}}">
+            <iron-pages
+                selected="{{layout}}"
+                attr-for-selected="name"
+                fallback-selection="{%= argument['layoutElement'] %}"
+                role="main">
+                <{%= argument['layoutElement'] %} name="university" view="{{view}}" route="{{subroute}}" setting="[[setting]]">
+                    <view-university-single slot="page" name="universitySingle"></view-university-single>
+                    <view-university-multiple slot="page" name="universityMultiple"></view-university-multiple>
+                    <view-country-single slot="page" name="countrySingle"></view-country-single>
+                    <view-country-multiple slot="page" name="countryMultiple"></view-country-multiple>
+                    <view-subject-single slot="page" name="subjectSingle"></view-subject-single>
+                    <view-subject-multiple slot="page" name="subjectMultiple"></view-subject-multiple>
+                    <view-degree-single slot="page" name="degreeSingle"></view-degree-single>
+                    <view-degree-multiple slot="page" name="degreeMultiple"></view-degree-multiple>
+                    <view-view1 slot="page" name="view-view1"></view-view1>
+                    <view-view2 slot="page" name="view-view2"></view-view2>
+                    <view-view3 slot="page" name="view-view3"></view-view3>
+                    <view-view404 slot="page" name="view-view404"></view-view404>
+                </{%= argument['layoutElement'] %}>
+                <{%= argument['layoutElement'] %} name="webapp-layout-list" view="{{view}}" route="{{subroute}}" setting="[[setting]]">
+                    <a slot="tab" name="view-view1" href$="{{setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
+                    <a slot="tab" name="view-view2" href$="{{setting.location.routeBasePath}}/view2">تسجيل فردي</a>
+                    <a slot="tab" name="view-view3" href$="{{setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+                    <view-view1 slot="page" name="view-view1"></view-view1>
+                    <view-view2 slot="page" name="view-view2"></view-view2>
+                    <view-view3 slot="page" name="view-view3"></view-view3>
+                    <view-view404 slot="page" name="view-view404"></view-view404>
+                </{%= argument['layoutElement'] %}>
+                <webapp-layout-toolbar name="webapp-layout-toolbar" view="{{view}}" route="{{subroute}}" setting="[[setting]]">
+                    <a slot="tab" name="view-view1" href$="{{setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
+                    <a slot="tab" name="view-view2" href$="{{setting.location.routeBasePath}}/view2">تسجيل فردي</a>
+                    <a slot="tab" name="view-view3" href$="{{setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+                    <view-article-single slot="page" name="view-article-single"></view-article-single>
+                    <view-view1 slot="page" name="view-view1"></view-view1>
+                    <view-view2 slot="page" name="view-view2"></view-view2>
+                    <view-view3 slot="page" name="view-view3"></view-view3>
+                    <view-view404 slot="page" name="view-view404"></view-view404>
+                </webapp-layout-toolbar>
+            </iron-pages>
+        </document-element>
+    </template>
+</dom-bind>
+<script>
+    let autobind = document.querySelector('dom-bind');
+</script>
+
+
+<dom-module id="document-element">
+    <template>
+
+        <!-- Bind to URL - Proxy for window.location -->
+        <app-location route="{{route}}"></app-location>
+        <!-- Managing top-level routes -->
+        <app-route
+            route="{{route}}"
+            pattern="/:pathTopLevel"
+            data="{{routeData}}"
+            tail="{{subroute}}"></app-route>
+
+        <slot></slot>
+    </template>
+    <script>
+    {
+        const App = window.App || {}; 
+        // Extend Polymer.Element base class
+        // class Element extends App.mixin.setting(Polymer.Element) {
+        class Element extends Polymer.mixinBehaviors([ App.behavior.setting ], Polymer.Element) {
+            static get is() { return 'document-element'; }
+            static get properties() {
+                return { /* properties metadata */ 
+                    layout: {
+                        type: String,
+                        notify: true,
+                        reflectToAttribute: true,
+                    },
+                    view: {
+                        type: Object,
+                        notify: true,
+                        reflectToAttribute: true,
+                    },
+                    subroute: {
+                        type: Object,
+                        notify: true,
+                        reflectToAttribute: true,
+                    },                    
+                }
+            }
+            static get observers() { return [ /* observer descriptors */
+                '_routePageChanged(routeData.pathTopLevel)',
+            ] }
+            constructor() {
+                super()
+            }
+            connectedCallback() {
+                super.connectedCallback();
+            }
+
+            _routePageChanged(pathTopLevel) { // Choose page/view using URL path.
+                if(typeof pathTopLevel == 'undefined') return; // skip initial `pathTopLevel` value of undefined.
+                
+                // Condition Checking
+                let layout = '', 
+                    view = {},
+                    documentKey = ''
+                switch (pathTopLevel) { // Choose appropriate view/page to view
+                    case 'view2':
+                        view.name = 'view-view2'
+                        view.file = 'view-view2.html'
+                        documentKey = 'homepage'
+                        break;
+                    case 'view3':
+                        view.name = 'view-view3'
+                        view.file = 'view-view3.html'
+                        documentKey = 'homepage'
+                        break;
+                    case 'view1':
+                        documentKey = 'homepage'
+                        view.name = 'view-view1'
+                        view.file = 'view-view1.html'
+                        break;
+                    case 'university':
+                        view.name = 'view-view1'
+                        view.file = 'view-view1.html'
+                        documentKey = 'webapp-layout-toolbar'
+                        break;
+                    case '': // empty path
+                    case 'studyfield':
+                        view.name = 'view-article-single'
+                        view.file = 'view-article-single.html'
+                        documentKey = 'webapp-layout-toolbar'
+                        break;
+                    case 'country':
+                        view.name = 'view-view3'
+                        view.file = 'view-view3.html'
+                        documentKey = 'webapp-layout-toolbar'
+                        break;
+                    default:
+                    case 'view404':
+                        view.name = 'view-view404'
+                        view.file = 'view-view404.html'
+                        documentKey = 'homepage'
+                        break;
+                    // case undefined: // skop initial `pathTopLevel` value of undefined.
+                    //   break;
+                }
+                
+                // Document & Template Tree procesing.
+                let document = this.document.filter(unit => {
+                    if(unit.key == documentKey) return true
+                    return false
+                })[0]
+                
+                this.layout = document.entrypointTree
+                this.view = view
+            }
+        }
+        window.addEventListener('WebComponentsReady', () => {
+            // Register custom element definition using standard platform API
+            window.customElements.define(Element.is, Element);
+        })
+    }
+    </script>
+</dom-module>

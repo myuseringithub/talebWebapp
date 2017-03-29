@@ -5,19 +5,12 @@
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../bower_components/app-route/app-location.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-
 <link rel="import" href="../view-icons.html">
-<link rel="import" href="../view-view1.html">
-<link rel="import" href="../view-view2.html">
-<link rel="import" href="../view-view3.html">
-<link rel="import" href="../view-view404.html">
 
-<dom-module id="web-app">
+<dom-module id="webapp-layout-list">
   <template>
     <style>
       :host {
@@ -52,7 +45,7 @@
         margin: 0 20px;
       }
 
-      .drawer-list a {
+      .drawer-list a, slot[name='tab']::slotted(a) {
         display: block;
         padding: 0 16px;
         text-decoration: none;
@@ -60,27 +53,19 @@
         line-height: 40px;
       }
 
-      .drawer-list a.iron-selected {
+      .drawer-list a.iron-selected, slot[name='tab']::slotted(a.iron-selected) {
         color: black;
         font-weight: bold;
       }
     </style>
 
-    <app-location route="{{route}}"></app-location>
-    <app-route
-        route="{{route}}"
-        pattern="/:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
 
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" align="right">
         <app-toolbar>موقع طالب</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href$="{{baseUrl}}/view1">مقدمة عن التعليم في رومانيا</a>
-          <a name="view2" href$="{{baseUrl}}/view2">تسجيل فردي</a>
-          <a name="view3" href$="{{baseUrl}}/view3">تسجيل عن طريق وكيل</a>
+        <iron-selector selected="[[view.name]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <slot name="tab"></slot>
         </iron-selector>
       </app-drawer>
 
@@ -95,22 +80,11 @@
         </app-header>
 
         <iron-pages
-            selected="[[page]]"
+            selected="[[view.name]]"
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <view-university-multiple name="university"></view-university-multiple>
-          <view-country-multiple name="country"></view-country-multiple>
-          <view-subject-multiple name="subject"></view-subject-multiple>
-          <view-degree-multiple name="degree"></view-degree-multiple>
-          <view-university-single name="university"></view-university-single>
-          <view-country-single name="country"></view-country-single>
-          <view-subject-single name="subject"></view-subject-single>
-          <view-degree-single name="degree"></view-degree-single>
-          <view-view1 name="view1"></view-view1>
-          <view-view2 name="view2"></view-view2>
-          <view-view3 name="view3"></view-view3>
-          <view-view404 name="view404"></view-view404>
+            <slot name="page"></slot>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -118,27 +92,22 @@
 
   <script>
   {
-    let App = window.App;
     class Element extends Polymer.Element {
-      static get is() { return 'web-app'; }
+      static get is() { return 'webapp-layout-list'; }
       static get properties() {
         return { /* properties metadata */ 
-          // routeBasePath: App.setting.location.routeBasePath
-          page: {
-            type: String,
+          route: Object,
+          setting: Object,
+          view: {
+            type: Object,
+            notify: true,
             reflectToAttribute: true,
             observer: '_pageChanged',
-          },
-          baseUrl: {
-            type: String,
-            reflectToAttribute: true,
-            value: `${App.config.PROTOCOL}${App.config.HOST}`
           },
         }
       }
 
       static get observers() { return [ /* observer descriptors */
-        '_routePageChanged(routeData.page)',
       ] }
 
       constructor() {
@@ -155,27 +124,23 @@
         if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
       }
 
-      _routePageChanged(page) {
-        this.page = page || 'view1';
-
-        if (!this.$.drawer.persistent) {
-          this.$.drawer.close();
-        }
-      }
-
-      _pageChanged(page, oldPage) {
+      _pageChanged(view, oldView) {
         // Load page import on demand. Show 404 page if fails
-        if (page != null) {
+        if (view.name != null) {
             var callback = this._showPage404;
-            var resolvedPageUrl = this.resolveUrl('../view-' + page + '.html');
+            var resolvedPageUrl = this.resolveUrl(`../${view.file}`);
             Polymer.importHref(
               resolvedPageUrl,
               null, callback, true);
         }
+
+        if (!this.$.drawer.persistent) {
+            this.$.drawer.close();  
+        }
       }
 
       _showPage404() {
-        this.page = 'view404';
+        this.view.name = 'view404';
       }
 
     }

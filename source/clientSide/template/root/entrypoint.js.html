@@ -10,18 +10,54 @@
 <script>
 // SZN App global class
 {
-
-    window.App = JSON.parse('{%= JSON.stringify(Application.frontend) %}');
+    let AppFrontEnd = JSON.parse('{%= JSON.stringify(Application.frontend) %}');
     // Initialize the window object 'App' That will contain all utility functions and behaviors for the app //
-    class App {
+    class AppClass {
         constructor() {
         }
     } 
     // Global Object that handles the app and other stuff.
-    window.App = window.App || new App();
-    window.App.module = window.App.module || {}; // polymer behaviors that include functions and properties.
-    window.App.behavior = window.App.behavior || {}; // polymer behaviors that include functions and properties.
-    System.import('setting.behavior.js').then(exports => window.App.behavior.setting = exports.default);
+    window.App = AppFrontEnd || new AppClass();
+    let App = window.App
+    App.module = App.module || {}; // polymer behaviors that include functions and properties.
+
+    let settingBehavior = { // Setting behavior for the app.
+        properties: {
+            setting: {
+                type: Object,
+                value: () => {
+                    return {
+                        location: {
+                            routeBasePath: `${App.config.PROTOCOL}${App.config.HOST}`
+                        }
+                    }
+                },
+                notify: true,
+                reflectToAttribute: true,
+            },
+            document: {
+                type: Array,
+                value: () => {
+                    return [
+                        {
+                            key: 'homepage',
+                            entrypointTree: 'webapp-layout-list'
+                        },
+                        {
+                            key: 'webapp-layout-toolbar',
+                            entrypointTree: 'webapp-layout-toolbar'
+                        },
+
+                    ]
+                },
+                notify: true,
+                reflectToAttribute: true,
+            },
+        },
+    };
+    App.behavior = App.behavior || {}; // polymer behaviors that include functions and properties.
+    App.behavior.setting = settingBehavior
+    // System.import('setting.behavior.js').then(exports => window.App.behavior.setting = exports.default);
     // Mixins are not supported curretly by Polymer, and babel as a side effect of hacks created.
     // window.App.mixin = window.App.mixin || {};
     // System.import('setting.mixin.js').then(exports => window.App.mixin.setting = exports.default);
