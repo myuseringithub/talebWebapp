@@ -21,7 +21,8 @@
     "iron-icons": "PolymerElements/iron-icons#2.0-preview",
     "paper-header-panel": "PolymerElements/paper-header-panel#2.0-preview",
     "google-map": "GoogleWebComponents/google-map#^1.2.0",
-    "paper-button": "PolymerElements/paper-button#2.0-preview"
+    "paper-button": "PolymerElements/paper-button#2.0-preview",
+    "paper-card": "PolymerElements/paper-card#2.0-preview"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

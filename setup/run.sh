@@ -31,7 +31,7 @@ development() {
     docker-compose -f ./setup/container/development.dockerCompose.yml up -d --force-recreate
 
     # 3. Run services using gulp
-    (cd /tmp/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
+    (cd /tmp/build/gulp_buildTool/; ./run.sh development)
 }
 
 deployment.buildDistribution() { # ⭐

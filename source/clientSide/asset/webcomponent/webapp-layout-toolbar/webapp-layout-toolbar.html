@@ -49,7 +49,7 @@
         --paper-tabs-selection-bar-color: #fff;
       }
 
-      app-header > app-toolbar > paper-tabs { 
+      app-header > app-toolbar > paper-tabs {
         width: 100%;
         height: 100%;
       }
@@ -77,7 +77,6 @@
         text-decoration: none;
         padding: 0 24px;
       }
-
 
       app-header > app-toolbar .logo {
         padding: 6px 0;
@@ -107,7 +106,7 @@
         margin: 0 20px;
       }
 
-      .drawer-list a, slot[name='tab']::slotted(a) {
+      .drawer-list a, slot[name='drawertab']::slotted(a) {
         display: block;
         padding: 0 16px;
         text-decoration: none;
@@ -115,7 +114,7 @@
         line-height: 40px;
       }
 
-      .drawer-list a.iron-selected, slot[name='tab']::slotted(a.iron-selected) {
+      .drawer-list a.iron-selected, slot[name='drawertab']::slotted(a.iron-selected) {
         color: black;
         font-weight: bold;
       }
@@ -148,8 +147,8 @@
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" align="right">
         <app-toolbar>موقع طالب - معلومات عن الدراسة في الخارج</app-toolbar>
-        <iron-selector selected="[[view.name]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <slot name="tab"></slot>
+        <iron-selector selected="[[page.selectorName]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <slot name="drawertab"></slot>
         </iron-selector>
       </app-drawer>
 
@@ -159,29 +158,21 @@
           <app-toolbar dir="rtl">
             <paper-icon-button icon="view-icons:menu" drawer-toggle></paper-icon-button>
             <div class="logo">
-              <a href$="{{setting.location.routeBasePath}}/">
+              <a href$="{{app.setting.location.routeBasePath}}/">
                 <iron-icon icon="social:school"></iron-icon>
                 <span main-title>طالب</span>
               </a>
             </div>
-            <paper-tabs selected="[[view.name]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
-              <paper-tab link name="view-article-single">
-                  <a href$="{{setting.location.routeBasePath}}/studyfield" tabindex="-1">مواضيع التعليم</a>
-              </paper-tab>
-              <paper-tab link name="view-view1">
-                  <a href$="{{setting.location.routeBasePath}}/university" tabindex="-1">الجامعات</a>
-              </paper-tab>
-              <paper-tab link name="view-view3">
-                  <a href$="{{setting.location.routeBasePath}}/country" tabindex="-1">الدول</a>
-              </paper-tab>
+            <paper-tabs selected="[[page.selectorName]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
+              <slot name="toolbartab"></slot>
             </paper-tabs>
             <a href="https://www.youtube.com/watch?v=FuhfvYrplMw" target="_blank" style="text-decoration: none;">
-              <paper-button raised class="play"><span>شرح مقدمة</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
+              <paper-button class="play"><span>شرح مقدمة</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
             </a>
           </app-toolbar>
         </app-header>
         <iron-pages 
-            selected="[[view.name]]"
+            selected="[[page.selectorName]]"
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
@@ -198,8 +189,8 @@
       static get properties() {
         return { /* properties metadata */ 
           route: Object,
-          setting: Object,
-          view: {
+          app: Object,
+          page: {
             type: Object,
             notify: true,
             reflectToAttribute: true,
@@ -225,11 +216,11 @@
         if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
       }
 
-      _pageChanged(view, oldView) {
+      _pageChanged(page, oldView) {
         // Load page import on demand. Show 404 page if fails
-        if (view.name != null) {
+        if (page.selectorName != null) {
             var callback = this._showPage404;
-            var resolvedPageUrl = this.resolveUrl(`../${view.file}`);
+            var resolvedPageUrl = this.resolveUrl(`../${page.file}`);
             Polymer.importHref(
               resolvedPageUrl,
               null, callback, true);
@@ -241,7 +232,7 @@
       }
 
       _showPage404() {
-        this.view.name = 'view404';
+        this.page.selectorName = 'view404';
       }
 
     }

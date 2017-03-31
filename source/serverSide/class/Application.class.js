@@ -28,7 +28,104 @@ const self = class Application {
     static initialize(staticSubclassArray) { // One-time initialization of Applicaiton Class.
         console.info(`☕%c Running Application as ${self.config.DEPLOYMENT} - '${self.config.PROTOCOL}${self.config.HOST}'`, self.config.style.green)
         self.frontend = { // Configurations passed to frontend 
-            config: self.config
+            config: self.config,
+            setting: {
+                location: {
+                    routeBasePath: `${self.config.PROTOCOL}${self.config.HOST}`
+                }
+            },
+            route: 'route',
+            document: [
+                {
+                    key: 'homePage-view1',
+                    layout: 'webapp-layout-list',
+                    page: {
+                        selectorName: 'view-view1',
+                        file: 'view-view1.html'
+                    }
+                },
+                {
+                    key: 'homePage-view2',
+                    layout: 'webapp-layout-list',
+                    page: {
+                        selectorName: 'view-view2',
+                        file: 'view-view2.html'
+                    }
+                },
+                {
+                    key: 'homePage-view3',
+                    layout: 'webapp-layout-list',
+                    page: {
+                        selectorName: 'view-view3',
+                        file: 'view-view3.html'
+                    }
+                },
+                {
+                    key: 'homePage-view404',
+                    layout: 'webapp-layout-list',
+                    page: {
+                        selectorName: 'view-view404',
+                        file: 'view-view404.html'
+                    }
+                },
+                {
+                    key: 'universityPage',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'universityPage',
+                        file: 'view-view1.html'
+                    }
+                },
+                {
+                    key: 'studyfieldPage',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'studyfieldPage',
+                        file: 'view-view2.html'
+                    }
+                },
+                {
+                    key: 'countryPage',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'countryPage',
+                        file: 'view-list-item.html' 
+                    }
+                },
+                {
+                    key: 'bucharest',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'studyfieldSingleArticle',
+                        file: 'view-article.html' 
+                    }
+                },
+                {
+                    key: 'medicine',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'studyfieldSingleArticle',
+                        file: 'view-article.html' 
+                    }
+                },
+                {
+                    key: 'step',
+                    layout: 'webapp-layout-step',
+                    // page: {
+                    //     selectorName: 'step1',
+                    //     file: 'view-article.html' 
+                    // }
+                },
+                {
+                    key: 'frontpage',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'frontPage',
+                        file: 'view-frontpage.html' 
+                    }
+                },
+                
+            ],
         }
         staticSubclassArray.map((subclass) => {
             self.registerStaticSubclass(subclass)

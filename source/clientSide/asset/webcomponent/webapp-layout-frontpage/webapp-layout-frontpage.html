@@ -5,12 +5,16 @@
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/iron-icons/av-icons.html">
 <link rel="import" href="../view-icons.html">
 
-<dom-module id="webapp-layout-list">
+<dom-module id="webapp-layout-frontpage">
   <template>
     <style>
       :host {
@@ -32,20 +36,77 @@
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
       }
-
-      app-drawer-layout:not([narrow]) [drawer-toggle] {
-        display: none;
+     
+      app-drawer > app-toolbar {
+        font: 500 14px/44px Roboto,sans-serif;
+        font-weight: bold;
       }
       
-      app-drawer > app-toolbar {
+      app-header > app-toolbar {
+        height: 48px;
+        background: #3367d6;
         font-weight: bold;
+        --paper-tabs-selection-bar-color: #fff;
+      }
+
+      app-header > app-toolbar > paper-tabs {
+        width: 100%;
+        height: 100%;
+      }
+
+      app-header > app-toolbar > paper-tab { 
+      }
+
+      paper-tab[link].iron-selected a {
+        font-weight: bold;
+        color: #fff;
+      }
+
+      paper-tab[link] a:focus, paper-tab[link] a:hover {
+        color: #fff;
+      }
+      paper-tab[link] a {
+        transition: color .2s;
+        color: rgba(255,255,255,.7);
+      }
+
+      paper-tab[link] a, app-header > app-toolbar .logo a {
+        /* These mixins (from iron-flex-layout) center the link text. */
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        text-decoration: none;
+        padding: 0 24px;
+      }
+
+      app-header > app-toolbar .logo {
+        padding: 6px 0;
+        flex: 0 0 auto;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      
+      app-header > app-toolbar .logo iron-icon {
+        height: 36px;
+        width: 36px;
+        margin-left: 16px;
+      }
+
+      app-header > app-toolbar .logo a {
+        padding-left: 0px;
+        transition: color .2s;
+        color: #fff;
+      }
+
+      app-header > app-toolbar .logo a:focus, app-header > app-toolbar .logo a:hover {
+        color: rgba(255,255,255,.7);
       }
 
       .drawer-list {
         margin: 0 20px;
       }
 
-      .drawer-list a, slot[name='tab']::slotted(a) {
+      .drawer-list a, slot[name='drawertab']::slotted(a) {
         display: block;
         padding: 0 16px;
         text-decoration: none;
@@ -53,33 +114,64 @@
         line-height: 40px;
       }
 
-      .drawer-list a.iron-selected, slot[name='tab']::slotted(a.iron-selected) {
+      .drawer-list a.iron-selected, slot[name='drawertab']::slotted(a.iron-selected) {
         color: black;
         font-weight: bold;
       }
+
+      paper-button.play {
+        padding: 0 7px;
+        height: 36px;
+        display: inline-flex;
+        background-color: #4285f4;
+        transition: color .2s;
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+
+      paper-button.play > iron-icon {
+        margin-right: 5px;
+      }
+      paper-button.play > span {
+        font-size: 16px;
+        white-space: nowrap;
+      }
+
     </style>
 
 
-    <app-drawer-layout fullbleed>
+    <app-drawer-layout fullbleed force-narrow>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" align="right">
-        <app-toolbar>موقع طالب</app-toolbar>
+        <app-toolbar>موقع طالب - معلومات عن الدراسة في الخارج</app-toolbar>
         <iron-selector selected="[[page.selectorName]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <slot name="tab"></slot>
+          <slot name="drawertab"></slot>
         </iron-selector>
       </app-drawer>
 
       <!-- Main content -->
-      <app-header-layout has-scrolling-region>
-
-        <app-header condenses reveals effects="waterfall">
-          <app-toolbar>
-            <div main-title>الدراسة في الخارج</div>
+      <app-header-layout>
+        <app-header slot="header" condenses reveals effects="waterfall">
+          <app-toolbar dir="rtl">
             <paper-icon-button icon="view-icons:menu" drawer-toggle></paper-icon-button>
+            <div class="logo">
+              <a href$="{{app.setting.location.routeBasePath}}/">
+                <iron-icon icon="social:school"></iron-icon>
+                <span main-title>FrontPage</span>
+              </a>
+            </div>
+            <paper-tabs selected="[[page.selectorName]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
+              <slot name="toolbartab"></slot>
+            </paper-tabs>
+            <a href="https://www.youtube.com/watch?v=FuhfvYrplMw" target="_blank" style="text-decoration: none;">
+              <paper-button class="play"><span>شرح مقدمة</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
+            </a>
           </app-toolbar>
         </app-header>
-
-        <iron-pages
+        <iron-pages 
             selected="[[page.selectorName]]"
             attr-for-selected="name"
             fallback-selection="view404"
@@ -93,7 +185,7 @@
   <script>
   {
     class Element extends Polymer.Element {
-      static get is() { return 'webapp-layout-list'; }
+      static get is() { return 'webapp-layout-frontpage'; }
       static get properties() {
         return { /* properties metadata */ 
           route: Object,
@@ -124,7 +216,7 @@
         if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
       }
 
-      _pageChanged(page, oldPage) {
+      _pageChanged(page, oldView) {
         // Load page import on demand. Show 404 page if fails
         if (page.selectorName != null) {
             var callback = this._showPage404;

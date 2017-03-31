@@ -34,7 +34,6 @@ services:
       - ../../source:/app/
       - ../../setup/build:/tmp/build/
       - ../../appDeploymentLifecycle:/tmp/appDeploymentLifecycle/
-      - "/mnt/datadisk-1/taleb/rethinkdbData:/data/rethinkdb_data/"
     working_dir: /app/
     command: bash -c "sleep 100000000;"
 
@@ -47,4 +46,4 @@ services:
     working_dir: /
     volumes:
       # volume inside docker-machine not through Windows volume. because it causes problems otherwise.
-      - /volume/rethinkdbData:/rethinkdb_data
+      - /mnt/datadisk-1/taleb/rethinkdbData:/data/rethinkdb_data/

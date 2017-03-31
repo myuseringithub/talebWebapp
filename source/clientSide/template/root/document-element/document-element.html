@@ -1,14 +1,51 @@
 <!-- Allows usage of binding in main document. -->
 <dom-bind>
     <template>
+        <style>
+
+            app-header > app-toolbar > paper-tab { 
+            }
+            paper-tab[link] a {
+                /* These mixins (from iron-flex-layout) center the link text. */
+                @apply(--layout-horizontal);
+                @apply(--layout-center-center);
+                text-decoration: none;
+                padding: 0 24px;
+                display: var(--layout-horizontal_-_display);
+                -ms-flex-direction: var(--layout-horizontal_-_-ms-flex-direction);
+                -webkit-flex-direction: var(--layout-horizontal_-_-webkit-flex-direction);
+                flex-direction: var(--layout-horizontal_-_flex-direction);
+                -ms-flex-align: var(--layout-center-center_-_-ms-flex-align);
+                -webkit-align-items: var(--layout-center-center_-_-webkit-align-items);
+                align-items: var(--layout-center-center_-_align-items);
+                -ms-flex-pack: var(--layout-center-center_-_-ms-flex-pack);
+                -webkit-justify-content: var(--layout-center-center_-_-webkit-justify-content);
+                justify-content: var(--layout-center-center_-_justify-content);
+                text-decoration: none;
+                padding: 0 24px;]
+            }
+            paper-tab[link].iron-selected a {
+                font-weight: bold;
+                color: #fff;
+            }
+            paper-tab[link] a:focus, paper-tab[link] a:hover {
+                color: #fff;
+            }
+            paper-tab[link] a {
+                transition: color .2s;
+                color: rgba(255,255,255,.7);
+            }
+
+        </style>
+
         <!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
-        <document-element layout="{{layout}}" view="{{view}}" subroute="{{subroute}}" setting="{{setting}}">
+        <document-element layout="{{layout}}" page="{{page}}" subroute="{{subroute}}" app="{{app}}">
             <iron-pages
                 selected="{{layout}}"
                 attr-for-selected="name"
                 fallback-selection="{%= argument['layoutElement'] %}"
                 role="main">
-                <{%= argument['layoutElement'] %} name="university" view="{{view}}" route="{{subroute}}" setting="[[setting]]">
+                <{%= argument['layoutElement'] %} name="layout-unused" page="{{page}}" route="{{subroute}}" app="[[app]]">
                     <view-university-single slot="page" name="universitySingle"></view-university-single>
                     <view-university-multiple slot="page" name="universityMultiple"></view-university-multiple>
                     <view-country-single slot="page" name="countrySingle"></view-country-single>
@@ -22,25 +59,45 @@
                     <view-view3 slot="page" name="view-view3"></view-view3>
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </{%= argument['layoutElement'] %}>
-                <{%= argument['layoutElement'] %} name="webapp-layout-list" view="{{view}}" route="{{subroute}}" setting="[[setting]]">
-                    <a slot="tab" name="view-view1" href$="{{setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
-                    <a slot="tab" name="view-view2" href$="{{setting.location.routeBasePath}}/view2">تسجيل فردي</a>
-                    <a slot="tab" name="view-view3" href$="{{setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+                <webapp-layout-list name="webapp-layout-list" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    <a slot="tab" name="view-view1" href$="{{app.setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
+                    <a slot="tab" name="view-view2" href$="{{app.setting.location.routeBasePath}}/view2">تسجيل فردي</a>
+                    <a slot="tab" name="view-view3" href$="{{app.setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
                     <view-view1 slot="page" name="view-view1"></view-view1>
                     <view-view2 slot="page" name="view-view2"></view-view2>
                     <view-view3 slot="page" name="view-view3"></view-view3>
                     <view-view404 slot="page" name="view-view404"></view-view404>
-                </{%= argument['layoutElement'] %}>
-                <webapp-layout-toolbar name="webapp-layout-toolbar" view="{{view}}" route="{{subroute}}" setting="[[setting]]">
-                    <a slot="tab" name="view-view1" href$="{{setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
-                    <a slot="tab" name="view-view2" href$="{{setting.location.routeBasePath}}/view2">تسجيل فردي</a>
-                    <a slot="tab" name="view-view3" href$="{{setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
-                    <view-article-single slot="page" name="view-article-single"></view-article-single>
-                    <view-view1 slot="page" name="view-view1"></view-view1>
-                    <view-view2 slot="page" name="view-view2"></view-view2>
-                    <view-view3 slot="page" name="view-view3"></view-view3>
+                </webapp-layout-list>
+                <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    <a slot="drawertab" name="view-view1" href$="{{app.setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
+                    <a slot="drawertab" name="view-view2" href$="{{app.setting.location.routeBasePath}}/view2">تسجيل فردي</a>
+                    <a slot="drawertab" name="view-view3" href$="{{app.setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+                    <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
+                    </paper-tab>-->
+                    <paper-tab slot="toolbartab" link name="studyfieldPage">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield" tabindex="-1">مواضيع التعليم</a>
+                    </paper-tab>
+                    <paper-tab slot="toolbartab" link name="universityPage">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/university" tabindex="-1">الجامعات</a>
+                    </paper-tab>
+                    <paper-tab slot="toolbartab" link name="countryPage">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/country" tabindex="-1">الدول</a>
+                    </paper-tab>
+                    <!--<view-article-single slot="page" name="view-article-single"></view-article-single>-->
+                    <view-frontpage slot="page" name="frontPage"></view-frontpage>
+                    <view-article slot="page" name="studyfieldSingleArticle"></view-article>
+                    <view-view1 slot="page" name="universityPage"></view-view1>
+                    <view-view2 slot="page" name="studyfieldPage"></view-view2>
+                    <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-toolbar>
+                <webapp-layout-step name="webapp-layout-step" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    
+                </webapp-layout-step>
+                <!--<webapp-layout-frontpage name="webapp-layout-frontpage" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    
+                </webapp-layout-frontpage>-->
             </iron-pages>
         </document-element>
     </template>
@@ -52,7 +109,6 @@
 
 <dom-module id="document-element">
     <template>
-
         <!-- Bind to URL - Proxy for window.location -->
         <app-location route="{{route}}"></app-location>
         <!-- Managing top-level routes -->
@@ -66,10 +122,12 @@
     </template>
     <script>
     {
+        // TODO: Consider switching `document-element` to https://www.polymer-project.org/2.0/docs/api/elements/Polymer.DomBind
+
         const App = window.App || {}; 
         // Extend Polymer.Element base class
-        // class Element extends App.mixin.setting(Polymer.Element) {
-        class Element extends Polymer.mixinBehaviors([ App.behavior.setting ], Polymer.Element) {
+        // class Element extends App.mixin.app.setting(Polymer.Element) {
+        class Element extends Polymer.mixinBehaviors([ App.behavior ], Polymer.Element) {
             static get is() { return 'document-element'; }
             static get properties() {
                 return { /* properties metadata */ 
@@ -78,7 +136,7 @@
                         notify: true,
                         reflectToAttribute: true,
                     },
-                    view: {
+                    page: {
                         type: Object,
                         notify: true,
                         reflectToAttribute: true,
@@ -87,76 +145,92 @@
                         type: Object,
                         notify: true,
                         reflectToAttribute: true,
-                    },                    
+                    },              
                 }
             }
             static get observers() { return [ /* observer descriptors */
-                '_routePageChanged(routeData.pathTopLevel)',
+                '_routePageChanged(routeData.pathTopLevel, subroute.path)',
+                '_routeChanged(route)',
             ] }
             constructor() {
                 super()
+                // Values are altered when server renderint to front-end (slashes are added).
+                this.app.setting.location.routeBasePath = `${this.app.config.PROTOCOL}${this.app.config.HOST}`
+                this.app.documentElement = this // register document element to be used as entrypoint to Polymer's binding system.
             }
             connectedCallback() {
                 super.connectedCallback();
             }
 
-            _routePageChanged(pathTopLevel) { // Choose page/view using URL path.
+            _routeChanged(route) {
+                // console.log(route)
+            }
+
+            _routePageChanged(pathTopLevel, pathLevel2) { // Choose page/view using URL path.
                 if(typeof pathTopLevel == 'undefined') return; // skip initial `pathTopLevel` value of undefined.
-                
-                // Condition Checking
-                let layout = '', 
-                    view = {},
-                    documentKey = ''
-                switch (pathTopLevel) { // Choose appropriate view/page to view
-                    case 'view2':
-                        view.name = 'view-view2'
-                        view.file = 'view-view2.html'
-                        documentKey = 'homepage'
-                        break;
-                    case 'view3':
-                        view.name = 'view-view3'
-                        view.file = 'view-view3.html'
-                        documentKey = 'homepage'
-                        break;
-                    case 'view1':
-                        documentKey = 'homepage'
-                        view.name = 'view-view1'
-                        view.file = 'view-view1.html'
-                        break;
-                    case 'university':
-                        view.name = 'view-view1'
-                        view.file = 'view-view1.html'
-                        documentKey = 'webapp-layout-toolbar'
-                        break;
-                    case '': // empty path
-                    case 'studyfield':
-                        view.name = 'view-article-single'
-                        view.file = 'view-article-single.html'
-                        documentKey = 'webapp-layout-toolbar'
-                        break;
-                    case 'country':
-                        view.name = 'view-view3'
-                        view.file = 'view-view3.html'
-                        documentKey = 'webapp-layout-toolbar'
-                        break;
-                    default:
-                    case 'view404':
-                        view.name = 'view-view404'
-                        view.file = 'view-view404.html'
-                        documentKey = 'homepage'
-                        break;
-                    // case undefined: // skop initial `pathTopLevel` value of undefined.
-                    //   break;
-                }
-                
+                let documentKey = this.checkConditionTree(pathTopLevel, pathLevel2.replace(/\//g, ""))
+
                 // Document & Template Tree procesing.
-                let document = this.document.filter(unit => {
+                let document = this.app.document.filter(unit => {
                     if(unit.key == documentKey) return true
                     return false
                 })[0]
                 
-                this.layout = document.entrypointTree
-                this.view = view
+                // document.page.filename = document.page.file.substr(0, document.page.file.indexOf('.'));
+                this.layout = document.layout
+                this.page = document.page
+            }
+
+            checkConditionTree(pathTopLevel, pathLevel2) {
+                let documentKey = ''
+                console.log(pathTopLevel)
+                switch (pathTopLevel) { // Choose appropriate view/page to view
+                    case '': // empty path
+                        documentKey = 'frontpage'
+                    break;
+                    case 'step': // empty path
+                        documentKey = 'step'
+                    break;
+                    case 'university':
+                        documentKey = 'universityPage'
+                    break;
+                    case 'studyfield':
+                        switch (pathLevel2) {
+                            case 'medicine':
+                                documentKey = 'medicine'                            
+                            break;
+                            default:
+                                documentKey = 'studyfieldPage'
+                            break;                                                           
+                        }
+                    break;
+                    case 'country':
+                        switch (pathLevel2) {
+                            case 'bucharest':
+                                documentKey = 'bucharest'                            
+                            break;
+                            default:
+                                documentKey = 'countryPage'
+                            break;                                                           
+                        }
+                    break;
+                    case 'view1':
+                        documentKey = 'homePage-view1'
+                    break;
+                    case 'view2':
+                        documentKey = 'homePage-view2'
+                    break;
+                    case 'view3':
+                        documentKey = 'homePage-view3'
+                    break;
+                    default:
+                    case 'view404':
+                        documentKey = 'homePage-view404'
+                    break;
+                    // case undefined: // skop initial `pathTopLevel` value of undefined.
+                    //   break;
+                }
+                return documentKey
             }
         }
         window.addEventListener('WebComponentsReady', () => {
