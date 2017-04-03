@@ -1,7 +1,7 @@
 <!-- Allows usage of binding in main document. -->
 <dom-bind>
     <template>
-        <style>
+        <style include="shared-styles">
 
             app-header > app-toolbar > paper-tab { 
             }
@@ -69,9 +69,8 @@
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-list>
                 <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
-                    <a slot="drawertab" name="view-view1" href$="{{app.setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
-                    <a slot="drawertab" name="view-view2" href$="{{app.setting.location.routeBasePath}}/view2">تسجيل فردي</a>
-                    <a slot="drawertab" name="view-view3" href$="{{app.setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+                    <a slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
+                    <a slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
                     <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
                         <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
                     </paper-tab>-->
@@ -87,8 +86,13 @@
                     <!--<view-article-single slot="page" name="view-article-single"></view-article-single>-->
                     <view-frontpage slot="page" name="frontPage"></view-frontpage>
                     <view-article slot="page" name="studyfieldSingleArticle"></view-article>
-                    <view-view1 slot="page" name="universityPage"></view-view1>
-                    <view-view2 slot="page" name="studyfieldPage"></view-view2>
+                    <div slot="page" name="universityPage" fullbleed style="text-align: center; margin-top: 50px;">قيد الإنشاء</div>
+                    <div slot="page" name="studyfieldPage" fullbleed style="text-align: center; margin-top: 50px;">قيد الإنشاء</div>
+                    <registration-single slot="page" 
+                        name="registration-single"
+                        style="max-width: 800px; margin: 30px auto;"
+                        ></registration-single>
+                    <registration-agency slot="page" name="registration-agency"></registration-agency>
                     <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-toolbar>
@@ -183,10 +187,11 @@
 
             checkConditionTree(pathTopLevel, pathLevel2) {
                 let documentKey = ''
-                console.log(pathTopLevel)
+
                 switch (pathTopLevel) { // Choose appropriate view/page to view
                     case '': // empty path
-                        documentKey = 'frontpage'
+                        // documentKey = 'frontpage'
+                        documentKey = 'registration-single'
                     break;
                     case 'step': // empty path
                         documentKey = 'step'
@@ -211,6 +216,16 @@
                             break;
                             default:
                                 documentKey = 'countryPage'
+                            break;                                                           
+                        }
+                    break;
+                    case 'registration':
+                        switch (pathLevel2) {
+                            case 'single':
+                                documentKey = 'registration-single'                            
+                            break;
+                            default:
+                                documentKey = 'registration-agency'
                             break;                                                           
                         }
                     break;

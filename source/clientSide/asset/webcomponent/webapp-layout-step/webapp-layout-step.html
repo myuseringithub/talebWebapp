@@ -12,27 +12,25 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-menu/paper-menu.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animatable.html">
+<link rel="import" href="../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../guide-step/guide-layout.html">
 <link rel="import" href="../view-icons.html">
 
 <dom-module id="webapp-layout-step">
   <template>
     <style>
-      :host {
-        --app-primary-color: #4285f4;
-        --app-secondary-color: black;
-
-        display: block;
+      app-header-layout {
+        @apply --layout-vertical;
+        overflow-x: hidden;
       }
-
-      app-header {
-        color: #fff;
-        background-color: var(--app-primary-color);
-        direction: ltr;
-      }
-      app-header paper-icon-button {
-        --paper-icon-button-ink-color: white;
-      }
-
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
       }
@@ -43,143 +41,205 @@
       }
       
       app-header > app-toolbar {
+        color: #fff;
         height: 48px;
         background: #3367d6;
         font-weight: bold;
         --paper-tabs-selection-bar-color: #fff;
       }
 
-      app-header > app-toolbar > paper-tabs {
-        width: 100%;
-        height: 100%;
+      .drawer-content-wrapper {
+          padding: 16px;
       }
 
-      app-header > app-toolbar > paper-tab { 
+      #toc {
+        /* ensures bottom of nav scrolling meny doesn't overlap with file bug link. */
+        margin-bottom: 1.5em;
       }
 
-      paper-tab[link].iron-selected a {
-        font-weight: bold;
-        color: #fff;
+      .toc-item {
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--paper-grey-500);
+        overflow: hidden;
+        border-radius: 4px;
+        padding: 6px 16px;
+        box-sizing: content-box; /* override users that set * selector box-sizing. */
       }
 
-      paper-tab[link] a:focus, paper-tab[link] a:hover {
-        color: #fff;
-      }
-      paper-tab[link] a {
-        transition: color .2s;
-        color: rgba(255,255,255,.7);
-      }
-
-      paper-tab[link] a, app-header > app-toolbar .logo a {
-        /* These mixins (from iron-flex-layout) center the link text. */
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        text-decoration: none;
-        padding: 0 24px;
-      }
-
-      app-header > app-toolbar .logo {
-        padding: 6px 0;
-        flex: 0 0 auto;
+      .toc-item i {
         display: inline-block;
-        font-size: 20px;
-        font-weight: bold;
+        font-style: normal;
+        width: 24px;
+        min-width: 24px;
+        background: #fff;
+        border-radius: 50%;
+        text-align: center;
+        height: 24px;
+        vertical-align: middle;
+        line-height: 24px;
+        border: 2px solid var(--paper-grey-400);
+        margin-left: 8px;
+        font-weight: 400;
+      }
+
+      .toc-item i::before,
+      .toc-item i::after {
+        content: '';
+        display: block;
+        border-left: 1px solid var(--paper-grey-400);
+        width: 0;
+        height: 44px;
+        z-index: 1;
+        margin-top: 1px;
+      }
+
+      .toc-item i::before {
+        margin-top: -44px;
+        margin-right: 11px;
+      }
+
+      .toc-item i::after {
+        margin-right: 11px;
+      }
+
+      .toc-item.completed {
+        color: var(--paper-grey-900);
+      }
+
+      .toc-item.iron-selected {
+        color: var(--paper-grey-900);
+        background-color: var(--paper-grey-300);
+        font-weight: 600;
+      }
+
+      .toc-item.completed i,
+      .toc-item.completed i::before,
+      .toc-item.completed i::after,
+      .toc-item.iron-selected i,
+      .toc-item.iron-selected i:before {
+        border-color: var(--paper-blue-500);
+      }
+
+      .toc-item:first-of-type i::before,
+      .toc-item:last-of-type i::after {
+        display: none;
+      }
+
+      neon-animated-pages {
+        height: 100%;
+        @apply --layout-flex;
+      }
+
+      neon-animatable {
+        /*@apply --layout-horizontal;
+        @apply --layout-top-center;
+        @apply --paper-font-display4;*/
       }
       
-      app-header > app-toolbar .logo iron-icon {
-        height: 36px;
-        width: 36px;
-        margin-left: 16px;
-      }
+      div.neon-page-content {
+        box-shadow: 1px 1px 16px #ccc;
+        background: #fff;
+        min-width: 400px;
+        max-width: 800px;
+        font-size: 14px;
+        padding: 10px;
+        margin: 32px auto;
+      } 
 
-      app-header > app-toolbar .logo a {
-        padding-left: 0px;
-        transition: color .2s;
-        color: #fff;
-      }
-
-      app-header > app-toolbar .logo a:focus, app-header > app-toolbar .logo a:hover {
-        color: rgba(255,255,255,.7);
-      }
-
-      .drawer-list {
-        margin: 0 20px;
-      }
-
-      .drawer-list a, slot[name='drawertab']::slotted(a) {
-        display: block;
+      .fabs {
+        position: absolute;
+        right: 0;
+        bottom: 16px;
         padding: 0 16px;
-        text-decoration: none;
-        color: var(--app-secondary-color);
-        line-height: 40px;
+        width: calc(100% - 256px);
+        box-sizing: border-box;
+        pointer-events: none;
+        padding: 0 32px;
+        bottom: 32px;
       }
-
-      .drawer-list a.iron-selected, slot[name='drawertab']::slotted(a.iron-selected) {
-        color: black;
-        font-weight: bold;
-      }
-
-      paper-button.play {
-        padding: 0 7px;
-        height: 36px;
-        display: inline-flex;
-        background-color: #4285f4;
-        transition: color .2s;
-        color: white;
-        --paper-button-raised-keyboard-focus: {
-          background-color: var(--paper-pink-a200) !important;
-          color: white !important;
-        };
-      }
-
-      paper-button.play > iron-icon {
-        margin-right: 5px;
-      }
-      paper-button.play > span {
-        font-size: 16px;
-        white-space: nowrap;
-      }
-
+      paper-fab {
+        pointer-events: initial;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        background: #1976d2;
+        border-radius: 50%;
+        box-sizing: border-box;
+        color: #ffffff;
+        cursor: pointer;
+        height: 56px;
+        min-width: 0;
+        outline: none;
+        padding: 16px;
+        position: relative;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        width: 56px;
+        z-index: 0;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: transparent
+     } 
     </style>
 
-
-    <app-drawer-layout fullbleed force-narrow>
-      <!-- Drawer content -->
-      <app-drawer id="drawer" slot="drawer" align="right">
-        <app-toolbar>موقع طالب - معلومات عن الدراسة في الخارج</app-toolbar>
-        <iron-selector selected="[[page.selectorName]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <slot name="drawertab"></slot>
-        </iron-selector>
+    <app-drawer-layout fullbleed>
+      <app-drawer slot="drawer" id="drawer" swipe-open align="right">
+        <div class="drawer-content-wrapper">
+          <paper-listbox id="toc" selected="{{selected}}" on-iron-select="_markCompletedItems">
+            <template is="dom-repeat" items="{{steps}}">
+              <paper-item class$="{{_tocItemClass(selected, index)}}">
+                <i>{{item.step}}</i><span>{{item.label}}</span>
+              </paper-item>
+            </template>
+          </paper-listbox>
+        </div>
       </app-drawer>
 
-      <!-- Main content -->
-      <app-header-layout>
+      <app-header-layout fullbleed >
         <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar dir="rtl">
+          <app-toolbar dir="rtl"> 
             <paper-icon-button icon="view-icons:menu" drawer-toggle></paper-icon-button>
-            <div class="logo">
-              <a href$="{{app.setting.location.routeBasePath}}/">
-                <iron-icon icon="social:school"></iron-icon>
-                <span main-title>StepPage</span>
-              </a>
-            </div>
-            <paper-tabs selected="[[page.selectorName]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
-              <slot name="toolbartab"></slot>
-            </paper-tabs>
-            <a href="https://www.youtube.com/watch?v=FuhfvYrplMw" target="_blank" style="text-decoration: none;">
-              <paper-button class="play"><span>شرح مقدمة</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
-            </a>
+            <paper-icon-button icon="arrow-forward" on-tap="_goToHome"></paper-icon-button>
+            <span>{{title}}</span>
           </app-toolbar>
         </app-header>
-        <iron-pages 
-            selected="[[page.selectorName]]"
-            attr-for-selected="name"
-            fallback-selection="view404"
-            role="main">
-            <slot name="page"></slot>
-        </iron-pages>
+        <neon-animated-pages id="pages" selected="{{selected}}" entry-animation="slide-from-left-animation" exit-animation="slide-right-animation">
+          <neon-animatable>
+            <div class="neon-page-content">1</div>  
+          </neon-animatable>
+          <neon-animatable>
+            <div class="neon-page-content">2</div>  
+          </neon-animatable>
+          <neon-animatable>
+            <div class="neon-page-content">3</div>  
+          </neon-animatable>
+        </neon-animated-pages>
+
+        <div class="fabs">
+          <paper-fab raised class="navbutton prevbutton" icon="chevron-right"
+            on-tap="selectPrevious"
+            title="Previous step">
+          </paper-fab>
+          <paper-fab icon="chevron-left" raised class="navbutton nextbutton"
+            title="next step"
+            on-tap="selectNext">
+          </paper-fab>
+        </div>
+
       </app-header-layout>
     </app-drawer-layout>
+
   </template>
 
   <script>
@@ -190,24 +250,68 @@
         return { /* properties metadata */ 
           route: Object,
           app: Object,
-          page: {
-            type: Object,
-            notify: true,
-            reflectToAttribute: true,
-            observer: '_pageChanged',
+          /**
+          * Current step index, 0-based.
+          * `location.hash` is synced with this number.
+          */
+          selected: {
+            type: Number
           },
+          title: {
+            type: String
+          },
+          state: { // current state
+            type: Object,
+            value: () => { return { 
+              lastStep: null
+            }}
+          },
+          /**
+          * Step elements of the codelab. Currently, only `<google-codelab-step>`
+          * elements are supported.
+          * The steps are populated on 'attached': callback for distributed children
+          * changes is still being worked on https://github.com/Polymer/polymer/issues/1773
+          */
+          steps: {
+            type: Array,
+            value: function() { return [
+              { 
+                  step: 1,
+                  label: "اول خطوة"
+              },
+              { 
+                  step: 2,
+                  label: "ثاني خطوة"
+              },
+              { 
+                  step: 3,
+                  label: "ثالث خطوة"
+              },
+            ]; },
+            readOnly: true
+          },
+        
         }
       }
 
       static get observers() { return [ /* observer descriptors */
+        '_selectedChanged(selected)'
       ] }
 
       constructor() {
         super();
       }
 
+      get keyBindings() {
+        return {
+          'left': 'selectPrevious',
+          'right': 'selectNext'
+        }
+      }
+
       connectedCallback() {
         super.connectedCallback();
+        // this._updateStepIndexFromUrl();
       }
 
       ready() {
@@ -216,23 +320,80 @@
         if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
       }
 
-      _pageChanged(page, oldView) {
-        // Load page import on demand. Show 404 page if fails
-        if (page.selectorName != null) {
-            var callback = this._showPage404;
-            var resolvedPageUrl = this.resolveUrl(`../${page.file}`);
-            Polymer.importHref(
-              resolvedPageUrl,
-              null, callback, true);
-        }
-
-        if (!this.$.drawer.persistent) {
-            this.$.drawer.close();  
-        }
+      _markCompletedItems() {
+        
       }
 
-      _showPage404() {
-        this.page.selectorName = 'view404';
+      _tocItemClass(selected, i) { // apply css class on completed steps.
+        let cls = ['toc-item'];
+        if (i < selected) {
+          cls.push('completed');
+        }
+        if (i == selected) {
+          cls.push('iron-selected');
+        }
+        return cls.join(' ');
+      }
+
+      _selectedChanged(selected) {
+        location.hash = this.selected.toString()
+        this.title = this.steps[selected].label
+
+        this.set('state.lastStep', selected);
+      }
+
+      _updateStepIndexFromUrl() {
+        let step = parseInt(location.hash.slice(1), 10);
+        if (isNaN(step) || step < 0) {
+          step = 0;
+        }
+        if (this.steps && this.steps.length && step > this.steps.length - 1) {
+          step = this.steps.length - 1;
+        }
+        this.select(step)
+      }
+
+      select(stepIndex) {
+        if (stepIndex < 0 || stepIndex > this.steps.length - 1) {
+          return;
+        }
+        
+        this.title = this.steps[stepIndex].label
+        this.selected = stepIndex;
+      }
+
+      selectNext(stepIndex) {
+        this.$.pages.entryAnimation = 'slide-from-left-animation';
+        this.$.pages.exitAnimation = 'slide-right-animation';
+        this.select(this.selected + 1);
+      }
+      
+      selectPrevious(stepIndex) {
+        this.$.pages.entryAnimation = 'slide-from-right-animation';
+        this.$.pages.exitAnimation = 'slide-left-animation';
+        this.select(this.selected - 1);
+      }
+
+      _goToHome() {
+        // extract 'index' search param
+        var index;
+        var parts = location.search.substring(1).split('&');
+        for (var i = 0; i < parts.length; i++) {
+          var param = parts[i].split('=');
+          if (param[0] === 'index') {
+            index = param[1];
+            break;
+          }
+        }
+        // decode and extract index name from the search param
+        // default index is 'index'
+        index = index ? decodeURIComponent(index) : '';
+        index = index.replace(/[^a-z0-9\-]+/ig, '');
+        if (index === 'index') {
+          index = '';
+        }
+        // navigate away to the index page
+        window.location.href = this.app.setting.location.routeBasePath + '/' + index;
       }
 
     }

@@ -1,7 +1,7 @@
 <link rel="import" href="./bower_components/polymer/polymer.html">
 <link rel="import" href="./shared-styles.html">
 
-<dom-module id="view-view1">
+<dom-module id="registration-single">
   <template>
     <style include="shared-styles">
       :host {
@@ -10,20 +10,22 @@
         padding: 10px;
       }
     .video {
+        max-width: 100%;
         width: 50vw;
         min-height: 300px;
         height: 70vh;
         border-radius: 10px;
     }
+    .card {
+      text-align: center;
+    }
     </style>
 
-    <div class="card">
-      <h1>معلومات عن الدراسة في الخارج</h1>
-      <p>التعليم... التعليم.. التعليم... </p>
-      <p>الموقع الموقع... الموقع.....</p>
-    </div>
+    <!--<div class="card">
+    </div>-->
     <div class="card" style="text-align: center; position: relative;">
-      <iframe class="video" src="https://www.youtube.com/embed/FuhfvYrplMw" frameborder="0" allowfullscreen></iframe>
+      <h1>معلومات عن الدراسة في الخارج - رومانيا</h1>
+      <iframe class="video" src="https://www.youtube.com/embed/D_ik4h1tKSI?list=PLRE-wy1Nn9xZFLnOF_o4yZCy-uIjdRcRp" frameborder="0" allowfullscreen wmode="Opaque"></iframe>
     </div>
 
   </template>
@@ -31,7 +33,7 @@
   <script>
   {
     class Element extends Polymer.Element {
-      static get is() { return 'view-view1'; }
+      static get is() { return 'registration-single'; }
       static get properties() {
         return {}
       }

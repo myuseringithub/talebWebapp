@@ -23,7 +23,16 @@
 
         display: block;
       }
-
+      app-drawer-layout:-webkit-full-screen-ancestor app-header,
+      app-drawer-layout:-webkit-full-screen-ancestor app-drawer {
+        z-index: -1 !important;
+      }
+      :-webkit-full-screen-ancestor:not(iframe) { 
+        z-index: -1 !important;
+      }
+      iframe:-webkit-full-screen-ancestor { 
+        z-index: 1000 !important;
+      }
       app-header {
         color: #fff;
         background-color: var(--app-primary-color);
@@ -119,6 +128,14 @@
         font-weight: bold;
       }
 
+      .menu-drawer-button {
+        display: inline-block;
+        max-width: 27px;
+        /* width: 34px; */
+        min-width: 27px;
+        padding: 0;        
+      }
+
       paper-button.play {
         padding: 0 7px;
         height: 36px;
@@ -140,10 +157,11 @@
         white-space: nowrap;
       }
 
+
     </style>
 
 
-    <app-drawer-layout fullbleed force-narrow>
+    <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" align="right">
         <app-toolbar>موقع طالب - معلومات عن الدراسة في الخارج</app-toolbar>
@@ -156,7 +174,7 @@
       <app-header-layout>
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar dir="rtl">
-            <paper-icon-button icon="view-icons:menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button class="menu-drawer-button" icon="view-icons:menu" drawer-toggle></paper-icon-button>
             <div class="logo">
               <a href$="{{app.setting.location.routeBasePath}}/">
                 <iron-icon icon="social:school"></iron-icon>
@@ -166,7 +184,7 @@
             <paper-tabs selected="[[page.selectorName]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
               <slot name="toolbartab"></slot>
             </paper-tabs>
-            <a href="https://www.youtube.com/watch?v=FuhfvYrplMw" target="_blank" style="text-decoration: none;">
+            <a href="https://www.youtube.com/watch?v=D_ik4h1tKSI&list=PLRE-wy1Nn9xZFLnOF_o4yZCy-uIjdRcRp" target="_blank" style="text-decoration: none;">
               <paper-button class="play"><span>شرح مقدمة</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
             </a>
           </app-toolbar>

@@ -37,19 +37,19 @@ const self = class Application {
             route: 'route',
             document: [
                 {
-                    key: 'homePage-view1',
-                    layout: 'webapp-layout-list',
+                    key: 'registration-single',
+                    layout: 'webapp-layout-toolbar',
                     page: {
-                        selectorName: 'view-view1',
-                        file: 'view-view1.html'
+                        selectorName: 'registration-single',
+                        file: 'registration-single.html'
                     }
                 },
                 {
-                    key: 'homePage-view2',
-                    layout: 'webapp-layout-list',
+                    key: 'registration-agency',
+                    layout: 'webapp-layout-toolbar',
                     page: {
-                        selectorName: 'view-view2',
-                        file: 'view-view2.html'
+                        selectorName: 'registration-agency',
+                        file: 'registration-agency.html'
                     }
                 },
                 {
