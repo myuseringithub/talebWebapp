@@ -15,7 +15,10 @@ module.exports = ()=> {
 		// chaged because it causes errors
 		[
 			source('serverSide/**/*.js'),
-			'!'+ source('serverSide/node_modules/**/*.js')
+			source('clientSide/**/*.js'),
+			'!'+ source('serverSide/node_modules/**/*.js'),
+			'!'+ source('clientSide/asset/webcomponent/bower_components/**/*.js'),
+			'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js')
 		],	
 		destination('serverSide/'),
 		config.GulpPath
