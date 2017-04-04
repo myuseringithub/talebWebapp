@@ -4,7 +4,8 @@
     <!-- base url for all relative urls.  -->
     <base target="_top" href="{%= Application.extendedSubclass.static['StaticContent'].url %}/">
 
-    <link rel="import" href="/asset/metadata/metadata.html">
+    <!--<link rel="import" href="/asset/metadata/metadata.html">-->
+    {%= view['metadata']({ Application, view, argument })  %} 
 
     <!-- entrypoint.js (common js) -->
     <!--<script src="/asset/javascript/entrypoint.js"></script>-->

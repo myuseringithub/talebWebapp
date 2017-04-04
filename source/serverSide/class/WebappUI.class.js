@@ -63,7 +63,9 @@ const self = class WebappUI extends Application {
                 let mainDocumentElement = await filesystem.readFileSync('../clientSide/template/root/document-element/document-element.html', 'utf-8')
                 let mainDocumentElementImport = await filesystem.readFileSync('../clientSide/template/root/document-element/document-element.import.html', 'utf-8')
                 let entrypointJSFile = await filesystem.readFileSync('../clientSide/template/root/entrypoint.js.html', 'utf-8')
+                let metadata = await filesystem.readFileSync('../clientSide/asset/metadata/metadata.html', 'utf-8')
                 let view = {
+                    metadata: _.template(metadata, {Application, argument}),
                     header: _.template(entrypointJSFile, {Application, argument}),
                     headerElement: _.template(mainDocumentElementImport, {Application, argument}),
                     body: _.template(mainDocumentElement, {Application, argument})
