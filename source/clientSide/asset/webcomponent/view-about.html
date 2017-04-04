@@ -1,0 +1,126 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="./bower_components/paper-card/paper-card.html">
+<link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="./bower_components/paper-button/paper-button.html">
+<link rel="import" href="./bower_components/iron-icons/social-icons.html">
+<link rel="import" href="./shared-styles.html">
+
+<dom-module id="view-about">
+  <template>
+    <style include="shared-styles">
+      :host {
+        @apply --layout;
+        @apply --layout-flex-auto;
+        @apply --layout-center-center;
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
+        padding: 10px;
+      }
+      paper-card { 
+        max-width: 400px;
+        min-width: 300px;
+        margin: auto;
+      }
+      .profile {
+        background-color: red;
+      }
+    </style>
+    <custom-style>
+      <style is="custom-style">
+        .rate-image {
+          background-size: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 120px;
+                          
+        }
+        paper-card {
+          margin: 10px;
+        }
+        .rate-header { @apply(--paper-font-headline); }
+        .rate-name { 
+          color: var(--paper-grey-600); 
+          margin: 3px 0 10px 0; 
+        }
+        paper-icon-button.rate-icon {
+          --iron-icon-fill-color: white;
+          --iron-icon-stroke-color: var(--paper-grey-600);
+        }
+        a paper-button,
+        a:active paper-button,
+        a:visited paper-button {
+          color: #000;
+        }
+      </style>
+    </custom-style>
+
+    <!--<div class="card">
+    </div>-->
+    <div style="text-align: center; margin: auto; width: 100%; display: block;">
+      <h1 style="">تواصل معنا:</h1>
+      <paper-card class="rate" style="text-align: center; margin: 10px auto;">
+        <div class="card-content" >
+          <div class="rate-header">موقع Taleb.io</div>
+          <div class="rate-name"></div>
+          <div></div>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.facebook.com/TalebWebapp/?ref=bookmarks" target="_blank" tabindex="-1">
+            <paper-button style="background-color:#3b5998; color: white; height: 34px; margin: 3px 0;">Facebook Page</paper-button>
+          </a>
+          <a href="https://www.youtube.com/channel/UCAsu5OeRSvyjDS6qP2NSY4A" target="_blank" tabindex="-1">
+            <paper-button style="background-color:#e52d27; color: white; height: 34px; margin: 3px 0;">Youtube</paper-button>
+          </a>
+          
+        </div>
+      </paper-card>
+
+    </div>
+
+
+          <paper-card class="rate">
+            <div class="card-content">
+              <div class="rate-header">د. زيدان نصار</div>
+              <div class="rate-name">مدير الشركة</div>
+              <div></div>
+            </div>
+            <div class="card-actions">
+              <span>050-7346919</span>
+              <!--<paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>-->
+            </div>
+            <div class="rate-image" style="background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/10403502_656635401116137_6952688429165316497_n.jpg?oh=094bf7bae889e1b893064a5f3b3f777d&oe=5990E8AA'); background-size: cover; background-position: center; "></div>
+          </paper-card>
+          <paper-card class="rate">
+            <div class="card-content">
+              <div class="rate-header">د. صافي نصار</div>
+              <div class="rate-name">إدارة الموقع</div>
+              <!--<div>050-7346919</div>-->
+            </div>
+            <div class="card-actions">
+              <a href="https://www.facebook.com/Dr-Safi-Zeidan-Nassar-263203630469965/" target="_blank" tabindex="-1">
+                <paper-button style="background-color:#3b5998; color: white; height: 34px; margin: 3px 0;">Facebook</paper-button>
+              </a>
+            </div>
+            <div class="rate-image" style="background-position-y: top; background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/11046843_289832167807111_655381094911286845_n.jpg?oh=0d2488acf0d32fb76ffe3a0cad3b067f&oe=59958E9A'); background-size: cover; "></div>
+          </paper-card>
+
+
+  </template>
+
+  <script>
+  {
+    class Element extends Polymer.Element {
+      static get is() { return 'view-about'; }
+      static get properties() {
+        return {}
+      }
+    }
+    customElements.define(Element.is, Element);
+  }
+  </script>
+</dom-module>

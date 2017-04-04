@@ -124,6 +124,14 @@ const self = class Application {
                         file: 'view-frontpage.html' 
                     }
                 },
+                {
+                    key: 'about',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'about',
+                        file: 'view-about.html' 
+                    }
+                },
                 
             ],
         }

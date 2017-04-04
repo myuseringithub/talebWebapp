@@ -71,6 +71,7 @@
                 <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
                     <a slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
                     <a slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
+                    <a slot="drawertab" name="about" href$="{{app.setting.location.routeBasePath}}/contact">تواصل معنا</a>
                     <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
                         <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
                     </paper-tab>-->
@@ -85,14 +86,15 @@
                     </paper-tab>
                     <!--<view-article-single slot="page" name="view-article-single"></view-article-single>-->
                     <view-frontpage slot="page" name="frontPage"></view-frontpage>
+                    <view-about slot="page" name="about"></view-about>
                     <view-article slot="page" name="studyfieldSingleArticle"></view-article>
                     <div slot="page" name="universityPage" fullbleed style="text-align: center; margin-top: 50px;">قيد الإنشاء</div>
                     <div slot="page" name="studyfieldPage" fullbleed style="text-align: center; margin-top: 50px;">قيد الإنشاء</div>
                     <registration-single slot="page" 
                         name="registration-single"
-                        style="max-width: 800px; margin: 30px auto;"
                         ></registration-single>
-                    <registration-agency slot="page" name="registration-agency"></registration-agency>
+                    <registration-agency slot="page" name="registration-agency"
+                    style="max-width: 800px; margin: 30px auto;"></registration-agency>
                     <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-toolbar>
@@ -198,6 +200,9 @@
                     break;
                     case 'university':
                         documentKey = 'universityPage'
+                    break;
+                    case 'contact':
+                        documentKey = 'about'
                     break;
                     case 'studyfield':
                         switch (pathLevel2) {
