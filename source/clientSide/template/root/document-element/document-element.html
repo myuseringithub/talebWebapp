@@ -149,42 +149,42 @@
 <!-- Allows usage of binding in main document. -->
 <dom-bind>
     <template>
-        <style include="shared-styles">
-
-            app-header > app-toolbar > paper-tab { 
-            }
-            paper-tab[link] a {
-                /* These mixins (from iron-flex-layout) center the link text. */
-                @apply --layout-horizontal;
-                @apply --layout-center-center;
-                text-decoration: none;
-                padding: 0 24px;
-                display: var(--layout-horizontal_-_display);
-                -ms-flex-direction: var(--layout-horizontal_-_-ms-flex-direction);
-                -webkit-flex-direction: var(--layout-horizontal_-_-webkit-flex-direction);
-                flex-direction: var(--layout-horizontal_-_flex-direction);
-                -ms-flex-align: var(--layout-center-center_-_-ms-flex-align);
-                -webkit-align-items: var(--layout-center-center_-_-webkit-align-items);
-                align-items: var(--layout-center-center_-_align-items);
-                -ms-flex-pack: var(--layout-center-center_-_-ms-flex-pack);
-                -webkit-justify-content: var(--layout-center-center_-_-webkit-justify-content);
-                justify-content: var(--layout-center-center_-_justify-content);
-                text-decoration: none;
-                padding: 0 24px;]
-            }
-            paper-tab[link].iron-selected a {
-                font-weight: bold;
-                color: #fff;
-            }
-            paper-tab[link] a:focus, paper-tab[link] a:hover {
-                color: #fff;
-            }
-            paper-tab[link] a {
-                transition: color .2s;
-                color: rgba(255,255,255,.7);
-            }
-
-        </style>
+        <custom-style>
+            <style include="shared-styles">
+                app-header > app-toolbar > paper-tab {
+                }
+                paper-tab[link] a {
+                    /* These mixins (from iron-flex-layout) center the link text. */
+                    @apply --layout-horizontal;
+                    @apply --layout-center-center;
+                    text-decoration: none;
+                    padding: 0 24px;
+                    display: var(--layout-horizontal_-_display);
+                    -ms-flex-direction: var(--layout-horizontal_-_-ms-flex-direction);
+                    -webkit-flex-direction: var(--layout-horizontal_-_-webkit-flex-direction);
+                    flex-direction: var(--layout-horizontal_-_flex-direction);
+                    -ms-flex-align: var(--layout-center-center_-_-ms-flex-align);
+                    -webkit-align-items: var(--layout-center-center_-_-webkit-align-items);
+                    align-items: var(--layout-center-center_-_align-items);
+                    -ms-flex-pack: var(--layout-center-center_-_-ms-flex-pack);
+                    -webkit-justify-content: var(--layout-center-center_-_-webkit-justify-content);
+                    justify-content: var(--layout-center-center_-_justify-content);
+                    text-decoration: none;
+                    padding: 0 24px;]
+                }
+                paper-tab[link].iron-selected a {
+                    font-weight: bold;
+                    color: #fff;
+                }
+                paper-tab[link] a:focus, paper-tab[link] a:hover {
+                    color: #fff;
+                }
+                paper-tab[link] a {
+                    transition: color .2s;
+                    color: rgba(255,255,255,.7);
+                }
+            </style>
+        </custom-style>
 
         <!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
         <document-element layout="{{layout}}" page="{{page}}" subroute="{{subroute}}" app="{{app}}">
