@@ -69,7 +69,7 @@
         // For native Imports, manually fire WebComponentsReady so user code
         // can use the same code path for native and polyfill'd imports.
         if (!window.HTMLImports) {
-            document.dispatchEvent(
+            window.dispatchEvent(
                 new CustomEvent('WebComponentsReady', {bubbles: true})
             );
         }
@@ -81,11 +81,16 @@
     );
     if (!webComponentsSupported) {
         console.info('☕ Polyfill webcomponents. Loading webcomponents javascript.')
-        let script = document.createElement('script');
-        script.async = true;
-        script.src = '/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js';
-        script.onload = onload;
-        document.head.appendChild(script);
+        // let script = document.createElement('script');
+        // script.async = true;
+        // script.src = '/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-lite.js';
+        // script.onload = onload;
+        // document.head.appendChild(script);
+
+        // window.addEventListener('load', () => { // inorder for the event listener to be registered before dispatching it.
+        //     onload();
+        // })
+
         // load tag 1.0.0-rc.4
         // JSPM Causes `detected as amd but didn't execute correctly.` which needs configuration. Using bower istead.
         // System.import('webcomponentsjs/webcomponents-lite.js')
@@ -104,9 +109,9 @@
     let App = window.App
     // Load pre-caching Service Worker
     navigator.serviceWorker && window.addEventListener('load', function() {
-            navigator.serviceWorker.register(`${window.location.origin}/serviceWorker.js`, {scope: `${App.config.PROTOCOL}${App.config.HOST}/`}).then(registration => {
-                console.log(`☕ Service Worker - registered with scope: ${registration.scope}`)
-            })
+        navigator.serviceWorker.register(`${window.location.origin}/serviceWorker.js`, {scope: `${App.config.PROTOCOL}${App.config.HOST}/`}).then(registration => {
+            console.log(`☕ Service Worker - registered with scope: ${registration.scope}`)
+        })
     });
 }
 </script>
