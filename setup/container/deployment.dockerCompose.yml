@@ -20,7 +20,7 @@ services:
           - ../../distribution:/app/
         working_dir: /tmp/build/gulp_buildTool/
         entrypoint: /tmp/shellScript/buildSourceCode.entrypoint.sh
-        command: bash -c "sleep 100000"
+        # command: bash -c "sleep 100000"
 
     # localUnitTest:
     #     extends: deploymentEnvironment
