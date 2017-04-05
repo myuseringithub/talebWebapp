@@ -23,7 +23,7 @@
         --app-secondary-color: black;
 
         display: block;
-      }
+      }     
       app-header {
         color: #fff;
         background-color: var(--app-primary-color);
@@ -37,24 +37,24 @@
         display: none;
       }
      
-      app-drawer > app-toolbar {
+      app-drawer app-toolbar {
         font: 500 14px/44px Roboto,sans-serif;
         font-weight: bold;
       }
       
-      app-header > app-toolbar {
+      app-header app-toolbar {
         height: 48px;
         background: #3367d6;
         font-weight: bold;
         --paper-tabs-selection-bar-color: #fff;
       }
 
-      app-header > app-toolbar > paper-tabs {
+      app-header app-toolbar paper-tabs {
         width: 100%;
         height: 100%;
       }
 
-      app-header > app-toolbar > paper-tab { 
+      app-header app-toolbar paper-tab { 
       }
 
       paper-tab[link].iron-selected a {
@@ -70,7 +70,7 @@
         color: rgba(255,255,255,.7);
       }
 
-      paper-tab[link] a, app-header > app-toolbar .logo a {
+      paper-tab[link] a, app-header app-toolbar .logo a {
         /* These mixins (from iron-flex-layout) center the link text. */
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
@@ -78,7 +78,7 @@
         padding: 0 24px;
       }
 
-      app-header > app-toolbar .logo {
+      app-header app-toolbar .logo {
         padding: 6px 0;
         flex: 0 0 auto;
         display: inline-block;
@@ -86,19 +86,19 @@
         font-weight: bold;
       }
       
-      app-header > app-toolbar .logo iron-icon {
+      app-header app-toolbar .logo iron-icon {
         height: 36px;
         width: 36px;
         margin-left: 16px;
       }
 
-      app-header > app-toolbar .logo a {
+      app-header app-toolbar .logo a {
         padding-left: 0px;
         transition: color .2s;
         color: #fff;
       }
 
-      app-header > app-toolbar .logo a:focus, app-header > app-toolbar .logo a:hover {
+      app-header app-toolbar .logo a:focus, app-header app-toolbar .logo a:hover {
         color: rgba(255,255,255,.7);
       }
 
@@ -140,10 +140,10 @@
         };
       }
 
-      paper-button.play > iron-icon {
+      paper-button.play iron-icon {
         margin-right: 5px;
       }
-      paper-button.play > span {
+      paper-button.play span {
         font-size: 16px;
         white-space: nowrap;
       }
@@ -194,60 +194,62 @@
 
   <script>
   {
-    class Element extends Polymer.Element {
-      static get is() { return 'webapp-layout-toolbar'; }
-      static get properties() {
-        return { /* properties metadata */ 
-          route: Object,
-          app: Object,
-          page: {
-            type: Object,
-            notify: true,
-            reflectToAttribute: true,
-            observer: '_pageChanged',
-          },
-        }
-      }
-
-      static get observers() { return [ /* observer descriptors */
-      ] }
-
-      constructor() {
-        super();
-      }
-
-      connectedCallback() {
-        super.connectedCallback();
-      }
-
-      ready() {
-        super.ready();
-        
-        if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
-      }
-
-      _pageChanged(page, oldView) {
-        // Load page import on demand. Show 404 page if fails
-        if (page.selectorName != null) {
-            var callback = this._showPage404;
-            var resolvedPageUrl = this.resolveUrl(`../${page.file}`);
-            Polymer.importHref(
-              resolvedPageUrl,
-              null, callback, true);
+    window.addEventListener('WebComponentsReady', function() {
+      class Element extends Polymer.Element {
+        static get is() { return 'webapp-layout-toolbar'; }
+        static get properties() {
+          return { /* properties metadata */ 
+            route: Object,
+            app: Object,
+            page: {
+              type: Object,
+              notify: true,
+              reflectToAttribute: true,
+              observer: '_pageChanged',
+            },
+          }
         }
 
-        if (!this.$.drawer.persistent) {
-            this.$.drawer.close();  
+        static get observers() { return [ /* observer descriptors */
+        ] }
+
+        constructor() {
+          super();
         }
-      }
 
-      _showPage404() {
-        this.page.selectorName = 'view404';
-      }
+        connectedCallback() {
+          super.connectedCallback();
+        }
 
-    }
-    // Register custom element definition using standard platform API
-    customElements.define(Element.is, Element);
+        ready() {
+          super.ready();
+          
+          if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
+        }
+
+        _pageChanged(page, oldView) {
+          // Load page import on demand. Show 404 page if fails
+          if (page.selectorName != null) {
+              var callback = this._showPage404;
+              var resolvedPageUrl = this.resolveUrl(`../${page.file}`);
+              Polymer.importHref(
+                resolvedPageUrl,
+                null, callback, true);
+          }
+
+          if (!this.$.drawer.persistent) {
+              this.$.drawer.close();  
+          }
+        }
+
+        _showPage404() {
+          this.page.selectorName = 'view404';
+        }
+
+      }
+      // Register custom element definition using standard platform API
+      customElements.define(Element.is, Element);
+    })
   }
   </script>
 </dom-module>

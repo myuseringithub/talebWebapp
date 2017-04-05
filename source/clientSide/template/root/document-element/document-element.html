@@ -1,5 +1,6 @@
 <dom-module id="document-element">
     <template>
+
         <!-- Bind to URL - Proxy for window.location -->
         <app-location route="{{route}}"></app-location>
         <!-- Managing top-level routes -->
@@ -8,7 +9,7 @@
             pattern="/:pathTopLevel"
             data="{{routeData}}"
             tail="{{subroute}}"></app-route>
-
+        
         <slot></slot>
     </template>
     <script>
@@ -183,6 +184,18 @@
                     transition: color .2s;
                     color: rgba(255,255,255,.7);
                 }
+                .drawerlink {
+                    display: block;
+                    padding: 0 16px;
+                    text-decoration: none;
+                    color: var(--app-secondary-color);
+                    line-height: 40px;
+                }
+
+                .drawerlink.iron-selected {
+                    color: black;
+                    font-weight: bold;
+                }
             </style>
         </custom-style>
 
@@ -217,9 +230,9 @@
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-list>
                 <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
-                    <a slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
-                    <a slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
-                    <a slot="drawertab" name="about" href$="{{app.setting.location.routeBasePath}}/contact">تواصل معنا</a>
+                    <a class="drawerlink" slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
+                    <a class="drawerlink" slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
+                    <a class="drawerlink" slot="drawertab" name="about" href$="{{app.setting.location.routeBasePath}}/contact">تواصل معنا</a>
                     <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
                         <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
                     </paper-tab>-->
@@ -246,9 +259,9 @@
                     <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-toolbar>
-                <webapp-layout-step name="webapp-layout-step" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                <!--<webapp-layout-step name="webapp-layout-step" page="{{page}}" route="{{subroute}}" app="[[app]]">
                     
-                </webapp-layout-step>
+                </webapp-layout-step>-->
                 <!--<webapp-layout-frontpage name="webapp-layout-frontpage" page="{{page}}" route="{{subroute}}" app="[[app]]">
                     
                 </webapp-layout-frontpage>-->

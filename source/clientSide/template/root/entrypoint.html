@@ -3,9 +3,9 @@
   <head>
     <!-- base url for all relative urls.  -->
     <base target="_top" href="{%= Application.extendedSubclass.static['StaticContent'].url %}/">
-    <!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>-->
-    <script src="/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-
+    <!--<script src=""></script>-->
+    <!--<link rel="import" href="https://polygit.org/polymer+:2.0-preview/webcomponentsjs+:v1/shadydom+webcomponents+:master/shadycss+webcomponents+:master/custom-elements+webcomponents+:master/components/polymer/polymer-element.html">-->
+       
     <!--<link rel="import" href="/asset/metadata/metadata.html">-->
     {%= view['metadata']({ Application, view, argument })  %} 
 
@@ -20,6 +20,6 @@
 
     {%= view['body']({ Application, view, argument })  %} 
     <!-- With ❤ From AppScript.io -->
-  
+    
   </body>
 </html>

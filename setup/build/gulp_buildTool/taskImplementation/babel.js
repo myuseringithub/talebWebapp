@@ -8,20 +8,40 @@ let joinPath = require(path.join(config.UtilityModulePath, 'joinPath.js'));
 let source = subpath => { return joinPath(config.SourceCodePath, subpath) };
 let destination = subpath => { return joinPath(config.DestinationPath, subpath) };
 let babelTask = require(path.join(config.TaskModulePath, 'babel.js'));
-var merge = require('merge-stream');
+let merge = require('merge-stream');
+let babelInline = require('gulp-babel-inline');
+let babel = require('gulp-babel');
 
 module.exports = ()=> {
-    let serverSide = babelTask(
+    let jsFileServerSide = babelTask(
 		// chaged because it causes errors
 		[
 			source('serverSide/**/*.js'),
-			source('clientSide/**/*.js'),
 			'!'+ source('serverSide/node_modules/**/*.js'),
-			'!'+ source('clientSide/asset/webcomponent/bower_components/**/*.js'),
-			'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js')
 		],	
 		destination('serverSide/'),
 		config.GulpPath
 	);
-    return merge(serverSide);
+    let jsFileClientSide = babelTask(
+		// chaged because it causes errors
+		[
+			source('clientSide/**/*.js'),
+			'!'+ source('clientSide/asset/webcomponent/bower_components/**/*.js'),
+			'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js')
+		],	
+		destination('clientSide/'),
+		config.GulpPath
+	);
+    let inlineJS =  gulp.src([
+				source('clientSide/asset/webcomponent/**/*.html'),
+				'!'+ source('clientSide/asset/webcomponent/bower_components/**/*.html'),
+				'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.html')
+			])
+			.pipe(babelInline({
+				"presets": ["es2015", "stage-0"],
+				"plugins": ["babel-plugin-transform-runtime", "babel-plugin-add-module-exports"]
+			}))
+			.pipe(gulp.dest(destination('clientSide/')));
+
+    return merge(jsFileServerSide, jsFileClientSide, inlineJS);
 };
