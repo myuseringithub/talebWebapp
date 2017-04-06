@@ -1,0 +1,149 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./shared-styles.html">
+<link rel="import" href="./bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="view-frontpage">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    .video {
+      max-height: 349px;
+      max-width: 620px;
+      width: 100%;
+      height: calc(70vw/1.78);
+      border-radius: 10px;
+    }
+    .card {
+      text-align: center;
+      margin: 20px auto;
+      padding-right: 20px;
+    }
+    .list {
+      text-align: right;
+      padding-right: 50px;
+      max-width: 400px;
+    }
+
+
+    @import url(http://fonts.googleapis.com/css?family=Lato:900);
+    *, *:before, *:after{
+      box-sizing:border-box;
+    }
+    body{
+      font-family: 'Lato', sans-serif;
+        ;
+    }
+    div.foo{
+      white-space: nowrap;
+      width: 100%;
+      margin: 10px auto 0 auto;
+      text-align: center;
+    }
+    .letter{
+      line-height: 70px;
+      display: inline-block;
+      font-weight: 900;
+      font-size: 5em;
+      margin: 0.05em;
+      position: relative;
+      color: #00B4F1;
+      transform-style: preserve-3d;
+      perspective: 400;
+      z-index: 1;
+    }
+    .letter:before, .letter:after{
+      position:absolute;
+      content: attr(data-letter);
+      transform-origin: top left;
+      top:0;
+      left:0;
+    }
+    .letter, .letter:before, .letter:after{
+      transition: all 0.3s ease-in-out;
+    }
+    .letter:before{
+      color: #fff;
+      text-shadow: 
+        -1px 0px 1px rgba(255,255,255,.8),
+        1px 0px 1px rgba(0,0,0,.8);
+      z-index: 3;
+      transform:
+        rotateX(0deg)
+        rotateY(-15deg)
+        rotateZ(0deg);
+    }
+    .letter:after{
+      color: rgba(0,0,0,.11);
+      z-index:2;
+      transform:
+        scale(1.08,1)
+        rotateX(0deg)
+        rotateY(0deg)
+        rotateZ(0deg)
+        skew(0deg,1deg);
+    }
+    .letter:hover:before{
+      color: #fafafa;
+      transform:
+        rotateX(0deg)
+        rotateY(-40deg)
+        rotateZ(0deg);
+    }
+    .letter:hover:after{
+      transform:
+        scale(1.08,1)
+        rotateX(0deg)
+        rotateY(40deg)
+        rotateZ(0deg)
+        skew(0deg,22deg);
+    }
+    </style>
+
+
+      <div class="foo" style="direction: ltr;">
+        <span class="letter" data-letter="T">T</span>
+        <span class="letter" data-letter="A">A</span>
+        <span class="letter" data-letter="L">L</span>
+        <span class="letter" data-letter="E">E</span>
+        <span class="letter" data-letter="B">B</span>
+        <span class="letter" data-letter=".">.</span>
+        <span class="letter" data-letter="i">i</span>
+        <span class="letter" data-letter="o">o</span>
+      </div>
+
+    <div class="card" style="text-align: center; position: relative; max-width: 800px;">
+
+      <h1>مـوقـع طـالـب</h1>
+      <p style="text-align: right; font-weight: bold;">يهدف موقع طالب إلى توفير بيئة تفاعلية لربط طلاب عرب ال48 المبتعثين للدراسة في الخارج. من خلال:  </p>
+      <div class="list">
+        <p><iron-icon icon="icons:chevron-left"></iron-icon> توفير معلومات عن الدراسة.</p>
+        <p><iron-icon icon="icons:chevron-left"></iron-icon> تزويد الطالب بمواد تعليمية لجميع السنوات.</p>
+        <p><iron-icon icon="icons:chevron-left"></iron-icon> جمع المعلومات والروابط التي تهم الطالب.</p>
+        <!--<p><iron-icon icon="icons:chevron-left"></iron-icon> </p>-->
+      </div>
+    </div>
+
+    <div class="card" style="text-align: center; position: relative;">
+      <h1>معلومات عن الدراسة في الخارج - رومانيا</h1>
+      <iframe class="video" src="https://www.youtube.com/embed/D_ik4h1tKSI?list=PLRE-wy1Nn9xZFLnOF_o4yZCy-uIjdRcRp" frameborder="0" allowfullscreen wmode="Opaque"></iframe>
+    </div>
+
+  </template>
+
+  <script>
+  {
+    class Element extends Polymer.Element {
+      static get is() { return 'view-frontpage'; }
+      static get properties() {
+        return {}
+      }
+    }
+    customElements.define(Element.is, Element);
+  }
+  </script>
+</dom-module>

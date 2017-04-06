@@ -79,8 +79,7 @@
 
                     switch (pathTopLevel) { // Choose appropriate view/page to view
                         case '': // empty path
-                            // documentKey = 'frontpage'
-                            documentKey = 'registration-single'
+                            documentKey = 'frontpage'
                         break;
                         case 'step': // empty path
                             documentKey = 'step'
@@ -196,6 +195,12 @@
                     color: black;
                     font-weight: bold;
                 }
+                .drawerlink:hover, .drawerlink.iron-selected:hover {
+                    color: black;
+                    background: rgba(66, 133, 244, .1);
+                    /*font-weight: bold;*/
+                    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.42);   
+                }
             </style>
         </custom-style>
 
@@ -230,8 +235,9 @@
                     <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-list>
                 <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
-                    <a class="drawerlink" slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
+                    <a class="drawerlink" slot="drawertab" name="frontPage" href$="{{app.setting.location.routeBasePath}}/">المقدمة</a>
                     <a class="drawerlink" slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
+                    <a class="drawerlink" slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
                     <a class="drawerlink" slot="drawertab" name="about" href$="{{app.setting.location.routeBasePath}}/contact">تواصل معنا</a>
                     <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
                         <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
@@ -254,7 +260,7 @@
                     <registration-single slot="page" 
                         name="registration-single"
                         ></registration-single>
-                    <registration-agency slot="page" name="registration-agency"
+                    <registration-agency slot="page" name="registration-agency" app="[[app]]"
                     style="max-width: 800px; margin: 30px auto;"></registration-agency>
                     <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
                     <view-view404 slot="page" name="view-view404"></view-view404>

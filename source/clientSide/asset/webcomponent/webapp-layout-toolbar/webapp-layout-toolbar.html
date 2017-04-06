@@ -114,6 +114,11 @@
         line-height: 40px;
       }
 
+      .drawer-list a:hover, slot[name='drawertab']::slotted(a:hover), slot[name='drawertab']::slotted(a.iron-selecte:hover) {
+        color: white;
+        background-color: #4285f4;
+      }
+
       .drawer-list a.iron-selected, slot[name='drawertab']::slotted(a.iron-selected) {
         color: black;
         font-weight: bold;
@@ -177,7 +182,7 @@
               <slot name="toolbartab"></slot>
             </paper-tabs>
             <a href="https://www.youtube.com/watch?v=D_ik4h1tKSI&list=PLRE-wy1Nn9xZFLnOF_o4yZCy-uIjdRcRp" target="_blank" style="text-decoration: none;">
-              <paper-button class="play"><span>شرح مقدمة</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
+              <paper-button class="play"><span>الدراسة في رومانيا</span><iron-icon icon="av:play-circle-filled"></iron-icon></paper-button>
             </a>
           </app-toolbar>
         </app-header>
