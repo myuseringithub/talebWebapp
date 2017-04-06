@@ -73,7 +73,7 @@ const self = class Application {
                     layout: 'webapp-layout-toolbar',
                     page: {
                         selectorName: 'universityPage',
-                        file: 'view-view1.html'
+                        file: 'view-underconstruction.html' 
                     }
                 },
                 {
@@ -81,7 +81,7 @@ const self = class Application {
                     layout: 'webapp-layout-toolbar',
                     page: {
                         selectorName: 'studyfieldPage',
-                        file: 'view-view2.html'
+                        file: 'view-underconstruction.html' 
                     }
                 },
                 {
@@ -122,14 +122,6 @@ const self = class Application {
                     page: {
                         selectorName: 'frontPage',
                         file: 'view-frontpage.html' 
-                    }
-                },
-                {
-                    key: 'underconstruction',
-                    layout: 'webapp-layout-toolbar',
-                    page: {
-                        selectorName: 'underconstruction',
-                        file: 'view-underconstruction.html' 
                     }
                 },
                 {
