@@ -125,6 +125,14 @@ const self = class Application {
                     }
                 },
                 {
+                    key: 'underconstruction',
+                    layout: 'webapp-layout-toolbar',
+                    page: {
+                        selectorName: 'underconstruction',
+                        file: 'view-underconstruction.html' 
+                    }
+                },
+                {
                     key: 'about',
                     layout: 'webapp-layout-toolbar',
                     page: {

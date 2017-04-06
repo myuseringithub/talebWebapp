@@ -85,7 +85,8 @@
                             documentKey = 'step'
                         break;
                         case 'university':
-                            documentKey = 'universityPage'
+                            // documentKey = 'universityPage'
+                            documentKey = 'underconstruction'
                         break;
                         case 'contact':
                             documentKey = 'about'
@@ -96,7 +97,8 @@
                                     documentKey = 'medicine'                            
                                 break;
                                 default:
-                                    documentKey = 'studyfieldPage'
+                                    // documentKey = 'studyfieldPage'
+                                    documentKey = 'underconstruction'
                                 break;                                                           
                             }
                         break;
@@ -255,8 +257,9 @@
                     <view-frontpage slot="page" name="frontPage"></view-frontpage>
                     <view-about slot="page" name="about"></view-about>
                     <view-article slot="page" name="studyfieldSingleArticle"></view-article>
-                    <div slot="page" name="universityPage" fullbleed style="text-align: center; margin-top: 50px;">قيد الإنشاء</div>
-                    <div slot="page" name="studyfieldPage" fullbleed style="text-align: center; margin-top: 50px;">قيد الإنشاء</div>
+                    <view-underconstruction slot="page" name="underconstruction" fullbleed></view-underconstruction>
+                    <div slot="page" name="universityPage" fullbleed></div>
+                    <div slot="page" name="studyfieldPage" fullbleed></div>
                     <registration-single slot="page" 
                         name="registration-single"
                         ></registration-single>
