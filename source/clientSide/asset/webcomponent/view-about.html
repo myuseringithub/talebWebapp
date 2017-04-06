@@ -28,6 +28,12 @@
     </style>
     <custom-style>
       <style is="custom-style">
+        :host {
+        }
+        h1 {
+          text-align: center;
+        }
+        
         .rate-image {
           background-size: cover;
           position: absolute;
@@ -40,7 +46,9 @@
         paper-card {
           margin: 10px;
         }
-        .rate-header { @apply(--paper-font-headline); }
+        .rate-header { 
+          @apply(--paper-font-headline);
+        }
         .rate-name { 
           color: var(--paper-grey-600); 
           margin: 3px 0 10px 0; 
@@ -67,20 +75,23 @@
           width: 100%; 
           text-align: right;
         }
+        .card-content {
+          text-align: center;
+        } 
       </style>
     </custom-style>
 
     <!--<div class="card">
     </div>-->
     <div style="text-align: center; margin: auto; width: 100%; display: block;">
-      <h1 style="">تواصل معنا:</h1>
+      <h1 style="text-align: center;">تواصل معنا:</h1>
       <paper-card class="rate" style="text-align: center; margin: 10px auto;">
-        <div class="card-content" >
-          <div class="rate-header">موقع Taleb.io</div>
+        <div class="card-content" style="">
+          <div class="rate-header" style="text-align: center;">موقع Taleb.io</div>
           <div class="rate-name"></div>
           <div></div>
         </div>
-        <div class="card-actions">
+        <div class="card-actions" style="text-align: center;">
           <a href="https://www.facebook.com/TalebWebapp/?ref=bookmarks" target="_blank" tabindex="-1">
             <paper-button style="background-color:#3b5998; color: white; height: 34px; margin: 3px 0;">Facebook Page</paper-button>
           </a>
