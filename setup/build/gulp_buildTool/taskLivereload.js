@@ -15,12 +15,14 @@ function sleep(ms) {
 }
 
 let debugArguments = []
-if (process.env.SZN_DEBUG) debugArguments = ["--inspect=localhost:9229", "--debug-brk"]
+// if (process.env.SZN_DEBUG) debugArguments = ["--inspect=localhost:9229", "--debug-brk"]
+if (process.env.SZN_DEBUG) debugArguments = ["--inspect=localhost:9229"]
 
 function serverLivereload() {
     if(node) node.kill()
 
-    node = childProcess.fork('babelCompile.entrypoint.js', { cwd: '/app/serverSide', stdio:'inherit', execArgv: debugArguments})
+    // node = childProcess.fork('babelCompile.entrypoint.js', { cwd: '/app/serverSide', stdio:'inherit', execArgv: debugArguments})
+    node = childProcess.fork('babelCompile.entrypoint.js', { cwd: '/tmp/distribution/serverSide', stdio:'inherit', execArgv: debugArguments})
     node.on('message', (m) => {
         // console.log('Server ready & listening.', m);
         browserSync80.reload()

@@ -10,12 +10,15 @@
 <script>
 // SZN App global class
 {
-    const AppFrontEnd = JSON.parse('{%= JSON.stringify(Application.frontend) %}');
+    const AppFrontEnd = JSON.parse("{%- ${JSON.stringify(Application.frontend)} %}");
     // Initialize the window object 'App' That will contain all utility functions and behaviors for the app //
-    class AppClass {
-        constructor() {
-        }
-    } 
+    // class AppClass {
+    //     constructor() {
+    //     }
+    // } 
+    function AppClass() {
+
+    };
     // Global Object that handles the app and other stuff.
     window.App = AppFrontEnd || new AppClass();
     const App = window.App
@@ -25,7 +28,7 @@
         properties: {
             app: {
                 type: Object,
-                value: () => {
+                value: function() {
                     return App
                 },
                 notify: true,
@@ -66,7 +69,7 @@
     // window.performance && performance.mark && performance.mark('entrypoint.html');
 
     // Webcomponents Loader resolves all checks and loads polyfills if necessary.
-    let script = document.createElement('script');
+    var script = document.createElement('script');
     script.async = true;
     script.src = '/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js';
     // script.onload = afterLoad; // webcomponents-loader.js will load the polyfill, only then should be called "afterLoad" function.
@@ -111,11 +114,11 @@
 <script>    
 // Service Worker
 {
-    let App = window.App
+    var App = window.App
     // Load pre-caching Service Worker
     navigator.serviceWorker && window.addEventListener('load', function() {
-        navigator.serviceWorker.register(`${window.location.origin}/serviceWorker.js`, {scope: `${App.config.PROTOCOL}${App.config.HOST}/`}).then(registration => {
-            console.info(`☕ Service Worker - registered with scope: ${registration.scope}`)
+        navigator.serviceWorker.register(window.location.origin + '/serviceWorker.js', {scope: App.config.PROTOCOL + App.config.HOST }).then(function(registration) {
+            console.info('☕ Service Worker - registered with scope: ' + registration.scope)
         })
     });
 }

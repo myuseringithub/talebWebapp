@@ -33,6 +33,7 @@ services:
     volumes:
       - ../../source:/app/
       - ../../setup/build:/tmp/build/
+      - ../../distribution:/tmp/distribution/
       - ../../appDeploymentLifecycle:/tmp/appDeploymentLifecycle/
     working_dir: /app/
     command: bash -c "sleep 100000000;"

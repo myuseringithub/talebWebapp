@@ -1,6 +1,7 @@
 // Define server base path. Hackish way to make sure the path is always consistent. Base path in Nodejs is where the closest parent node_modules is located to the initiated js script.
-process.env.NODE_PATH = __dirname;
-require('module').Module._initPaths();
+let path = require('path')
+process.env.NODE_PATH = path.normalize(`${__dirname}/`)
+require('module').Module._initPaths()
 
 // Allow unreleased nodejs features
 require("babel-register")

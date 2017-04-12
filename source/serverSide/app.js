@@ -62,6 +62,7 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
             console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
             // eventEmitter.emit('listening')
             // process.emit('listening')
+            console.log(process.send)
             if(Class.config.DEPLOYMENT == 'development') process.send({ message: 'Server listening'});
         })
     // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })

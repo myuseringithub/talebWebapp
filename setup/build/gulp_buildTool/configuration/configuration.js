@@ -9,6 +9,7 @@ const ConfigPath = __dirname,
     UtilityModulePath = path.join(appDeploymentLifecyclePath, 'gulp_buildTool', 'utilityModule/'),
     TaskImplementationPath = path.join(GulpPath, 'taskImplementation/')
 
+
 export default {
     // TODO: create object of constants http://stackoverflow.com/questions/10843572/how-to-create-javascript-constants-as-properties-of-objects-using-const-keyword
     ConfigPath,

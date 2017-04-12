@@ -3,52 +3,287 @@ import path from 'path'
 let config = require('configuration/configuration.js') // configuration
 import {include, joinPath, source, destination, rsyncTask} from 'gulpfile.js'
 
-// ⭐ Copy & Build distribution code (source -> distribution).
-gulp.task('copy:serverSide', ()=> { return rsyncTask( source(), 'serverSide/', '/app/' ); });
-gulp.task('copy:clientSide', ()=> { return rsyncTask( source(), 'clientSide/', '/app/' ); });
-gulp.task('copy:sourceToDistribution', 
-	gulp.parallel('copy:serverSide', 'copy:clientSide')
-);
 
-// Install dependencies (in distribution volume)
-gulp.task('install:npm', require(path.join(config.TaskImplementationPath, 'npm.js')) );
-gulp.task('install:bower', require(path.join(config.TaskImplementationPath, 'bower.js')) );
-gulp.task('install:jspm', require(path.join(config.TaskImplementationPath, 'jspm.js'))(process.env.NODEJS_VERSION) );
-gulp.task('install:dependencies', 
-	gulp.series(
-		gulp.parallel('install:npm', 'install:bower', 'install:jspm')
-	)
-);
+const FileSource = [
+    { // build:webcomponent
+        key: 'html',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'html.js'),
+            argument: [
+                [
+                    source('clientSide/asset/metadata/**/*.html'),
+                ],
+                destination('clientSide/asset/metadata/'),
+			]
+        }
+    },
+    { // build:webcomponent
+        key: 'htmlRoot',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'html.js'),
+            argument: [
+                [
+                    source('clientSide/template/root/*.html'),
+                ],
+                destination('clientSide/template/root/'),
+			]
+        }
+    },
+    {
+        key: 'webcomponent',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'html.js'),
+            argument: [
+                [
+                    source('clientSide/asset/webcomponent/**/*.html'),  
+                    '!'+ source('clientSide/asset/webcomponent/bower_components/**/*.html')
+                ],
+                destination('clientSide/asset/webcomponent/'),
+			]
+        }
+    },
+    {
+        key: 'template',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'html.js'),
+            argument: [
+                [
+                    source('clientSide/template/root/document-element/**/*.html'),  
+                ],
+                destination('clientSide/template/root/document-element'),
+			]
+        }
+    },
+    {
+        key: 'js',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'javascript.js'),
+            argument: [
+				[
+					source('clientSide/asset/javascript/**/*.js'),
+					'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js'),
+				],
+				destination('clientSide/asset/javascript')
+			]
+        }
+    },
+    {
+        key: 'css',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'stylesheet.js'),
+            argument: [
+				source(['clientSide/asset/stylesheet/**/*.css']),
+				destination('clientSide/asset/stylesheet')
+			]
+        }
+    },
 
-// Compile from ES6 to released javascript version.
-gulp.task('symlinkNodeModules', require(path.join(config.TaskImplementationPath, 'symlinkNodeModules.js')) ); 
-gulp.task('compile:babel', require(path.join(config.TaskImplementationPath, 'babel.js')) );
-gulp.task('compile', 
-	gulp.series(
-		// doesn'T WORK
-		// 'symlinkNodeModules', // make gulp node modules available to babel to use, because it is changing the cwd during gulp babel pipe (apparently).
-		gulp.parallel('compile:babel')
-	)
-);
 
-// Build assets
-gulp.task('build:css', require(path.join(config.TaskImplementationPath, 'stylesheet.js')) );
-gulp.task('build:js', require(path.join(config.TaskImplementationPath, 'javascript.js')) );
-gulp.task('build:html', require(path.join(config.TaskImplementationPath, 'html.js')) );
-gulp.task('buildSourceCode', 
-	gulp.series(
-		gulp.parallel('build:css', 'build:html', 'build:js')
-	)
-);
+    { 
+        key: 'npm',
+        gulpTaskFunction: {
+            path: path.join(config.TaskImplementationPath, 'npm.js'),
+            argument: [
+				source('/serverSide/')
+			]
+        }
+    },
+    { 
+        key: 'jspm',
+        gulpTaskFunction: {
+            path: path.join(config.TaskImplementationPath, 'jspm.js'),
+            argument: [
+				process.env.NODEJS_VERSION,
+				source('/clientSide/jspm_packageManager/')
+			]
+        }
+    },
+    {
+        key: 'bower',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'bower.js'),
+            argument: [
+				source('/clientSide/bower_packageManager/')
+			]
+        }
+    },
+    { 
+        key: 'serverSide',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'rsync.js'),
+            argument: [
+				source(),
+				'serverSide/',
+				'/app/'
+			]
+        }
+    },
+    {
+        key: 'clientSide',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'rsync.js'),
+            argument: [
+				source(),
+				'clientSide/',
+				'/app/'
+			]
+        }
+    },
 
-gulp.task('build', 
-	gulp.series(
-		'install:dependencies', // install first as compile uses node_modules
-		'copy:sourceToDistribution',
-		'compile'
-		// 'buildSourceCode'
-	)
-);
+    {
+        key: 'nodeModules',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'symlinkNodeModules.js'),
+            argument: [
+				destination(config.GulpPath),
+			]
+        }
+    },
+
+    {
+        key: 'babel',
+        gulpTaskFunction: {
+            path: path.join(config.TaskImplementationPath, 'babel.js'),
+            argument: [
+			]
+        }
+    },
+
+    // { 
+    //     gulpTaskDependency: '', 
+    //     key: '',
+    //     gulpTaskFunction: {
+    //         path: ,
+    //         argument: [
+	// 			[
+	// 			],
+
+	// 		]
+    //     }
+    // },
+]
+
+const GulpTaskDependency = [
+    {
+        name: 'buildSourceCode',
+        executionType: 'parallel',
+        childTask: [
+            {
+                label: 'html'
+            },
+            {
+                label: 'htmlRoot'
+            },
+            {
+                label: 'webcomponent'
+            },
+            {
+                label: 'template'
+            },
+            {
+                label: 'css'
+            },
+            {
+                label: 'js'
+            },
+        ]
+    },
+    {
+        name: 'install:dependencies',
+        executionType: 'parallel',
+        childTask: [
+            {
+                label: 'npm'
+            }, 
+            {
+                label: 'jspm'
+            },
+            {
+                label: 'bower'
+            },
+        ]
+    },
+    {
+        name: 'copy:sourceToDistribution',
+        executionType: 'parallel',
+        childTask: [
+            {
+                label: 'serverSide'
+            },
+            {
+                label: 'clientSide'
+            },
+        ]
+    },
+    {
+        name: 'symlink',
+        executionType: 'parallel',
+        childTask: [
+            {
+                label: 'nodeModules'
+            },
+        ]
+    },
+    {
+        name: 'compile',
+        executionType: 'parallel',
+        childTask: [
+            {
+                label: 'babel'
+            },
+        ]
+    },
+    {
+        name: 'build',
+        executionType: 'series',
+        childTask: [
+            {
+                label: 'install:dependencies'
+            },
+            {
+                label: 'copy:sourceToDistribution'
+            },
+            // {
+            //     label: 'compile'
+            // },
+            {
+                label: 'buildSourceCode'
+            },
+        ]
+    },
+]
+
+// create FileSource tasks
+FileSource.map(fileSource => {
+	gulp.task(fileSource.key, require(fileSource.gulpTaskFunction.path)(...fileSource.gulpTaskFunction.argument))
+})
+    // let taskName = `${fileSource.gulpTaskDependency}:${fileSource.key}`
+
+function gulpTaskExecution(executionType, childTask = []) {
+    let childTaskExecuted = []
+    childTask.map((task) => {
+        if(typeof(task.childTask) != 'undefined') {
+            childTaskExecuted.push(gulpTaskExecution(task.executionType, task.childTask))
+        } else {
+            childTaskExecuted.push(task.label)
+        }
+    })
+    let callback;
+    switch(executionType) {
+        case 'parallel':
+            callback = gulp.parallel(...childTaskExecuted)
+        break;
+        case 'series':
+            callback = gulp.series(...childTaskExecuted)
+        break;
+    }
+    return callback
+}
+
+// define gulpTaskDependency tasks
+GulpTaskDependency.map(gulpTaskDependency => {
+    gulp.task(gulpTaskDependency.name, gulpTaskExecution(gulpTaskDependency.executionType, gulpTaskDependency.childTask) )
+})
 
 // ⌚ Watch file changes from sources to destination folder.
 gulp.task('watch:source', ()=> {
