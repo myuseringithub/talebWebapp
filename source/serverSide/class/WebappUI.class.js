@@ -5,7 +5,7 @@ import _ from 'underscore'
 import filesystem from 'fs'
 
 const self = class WebappUI extends Application {
-
+    
     static serverKoa;
     static port;
     static entrypointSetting = {
@@ -57,9 +57,6 @@ const self = class WebappUI extends Application {
     async handleTemplateDocument(documentKey) {
         switch (documentKey) {
             case 'entrypoint':
-                let argument = {
-                    layoutElement: 'webapp-layout-list'
-                }
                 let mainDocumentElement = await filesystem.readFileSync('../clientSide/template/root/document-element/document-element.html', 'utf-8')
                 let mainDocumentElementImport = await filesystem.readFileSync('../clientSide/template/root/document-element/document-element.import.html', 'utf-8')
                 let entrypointJSFile = await filesystem.readFileSync('../clientSide/template/root/entrypoint.js.html', 'utf-8')
@@ -69,6 +66,9 @@ const self = class WebappUI extends Application {
                     header: _.template(entrypointJSFile, {Application, argument}),
                     headerElement: _.template(mainDocumentElementImport, {Application, argument}),
                     body: _.template(mainDocumentElement, {Application, argument})
+                }
+                let argument = {
+                    layoutElement: 'webapp-layout-list'
                 }
                 await this.context.render('template/root/entrypoint.html', {
                     Application,

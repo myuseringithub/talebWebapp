@@ -20,21 +20,21 @@
       <script>
         console.info('☕ Analytics is disabled for development.')
       </script>
-    {% } %} 
+    {% } %}
 
     <!--<link rel="import" href="/asset/metadata/metadata.html">-->
-    {%= view['metadata']({ Application, view, argument })  %} 
+    {% if(view['metadata']) print( view['metadata']({ Application, view, argument }) ) %} 
 
     <!-- entrypoint.js (common js) -->
     <!--<script src="/asset/javascript/entrypoint.js"></script>-->
-    {%= view['header']({ Application, view, argument })  %} 
+    {% if(view['header']) print( view['header']({ Application, view, argument }) ) %} 
 
-    {%= view['headerElement']({ Application, view, argument })  %} 
+    {% if(view['headerElement']) print( view['headerElement']({ Application, view, argument }) ) %} 
 
   </head>
   <body>
 
-    {%= view['body']({ Application, view, argument })  %} 
+    {% if(view['body']) print( view['body']({ Application, view, argument }) ) %} 
     <!-- With ❤ From AppScript.io -->
     
   </body>

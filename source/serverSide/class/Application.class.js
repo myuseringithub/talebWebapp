@@ -3,8 +3,9 @@ import Koa from 'koa' // Koa applicaiton server
 import compose from 'koa-compose'
 import rethinkdbConfig from 'configuration/rethinkdbConfig.js'
 import _ from 'underscore'
+const EventEmitter = require('events')
 
-const self = class Application {
+const self = class Application extends EventEmitter {
 
     static rethinkdbConnection = {}
     static config = configuration // Array
@@ -146,6 +147,7 @@ const self = class Application {
         };
     }
     constructor(skipConstructor = false) {
+        super();
         if(skipConstructor) return;
     }
 

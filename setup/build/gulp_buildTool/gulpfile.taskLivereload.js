@@ -29,9 +29,14 @@ const browserSyncConfig = {
     scriptPath: () => 'http://HOST/browser-sync/browser-sync-client.js?v=2.18.8'.replace("HOST", 'localhost')
 };
 
+const entrypoint = {
+    filename: process.env.SZN_OPTION_ENTRYPOINT_NAME || 'entrypoint.development.js',
+    filePath: process.env.SZN_OPTION_ENTRYPOINT_PATH || '/app/serverSide/'
+}
+
 let debugArguments = []
 if (process.env.SZN_DEBUG) {
-    if(process.env.SZN_OPTION.break) {
+    if(process.env.SZN_OPTION_BREAK) {
         debugArguments = ["--inspect=localhost:9229", "--debug-brk"]
     } else {
         debugArguments = ["--inspect=localhost:9229"]
@@ -80,7 +85,7 @@ gulp.task('watch:livereload',
         () => { // Initialize
             $.browserSync = BrowserSync.create('Info - locahost server')
             $.browserSync.init(browserSyncConfig)
-            $.serverLivereload = new ServerLivereload(gulp, debugArguments)
+            $.serverLivereload = new ServerLivereload(gulp, debugArguments, entrypoint)
             $.serverLivereload.on('reload', () => {
                 $.browserSync.reload()
             })

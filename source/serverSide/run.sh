@@ -13,8 +13,9 @@ development.nightly() {
 development.babelES6() {
     ./node_modules/babel-cli/bin/babel-node.js --presets node6 entrypoint.development.js
 }
-development.babel() {
-    nodemon entrypoint.development.js
+development.babel.nodemon() {
+    export DEPLOYMENT=development
+    nodemon entrypoint.development.js --ignore '.git' --ignore 'node_modules' --watch '*.js' --legacy-watch --ext js,json
 }
 developmentharmonybabel() {
     node --harmony entrypoint.development.js
