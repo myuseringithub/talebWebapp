@@ -63,7 +63,6 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
             // eventEmitter.emit('listening')
             // process.emit('listening')
             if (process.send !== undefined) { // if process is a forked child process.
-                console.log(process.send)
                 if(Class.config.DEPLOYMENT == 'development') process.send({ message: 'Server listening'});
             }
         })

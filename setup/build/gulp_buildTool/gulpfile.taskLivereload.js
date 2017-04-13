@@ -23,7 +23,7 @@ const browserSyncConfig = {
             port: 9902
         }
     },
-    logLevel: 'debug',
+    // logLevel: 'debug',
     logConnections: true,
     open: false, // open browser false.
     scriptPath: () => 'http://HOST/browser-sync/browser-sync-client.js?v=2.18.8'.replace("HOST", 'localhost')
@@ -36,12 +36,15 @@ const entrypoint = {
 
 let debugArguments = []
 if (process.env.SZN_DEBUG) {
-    if(process.env.SZN_OPTION_BREAK) {
+    if(process.env.SZN_OPTION_BREAK == 'true') {
         debugArguments = ["--inspect=localhost:9229", "--debug-brk"]
     } else {
         debugArguments = ["--inspect=localhost:9229"]
     }
 }
+
+console.info(entrypoint)
+console.info(debugArguments)
 
 const $ = {} // shared object 
 
@@ -82,16 +85,16 @@ gulp.task('livereload:clientSide', ()=> {
 
 gulp.task('watch:livereload', 
 	gulp.series(
-        () => { // Initialize
-            $.browserSync = BrowserSync.create('Info - locahost server')
-            $.browserSync.init(browserSyncConfig)
-            $.serverLivereload = new ServerLivereload(gulp, debugArguments, entrypoint)
-            $.serverLivereload.on('reload', () => {
-                $.browserSync.reload()
-            })
-            $.serverLivereload.reload()
-        },
 		gulp.parallel(
+            () => { // Initialize
+                $.browserSync = BrowserSync.create('Info - locahost server')
+                $.browserSync.init(browserSyncConfig)
+                $.serverLivereload = new ServerLivereload(gulp, debugArguments, entrypoint)
+                $.serverLivereload.on('reload', () => {
+                    $.browserSync.reload()
+                })
+                $.serverLivereload.reload()
+            },
             'livereload:ServerSide', 
             'livereload:clientSide'
         )

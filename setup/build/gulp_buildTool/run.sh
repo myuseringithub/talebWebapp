@@ -11,20 +11,20 @@ watch() { # ⌚ Gulp watch
     node --harmony `which gulp` watch:source --gulpfile ./entrypoint.js
 }
 
-watch.livereload() {
-    set -ex; 
-    # out put what gulp livereload state 
-    # export DEBUG=*;
-    # --inspect --debug-brk allows for debugging node with chrome.
-    node --harmony `which gulp` watch:livereload --gulpfile ./entrypoint.js
-}
+# watch.livereload() {
+#     set -ex; 
+#     # out put what gulp livereload state 
+#     # export DEBUG=*;
+#     # --inspect --debug-brk allows for debugging node with chrome.
+#     node --harmony `which gulp` watch:livereload --gulpfile ./entrypoint.js
+# }
 
 watch.livereload() {
     set -ex; 
     # out put what gulp livereload state 
     # export DEBUG=*;
     # --inspect --debug-brk allows for debugging node with chrome.
-    export SZN_DEBUG = false
+    export SZN_DEBUG=false
     node --harmony `which gulp` watch:livereload --gulpfile ./entrypoint.js
 }
 
