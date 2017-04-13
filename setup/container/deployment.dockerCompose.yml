@@ -16,6 +16,7 @@ services:
           - ../../source:/tmp/source/
           - ../../setup/container/shellScript:/tmp/shellScript/
           - ../../setup/build:/tmp/build/
+          - ../../setup/utility:/tmp/utility/
           - ../../appDeploymentLifecycle:/tmp/appDeploymentLifecycle/
           - ../../distribution:/app/
         working_dir: /tmp/build/gulp_buildTool/

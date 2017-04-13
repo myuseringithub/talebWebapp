@@ -9,7 +9,9 @@ cd /tmp/build/gulp_buildTool
 # ⭐ install dependencies / node modules (from packages.json) in working directory "/tmp/build/gulp_buildTool/" & update to latest versions
 npm install; npm install --only=dev; npm update;
 (cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
-npm install; npm install --only=dev; npm update;)
+    npm install; npm install --only=dev; npm update;)
+(cd /tmp/appDeploymentLifecycle/babel_javascriptTranspilation; 
+    npm install; npm install --only=dev; npm update;)
 
 ./run.sh build
 

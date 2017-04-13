@@ -1,0 +1,6 @@
+{
+    "appDeploymentLifecyclePath": "/tmp/appDeploymentLifecycle/",
+    "GulpPath": "/tmp/build/gulp_buildTool/",
+    "SourceCodePath": "/tmp/source/",
+    "DestinationPath": "/app/"
+}

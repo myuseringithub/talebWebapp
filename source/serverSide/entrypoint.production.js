@@ -2,7 +2,8 @@
 process.env.NODE_PATH = __dirname;
 require('module').Module._initPaths();
 
-// Allow unreleased nodejs features
 // global.SZN = {}
 // global.SZN.APP = require('configuration/configuration.export.js') // Load configuration settings. NOTE: babel doesn't order import correctly when compiling, therefore global.SZN is required in this file not in app.js.
+
+// Allow unreleased nodejs features
 require('app.js')

@@ -1,8 +1,8 @@
 import gulp from 'gulp'
 import path from 'path'
-let config = require('configuration/configuration.js') // configuration
-import {include, joinPath, source, destination, rsyncTask} from 'gulpfile.js'
-
+import { include, joinPath, source, destination, plugins } from 'gulpfile.js'
+const config = require('configuration/configuration.js') // configuration
+const gulpTaskExecution = require(path.join(config.UtilityModulePath, 'gulpTaskExecution.js'))(gulp)
 
 const FileSource = [
     { // build:webcomponent
@@ -54,6 +54,35 @@ const FileSource = [
 			]
         }
     },
+    { 
+        key: 'jsFileServerSide',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'babel.js'),
+            argument: [
+                [
+                    source('serverSide/**/*.js'),
+                    '!'+ source('serverSide/node_modules/**/*.js'),
+                ],	
+                destination('serverSide/'),
+                config.GulpPath
+			]
+        }
+    },
+    { 
+        key: 'jsFileClientSide',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'babel.js'),
+            argument: [
+                [
+                    source('clientSide/**/*.js'),
+                    '!'+ source('clientSide/asset/webcomponent/bower_components/**/*.js'),
+                    '!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js')
+                ],	
+                destination('clientSide/'),
+                config.GulpPath
+			]
+        }
+    },
     {
         key: 'js',
         gulpTaskFunction: {
@@ -82,7 +111,7 @@ const FileSource = [
     { 
         key: 'npm',
         gulpTaskFunction: {
-            path: path.join(config.TaskImplementationPath, 'npm.js'),
+            path: path.join(config.TaskModulePath, 'npm.js'),
             argument: [
 				source('/serverSide/')
 			]
@@ -91,7 +120,7 @@ const FileSource = [
     { 
         key: 'jspm',
         gulpTaskFunction: {
-            path: path.join(config.TaskImplementationPath, 'jspm.js'),
+            path: path.join(config.TaskModulePath, 'jspm.js'),
             argument: [
 				process.env.NODEJS_VERSION,
 				source('/clientSide/jspm_packageManager/')
@@ -139,18 +168,7 @@ const FileSource = [
 			]
         }
     },
-
-    {
-        key: 'babel',
-        gulpTaskFunction: {
-            path: path.join(config.TaskImplementationPath, 'babel.js'),
-            argument: [
-			]
-        }
-    },
-
     // { 
-    //     gulpTaskDependency: '', 
     //     key: '',
     //     gulpTaskFunction: {
     //         path: ,
@@ -186,6 +204,9 @@ const GulpTaskDependency = [
             {
                 label: 'js'
             },
+            {
+                label: 'jsFileClientSide'
+            }
         ]
     },
     {
@@ -229,8 +250,8 @@ const GulpTaskDependency = [
         executionType: 'parallel',
         childTask: [
             {
-                label: 'babel'
-            },
+                label: 'jsFileServerSide'
+            }
         ]
     },
     {
@@ -243,9 +264,9 @@ const GulpTaskDependency = [
             {
                 label: 'copy:sourceToDistribution'
             },
-            // {
-            //     label: 'compile'
-            // },
+            {
+                label: 'compile'
+            },
             {
                 label: 'buildSourceCode'
             },
@@ -253,37 +274,7 @@ const GulpTaskDependency = [
     },
 ]
 
-// create FileSource tasks
-FileSource.map(fileSource => {
-	gulp.task(fileSource.key, require(fileSource.gulpTaskFunction.path)(...fileSource.gulpTaskFunction.argument))
-})
-    // let taskName = `${fileSource.gulpTaskDependency}:${fileSource.key}`
-
-function gulpTaskExecution(executionType, childTask = []) {
-    let childTaskExecuted = []
-    childTask.map((task) => {
-        if(typeof(task.childTask) != 'undefined') {
-            childTaskExecuted.push(gulpTaskExecution(task.executionType, task.childTask))
-        } else {
-            childTaskExecuted.push(task.label)
-        }
-    })
-    let callback;
-    switch(executionType) {
-        case 'parallel':
-            callback = gulp.parallel(...childTaskExecuted)
-        break;
-        case 'series':
-            callback = gulp.series(...childTaskExecuted)
-        break;
-    }
-    return callback
-}
-
-// define gulpTaskDependency tasks
-GulpTaskDependency.map(gulpTaskDependency => {
-    gulp.task(gulpTaskDependency.name, gulpTaskExecution(gulpTaskDependency.executionType, gulpTaskDependency.childTask) )
-})
+gulpTaskExecution(FileSource, GulpTaskDependency)
 
 // ⌚ Watch file changes from sources to destination folder.
 gulp.task('watch:source', ()=> {
