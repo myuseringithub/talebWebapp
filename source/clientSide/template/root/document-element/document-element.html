@@ -210,7 +210,7 @@
                 attr-for-selected="name"
                 fallback-selection="{%= argument['layoutElement'] %}"
                 role="main">
-                <{%= argument['layoutElement'] %} name="layout-unused" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                {%= `<${argument['layoutElement']}  name="layout-unused" page="{{page}}" route="{{subroute}}" app="[[app]]">` %}
                     <view-university-single slot="page" name="universitySingle"></view-university-single>
                     <view-university-multiple slot="page" name="universityMultiple"></view-university-multiple>
                     <view-country-single slot="page" name="countrySingle"></view-country-single>
@@ -223,7 +223,7 @@
                     <view-view2 slot="page" name="view-view2"></view-view2>
                     <view-view3 slot="page" name="view-view3"></view-view3>
                     <view-view404 slot="page" name="view-view404"></view-view404>
-                </{%= argument['layoutElement'] %}>
+                {%=`</${argument['layoutElement']}>` %}
                 <webapp-layout-list name="webapp-layout-list" page="{{page}}" route="{{subroute}}" app="[[app]]">
                     <a slot="tab" name="view-view1" href$="{{app.setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
                     <a slot="tab" name="view-view2" href$="{{app.setting.location.routeBasePath}}/view2">تسجيل فردي</a>

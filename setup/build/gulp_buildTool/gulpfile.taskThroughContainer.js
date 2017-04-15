@@ -229,9 +229,9 @@ const GulpTaskDependency = [
             {
                 label: 'html:webcomponent'
             },
-            {
-                label: 'html:template'
-            },
+            // {
+            //     label: 'html:template'
+            // },
             {
                 label: 'stylesheet:css'
             },

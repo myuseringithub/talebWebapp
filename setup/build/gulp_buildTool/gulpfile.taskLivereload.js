@@ -43,9 +43,6 @@ if (process.env.SZN_DEBUG) {
     }
 }
 
-console.info(entrypoint)
-console.info(debugArguments)
-
 const $ = {} // shared object 
 
 // ⌚ Watch file changes for livereload.
@@ -87,6 +84,7 @@ gulp.task('watch:livereload',
 	gulp.series(
 		gulp.parallel(
             () => { // Initialize
+                console.info(`☕ SZN Gulp - Running script "${entrypoint.filePath}${entrypoint.filename}". With arguments: ${debugArguments.join()}`)
                 $.browserSync = BrowserSync.create('Info - locahost server')
                 $.browserSync.init(browserSyncConfig)
                 $.serverLivereload = new ServerLivereload(gulp, debugArguments, entrypoint)
