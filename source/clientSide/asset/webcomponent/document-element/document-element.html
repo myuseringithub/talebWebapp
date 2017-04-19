@@ -1,0 +1,287 @@
+<!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script> Causes problems on browsers supporting native webcomponents -->
+<!-- EXTERNAL ELEMENTS -->
+<link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html">
+<link rel="import" href="/asset/webcomponent/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/asset/webcomponent/bower_components/app-route/app-location.html">
+<link rel="import" href="/asset/webcomponent/bower_components/app-route/app-route.html">
+
+<!-- LAYOUT --> 
+<!--<link rel="import" href="/asset/webcomponent/{%= argument['layoutElement'] %}/{%= argument['layoutElement'] %}.html">-->
+<link rel="import" href="/asset/webcomponent/webapp-layout-toolbar/webapp-layout-toolbar.html">
+<!--<link rel="import" href="/asset/webcomponent/webapp-layout-frontpage/webapp-layout-frontpage.html">-->
+<!--<link rel="import" href="/asset/webcomponent/webapp-layout-step/webapp-layout-step.html">-->
+
+<!-- CUSTOM STYLE --> 
+<link rel="stylesheet" href="/asset/stylesheet/default.css">
+<link rel="import" href="/asset/webcomponent/shared-styles.html">
+
+<dom-module id="document-element">
+    <template>
+        <custom-style>
+            <style include="shared-styles">
+                app-header > app-toolbar > paper-tab {
+                }
+                paper-tab[link] a {
+                    /* These mixins (from iron-flex-layout) center the link text. */
+                    @apply --layout-horizontal;
+                    @apply --layout-center-center;
+                    text-decoration: none;
+                    padding: 0 24px;
+                    display: var(--layout-horizontal_-_display);
+                    -ms-flex-direction: var(--layout-horizontal_-_-ms-flex-direction);
+                    -webkit-flex-direction: var(--layout-horizontal_-_-webkit-flex-direction);
+                    flex-direction: var(--layout-horizontal_-_flex-direction);
+                    -ms-flex-align: var(--layout-center-center_-_-ms-flex-align);
+                    -webkit-align-items: var(--layout-center-center_-_-webkit-align-items);
+                    align-items: var(--layout-center-center_-_align-items);
+                    -ms-flex-pack: var(--layout-center-center_-_-ms-flex-pack);
+                    -webkit-justify-content: var(--layout-center-center_-_-webkit-justify-content);
+                    justify-content: var(--layout-center-center_-_justify-content);
+                    text-decoration: none;
+                    padding: 0 24px;]
+                }
+                paper-tab[link].iron-selected a {
+                    font-weight: bold;
+                    color: #fff;
+                }
+                paper-tab[link] a:focus, paper-tab[link] a:hover {
+                    color: #fff;
+                }
+                paper-tab[link] a {
+                    transition: color .2s;
+                    color: rgba(255,255,255,.7);
+                }
+                .drawerlink {
+                    display: block;
+                    padding: 0 16px;
+                    text-decoration: none;
+                    color: var(--app-secondary-color);
+                    line-height: 40px;
+                }
+
+                .drawerlink.iron-selected {
+                    color: black;
+                    font-weight: bold;
+                }
+                .drawerlink:hover, .drawerlink.iron-selected:hover {
+                    color: black;
+                    background: rgba(66, 133, 244, .1);
+                    /*font-weight: bold;*/
+                    text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.42);   
+                }
+            </style>
+        </custom-style>
+
+        <!-- Bind to URL - Proxy for window.location -->
+        <app-location route="{{route}}"></app-location>
+        <!-- Managing top-level routes -->
+        <app-route
+            route="{{route}}"
+            pattern="/:pathTopLevel"
+            data="{{routeData}}"
+            tail="{{subroute}}"></app-route>
+        
+        <!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
+        <!--<document-element layout="{{layout}}" page="{{page}}" subroute="{{subroute}}" app="{{app}}">-->
+            <iron-pages
+                selected="{{layout}}"
+                attr-for-selected="name"
+                fallback-selection="{%= argument['layoutElement'] %}"
+                role="main">
+                {%= `<${argument['layoutElement']}  name="layout-unused" page="{{page}}" route="{{subroute}}" app="[[app]]">` %}
+                    <view-university-single slot="page" name="universitySingle"></view-university-single>
+                    <view-university-multiple slot="page" name="universityMultiple"></view-university-multiple>
+                    <view-country-single slot="page" name="countrySingle"></view-country-single>
+                    <view-country-multiple slot="page" name="countryMultiple"></view-country-multiple>
+                    <view-subject-single slot="page" name="subjectSingle"></view-subject-single>
+                    <view-subject-multiple slot="page" name="subjectMultiple"></view-subject-multiple>
+                    <view-degree-single slot="page" name="degreeSingle"></view-degree-single>
+                    <view-degree-multiple slot="page" name="degreeMultiple"></view-degree-multiple>
+                    <view-view1 slot="page" name="view-view1"></view-view1>
+                    <view-view2 slot="page" name="view-view2"></view-view2>
+                    <view-view3 slot="page" name="view-view3"></view-view3>
+                    <view-view404 slot="page" name="view-view404"></view-view404>
+                {%=`</${argument['layoutElement']}>` %}
+                <webapp-layout-list name="webapp-layout-list" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    <a slot="tab" name="view-view1" href$="{{app.setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
+                    <a slot="tab" name="view-view2" href$="{{app.setting.location.routeBasePath}}/view2">تسجيل فردي</a>
+                    <a slot="tab" name="view-view3" href$="{{app.setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+                    <view-view1 slot="page" name="view-view1"></view-view1>
+                    <view-view2 slot="page" name="view-view2"></view-view2>
+                    <view-view3 slot="page" name="view-view3"></view-view3>
+                    <view-view404 slot="page" name="view-view404"></view-view404>
+                </webapp-layout-list>
+                <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    <a class="drawerlink" slot="drawertab" name="frontPage" href$="{{app.setting.location.routeBasePath}}/">المقدمة</a>
+                    <a class="drawerlink" slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
+                    <a class="drawerlink" slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">تسجيل فردي</a>
+                    <a class="drawerlink" slot="drawertab" name="about" href$="{{app.setting.location.routeBasePath}}/contact">تواصل معنا</a>
+                    <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
+                    </paper-tab>-->
+                    <paper-tab slot="toolbartab" link name="studyfieldPage">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield" tabindex="-1">مواضيع التعليم</a>
+                    </paper-tab>
+                    <paper-tab slot="toolbartab" link name="universityPage">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/university" tabindex="-1">الجامعات</a>
+                    </paper-tab>
+                    <paper-tab slot="toolbartab" link name="countryPage">
+                        <a class="link" href$="{{app.setting.location.routeBasePath}}/country" tabindex="-1">الدول</a>
+                    </paper-tab>
+                    <!--<view-article-single slot="page" name="view-article-single"></view-article-single>-->
+                    <view-frontpage slot="page" name="frontPage"></view-frontpage>
+                    <view-about slot="page" name="about"></view-about>
+                    <view-article slot="page" name="studyfieldSingleArticle"></view-article>
+                    <view-underconstruction slot="page" name="universityPage" fullbleed></view-underconstruction>
+                    <view-underconstruction slot="page" name="studyfieldPage" fullbleed></view-underconstruction>
+                    <div slot="page" name="universityPage" fullbleed></div>
+                    <div slot="page" name="studyfieldPage" fullbleed></div>
+                    <registration-single slot="page" name="registration-single"></registration-single>
+                    <registration-agency slot="page" name="registration-agency" app="[[app]]" style="max-width: 800px; margin: 30px auto;"></registration-agency>
+                    <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
+                    <view-view404 slot="page" name="view-view404"></view-view404>
+                </webapp-layout-toolbar>
+                <!--<webapp-layout-step name="webapp-layout-step" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    
+                </webapp-layout-step>-->
+                <!--<webapp-layout-frontpage name="webapp-layout-frontpage" page="{{page}}" route="{{subroute}}" app="[[app]]">
+                    
+                </webapp-layout-frontpage>-->
+            </iron-pages>
+        <!--</document-element>-->
+    </template>
+    <script>
+    {
+        // TODO: Consider switching `document-element` to https://www.polymer-project.org/2.0/docs/api/elements/Polymer.DomBind
+        // window.addEventListener('WebComponentsReady', function() {
+            const App = window.App || {}; 
+            // Extend Polymer.Element base class
+            // class Element extends App.mixin.app.setting(Polymer.Element) {
+            class Element extends Polymer.mixinBehaviors([ App.behavior ], Polymer.Element) {
+                static get is() { return 'document-element'; }
+                static get properties() {
+                    return { /* properties metadata */ 
+                        layout: {
+                            type: String,
+                            notify: true,
+                            reflectToAttribute: true,
+                        },
+                        page: {
+                            type: Object,
+                            notify: true,
+                            reflectToAttribute: true,
+                        },
+                        subroute: {
+                            type: Object,
+                            notify: true,
+                            reflectToAttribute: true,
+                        },              
+                    }
+                }
+                static get observers() { return [ /* observer descriptors */
+                    '_routePageChanged(routeData.pathTopLevel, subroute.path)',
+                    '_routeChanged(route)',
+                ] }
+                constructor() {
+                    super()
+                    // Values are altered when server renderint to front-end (slashes are added).
+                    this.app.setting.location.routeBasePath = `${this.app.config.PROTOCOL}${this.app.config.HOST}`
+                    this.app.documentElement = this // register document element to be used as entrypoint to Polymer's binding system.
+                }
+                connectedCallback() {
+                    super.connectedCallback();
+                }
+
+                _routeChanged(route) {
+                    // console.log(route)
+                }
+
+                _routePageChanged(pathTopLevel, pathLevel2) { // Choose page/view using URL path.
+                    if(typeof pathTopLevel == 'undefined') return; // skip initial `pathTopLevel` value of undefined.
+                    let documentKey = this.checkConditionTree(pathTopLevel, pathLevel2.replace(/\//g, ""))
+
+                    // Document & Template Tree procesing.
+                    let document = this.app.document.filter(unit => {
+                        if(unit.key == documentKey) return true
+                        return false
+                    })[0]
+                    
+                    // document.page.filename = document.page.file.substr(0, document.page.file.indexOf('.'));
+                    this.layout = document.layout
+                    this.page = document.page
+                }
+
+                checkConditionTree(pathTopLevel, pathLevel2) {
+                    let documentKey = ''
+
+                    switch (pathTopLevel) { // Choose appropriate view/page to view
+                        case '': // empty path
+                            documentKey = 'frontpage'
+                        break;
+                        case 'step': // empty path
+                            documentKey = 'step'
+                        break;
+                        case 'university':
+                            documentKey = 'universityPage'
+                        break;
+                        case 'contact':
+                            documentKey = 'about'
+                        break;
+                        case 'studyfield':
+                            switch (pathLevel2) {
+                                case 'medicine':
+                                    documentKey = 'medicine'                            
+                                break;
+                                default:
+                                    documentKey = 'studyfieldPage'
+                                break;                                                           
+                            }
+                        break;
+                        case 'country':
+                            switch (pathLevel2) {
+                                case 'bucharest':
+                                    documentKey = 'bucharest'                            
+                                break;
+                                default:
+                                    documentKey = 'countryPage'
+                                break;                                                           
+                            }
+                        break;
+                        case 'registration':
+                            switch (pathLevel2) {
+                                case 'single':
+                                    documentKey = 'registration-single'                            
+                                break;
+                                case 'agency':
+                                    documentKey = 'registration-agency'
+                                break;                                                           
+                                default:
+                                    documentKey = 'registration-agency'
+                                break;                                                           
+                            }
+                        break;
+                        case 'view1':
+                            documentKey = 'homePage-view1'
+                        break;
+                        case 'view2':
+                            documentKey = 'homePage-view2'
+                        break;
+                        case 'view3':
+                            documentKey = 'homePage-view3'
+                        break;
+                        default:
+                        case 'view404':
+                            documentKey = 'homePage-view404'
+                        break;
+                        // case undefined: // skop initial `pathTopLevel` value of undefined.
+                        //   break;
+                    }
+                    return documentKey
+                }
+            }
+            // Register custom element definition using standard platform API
+            window.customElements.define(Element.is, Element);
+        // })
+    }
+    </script>
+</dom-module>

@@ -26,6 +26,15 @@ let staticMiddlewareSetting = [
         },
         functionPath: 'middleware/static/serveStaticDirectory.middlewareGenerator.js'
     },
+    {   // Overrides that of the above general rule for asset folder subfiles.
+        name: 'document-element.html static file',
+        filePath: '../clientSide/asset/webcomponent/document-element/document-element.html',
+        urlPath: '/asset:render/webcomponent/document-element/document-element.html',
+        options: { 
+            gzip: true
+        },
+        functionPath: 'middleware/static/serveStaticSingleFileRenderTemplate.middlewareGenerator.js'
+    },
     {
         name: 'static uploaded files',
         directoryPath: '../clientSide/upload/',

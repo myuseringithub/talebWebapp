@@ -57,8 +57,10 @@ gulp.task('livereload:ServerSide', ()=> {
         ], // equals to '!/app/{node_modules,node_modules/**/*}'
 		{ interval: INTERVAL, usePolling: usePolling }, 
 		async (done) => {
-            $.serverLivereload.reload()
-            done()
+            setTimeout(function(){ 
+                $.serverLivereload.reload()
+                done()
+            }, 1000);
         }
 	);
 });
@@ -74,8 +76,10 @@ gulp.task('livereload:clientSide', ()=> {
         ], // equals to '!/app/{node_modules,node_modules/**/*}'
 		{ interval: INTERVAL, usePolling: usePolling }, 
 		async (done) => {
-            $.browserSync.reload()
-            done()
+            setTimeout(function(){
+                $.browserSync.reload()
+                done()
+            }, 1000);
         }        
 	);
 })

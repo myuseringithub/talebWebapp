@@ -57,7 +57,22 @@ const FileSource = [
         }
     },
 
-    { // build:webcomponent
+    {
+        key: 'json',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'json.js'),
+            argument: [
+                [
+                    source('clientSide/**/*.json'),
+                    '!' + source('clientSide/asset/webcomponent/bower_components/**/*.json'),
+                    '!' + source('clientSide/asset/javascript/jspm_packages/**/*.json'),
+                ],
+                destination('clientSide/')
+			]
+        }
+    },
+
+    {
         key: 'html:metadata',
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'html.js'),
@@ -66,20 +81,20 @@ const FileSource = [
                     source('clientSide/asset/metadata/**/*.html'),
                 ],
                 destination('clientSide/asset/metadata/'),
-                'pureHTML'
+                'webcomponent'
 			]
         }
     },
-    { // TODO: FIX inline js - serverside injected object.
+    {
         key: 'html:root',
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'html.js'),
             argument: [
                 [
-                    source('clientSide/template/root/*.html'),
+                    source('clientSide/template/root/**/*.html'),
                 ],
                 destination('clientSide/template/root/'),
-                'pureHTML'
+                'webcomponent'
 			]
         }
     },
@@ -90,24 +105,27 @@ const FileSource = [
             argument: [
                 [
                     source('clientSide/asset/webcomponent/**/*.html'),  
-                    '!'+ source('clientSide/asset/webcomponent/bower_components/**/*.html')
+                    '!'+ source('clientSide/asset/webcomponent/bower_components/**/*.html'),
+                    '!'+ source('clientSide/asset/webcomponent/bower_components/webcomponentsjs/**/*.html'),
+                    '!'+ source('clientSide/asset/webcomponent/bower_components/web-component-tester/**/*.html'),
+                    '!'+ source('clientSide/asset/webcomponent/bower_components/polymer/**/*.html'),
                 ],
                 destination('clientSide/asset/webcomponent/'),
                 'webcomponent'
 			],
         }
     },
-    { // TODO: Target  also `document-element.imports.html`.
-        key: 'html:template',
+    { // TODO: FIX uglify ES6.
+        key: 'html:polymer',
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'html.js'),
             argument: [
                 [
-                    source('clientSide/template/root/document-element/document-element.html'),  
+                    source('clientSide/asset/webcomponent/bower_components/polymer/**/*.html'),  
                 ],
-                destination('clientSide/template/root/document-element/'),
-                'webcomponent'
-			]
+                destination('clientSide/asset/webcomponent/bower_components/polymer'),
+                'polymer'
+			],
         }
     },
     {
@@ -199,9 +217,9 @@ const GulpTaskDependency = [
             {
                 label: 'jspm'
             },
-            {
-                label: 'bower'
-            },
+            // {
+            //     label: 'bower'
+            // },
         ]
     },
     {
@@ -220,6 +238,9 @@ const GulpTaskDependency = [
         name: 'buildSourceCode',
         executionType: 'parallel',
         childTask: [
+            {
+                label: 'json'
+            },
             {
                 label: 'html:metadata'
             },

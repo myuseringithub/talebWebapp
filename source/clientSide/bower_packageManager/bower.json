@@ -34,14 +34,16 @@
     "iron-fit-behavior": "PolymerElements/iron-fit-behavior#2.0-preview",
     "paper-listbox": "PolymerElements/paper-listbox#2.0-preview",
     "shadycss": "webcomponents/shadycss#^v1.0.0-rc.1",
-    "polymer": "https://github.com/Polymer/polymer.git#2.0.0-rc.3",
-    "webcomponentsjs": "https://github.com/webcomponents/webcomponentsjs.git#1.0.0-rc.7"
+    "polymer": "Polymer/polymer#2.0.0-rc.6",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#1.0.0-rc.8"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
   },
   "private": true,
   "resolutions": {
+    "polymer": "2.0.0-rc.6",
+    "webcomponentsjs": "v1.0.0-rc.8",
     "app-layout": "2.0-preview",
     "iron-flex-layout": "2.0-preview",
     "iron-media-query": "2.0-preview",

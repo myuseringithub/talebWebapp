@@ -199,7 +199,7 @@
 
   <script>
   {
-    window.addEventListener('WebComponentsReady', function() {
+    // window.addEventListener('WebComponentsReady', function() {
       class Element extends Polymer.Element {
         static get is() { return 'webapp-layout-toolbar'; }
         static get properties() {
@@ -235,11 +235,9 @@
         _pageChanged(page, oldView) {
           // Load page import on demand. Show 404 page if fails
           if (page.selectorName != null) {
-              var callback = this._showPage404;
-              var resolvedPageUrl = this.resolveUrl(`../${page.file}`);
-              Polymer.importHref(
-                resolvedPageUrl,
-                null, callback, true);
+              let callback = this._showPage404;
+              let resolvedPageUrl = this.resolveUrl(`../${page.file}`);
+              Polymer.importHref(resolvedPageUrl, null, callback, true);
           }
 
           if (!this.$.drawer.persistent) {
@@ -254,7 +252,7 @@
       }
       // Register custom element definition using standard platform API
       customElements.define(Element.is, Element);
-    })
+    // })
   }
   </script>
 </dom-module>

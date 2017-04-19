@@ -82,6 +82,10 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
 
 {
     let Class = StaticContentClass
+    
+    // Templating engine & associated extention.
+    Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
+
     Class.middlewareArray = [
         async (context, next) => {
             let instance = new Class()
