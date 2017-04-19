@@ -34,13 +34,27 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
     let Class = WebappUIClass
 
     // Templating engine & associated extention.
-    Class.serverKoa.use(views('../clientSide/', { map: { html: 'underscore', js: 'underscore' } } ));
+    Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
 
     Class.middlewareArray = [
         async (context, next) => {
             let instance = new Class() // create new instance for each request.
-            instance.context = context; context.instance = instance;
+            instance.context = context; 
+            context.instance = instance;
             // instance.middlewareArray.push(middleware)
+            await next()
+        },
+        async (context, next) => {
+            let useragent = 'modern'
+            switch (useragent) {
+                case 'old':
+                    await (context.instance.config.clientBasePath = path.resolve(path.normalize(`${Application.config.serverBasePath}/../clientSide-ES5`)) );
+                break;
+                case 'modern':
+                default:
+                    await (context.instance.config.clientBasePath = Application.config.clientBasePath);
+                break;
+            }
             await next()
         },
         notFound(),
@@ -89,9 +103,23 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
     Class.middlewareArray = [
         async (context, next) => {
             let instance = new Class()
-            instance.context = context; context.instance = instance;
+            instance.context = context; 
+            context.instance = instance;
             // instance.middlewareArray.push(middleware)
             context.set('Access-Control-Allow-Origin', '*')
+            await next()
+        },
+        async (context, next) => {
+            let useragent = 'modern'
+            switch (useragent) {
+                case 'old':
+                    await (context.instance.config.clientBasePath = path.resolve(path.normalize(`${Application.config.serverBasePath}/../clientSide-ES5`)) );
+                break;
+                case 'modern':
+                default:
+                    await (context.instance.config.clientBasePath = Application.config.clientBasePath);
+                break;
+            }
             await next()
         },
         serverStaticFile(),

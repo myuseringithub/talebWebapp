@@ -7,13 +7,13 @@ import _ from 'underscore'
 
 // returns a middleware object 
 export default function serveStaticSingleFile(setting) {
-    let filePath = path.resolve(path.normalize(`${config.serverBasePath}/${setting.filePath}`)) 
-    let argument = {
-        layoutElement: 'webapp-layout-list'
-    }
-    let view = {};
 
     let middleware = async (context, next) => {
+        let filePath = path.resolve(path.normalize(`${context.instance.config.clientBasePath}${setting.filePath}`)) 
+        let argument = {
+            layoutElement: 'webapp-layout-list'
+        }
+        let view = {};
         if(setting.urlPath == context.path) {
             return context.render(filePath, {
                 Application,

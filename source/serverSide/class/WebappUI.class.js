@@ -21,6 +21,7 @@ const self = class WebappUI extends Application {
     }
     constructor(skipConstructor = false) {
         super(true)
+        this.config = {}
         if(skipConstructor) return;
         // if (!new.target) console.log(new.target) // not supported by babel
         // if (!(this instanceof WebappUI)) return new WebappUI() // This is used in factory functions not classes.
@@ -60,17 +61,17 @@ const self = class WebappUI extends Application {
                 // let argument = {
                 //     layoutElement: 'webapp-layout-list'
                 // }
-                // let mainDocumentElement = await filesystem.readFileSync('../clientSide/template/root/document-element/document-element.html', 'utf-8')
-                // let mainDocumentElementImport = await filesystem.readFileSync('../clientSide/template/root/document-element/document-element.import.html', 'utf-8')
+                // let mainDocumentElement = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.html`, 'utf-8')
+                // let mainDocumentElementImport = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.import.html`, 'utf-8')
                 let argument = {}
-                let entrypointJSFile = await filesystem.readFileSync('../clientSide/template/root/entrypoint.js.html', 'utf-8')
-                let metadata = await filesystem.readFileSync('../clientSide/asset/metadata/metadata.html', 'utf-8')
+                let entrypointJSFile = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.js.html`, 'utf-8')
+                let metadata = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/asset/metadata/metadata.html`, 'utf-8')
                 let view = {
                     metadata: _.template(metadata, {Application, argument}),
                     header: _.template(entrypointJSFile, {Application, argument}),
                     // body: _.template(mainDocumentElement, {Application, argument})
                 }
-                await this.context.render('template/root/entrypoint.html', {
+                await this.context.render(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, {
                     Application,
                     view,
                     argument

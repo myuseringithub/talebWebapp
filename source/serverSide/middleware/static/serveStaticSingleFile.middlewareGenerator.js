@@ -5,8 +5,8 @@ import mount from 'koa-mount'
 
 // returns a middleware object 
 export default function serveStaticSingleFile(setting) {
-    let filePath = path.resolve(path.normalize(`${config.serverBasePath}/${setting.filePath}`)) 
     let middleware = async (context, next) => {
+        let filePath = path.resolve(path.normalize(`${context.instance.config.clientBasePath}${setting.filePath}`)) 
         if(setting.urlPath == context.path) return send(context, filePath);
         await next()
     }

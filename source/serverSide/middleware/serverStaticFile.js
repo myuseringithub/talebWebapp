@@ -1,5 +1,6 @@
 import compose from 'koa-compose'
 import r from 'rethinkdb'
+import Application from 'class/Application.class.js'
 
 // let staticMiddlewareSetting = r
 //     .table('setting') // first field assigns name of table
@@ -10,38 +11,30 @@ import r from 'rethinkdb'
 let staticMiddlewareSetting = [
     {
         name: 'jspm.config.js static file',
-        filePath: '../clientSide/jspm_packageManager/jspm.config.js',
+        filePath: `/jspm_packageManager/jspm.config.js`,
         urlPath: '/asset/javascript/jspm.config.js',
-        options: { 
-            gzip: true
-        },
+        options: { gzip: true },
         functionPath: 'middleware/static/serveStaticSingleFile.middlewareGenerator.js'
     },
     {
         name: 'static assets',
-        directoryPath: '../clientSide/asset/',
+        directoryPath: `/asset/`,
         urlPath: '/asset',
-        options: { 
-            gzip: true
-        },
+        options: { gzip: true },
         functionPath: 'middleware/static/serveStaticDirectory.middlewareGenerator.js'
     },
-    {   // Overrides that of the above general rule for asset folder subfiles.
+    {   // [NOT EXACTLY] Overrides that of the above general rule for asset folder subfiles.
         name: 'document-element.html static file',
-        filePath: '../clientSide/asset/webcomponent/document-element/document-element.html',
+        filePath: `/asset/webcomponent/document-element/document-element.html`,
         urlPath: '/asset:render/webcomponent/document-element/document-element.html',
-        options: { 
-            gzip: true
-        },
+        options: { gzip: true },
         functionPath: 'middleware/static/serveStaticSingleFileRenderTemplate.middlewareGenerator.js'
     },
     {
         name: 'static uploaded files',
-        directoryPath: '../clientSide/upload/',
+        directoryPath: `/upload/`,
         urlPath: '/upload',
-        options: { 
-            gzip: true
-        },
+        options: { gzip: true },
         functionPath: 'middleware/static/serveStaticDirectory.middlewareGenerator.js'
     },
 ]

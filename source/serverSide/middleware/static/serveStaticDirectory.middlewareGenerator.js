@@ -5,8 +5,11 @@ import mount from 'koa-mount'
 
 // returns a middleware object 
 export default function serveStaticDirectory(setting) {
-    let directoryPath = path.resolve(path.normalize(`${config.serverBasePath}/${setting.directoryPath}`)) 
-    let middleware = mount(setting.urlPath, serverStatic(directoryPath, setting.options))
+    let middleware = async (context, next) => {
+            let directoryPath = path.resolve(path.normalize(`${context.instance.config.clientBasePath}${setting.directoryPath}`)) 
+            let mountMiddleware = mount(setting.urlPath, serverStatic(`${directoryPath}`, setting.options))
+            await mountMiddleware(context, next)
+    }
     return middleware
 }
 
