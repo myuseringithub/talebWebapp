@@ -11,6 +11,8 @@ function isES5(agent) {
         break;
         case 'Firefox': 
             return agent.satisfies('<45.0.0') ? true : false;
+        case 'Opera': 
+            return agent.satisfies('<37.0.0') ? true : false;
         case 'Edge': 
             return agent.satisfies('<14.0.0') ? true : false;
         case 'Safari': 
