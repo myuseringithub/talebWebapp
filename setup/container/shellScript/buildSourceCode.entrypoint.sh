@@ -13,6 +13,10 @@ npm install; npm install --only=dev; npm update;
 (cd /tmp/appDeploymentLifecycle/babel_javascriptTranspilation; 
     npm install; npm install --only=dev; npm update;)
 
+# Temporary for getting yet non released version:
+(cd /tmp/appDeploymentLifecycle/gulp_buildTool/node_modules/polymer-build;
+    npm install; npm run build;)
+
 ./run.sh build
 
 echo "Gulp watch ? ";
