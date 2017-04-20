@@ -73,6 +73,7 @@ const self = class WebappUI extends Application {
                 }
                 await this.context.render(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, {
                     Application,
+                    context: this.context, 
                     view,
                     argument
                 });

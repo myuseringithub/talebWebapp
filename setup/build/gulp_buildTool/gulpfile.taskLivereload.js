@@ -65,6 +65,7 @@ gulp.task('livereload:ServerSide', ()=> {
 	);
 });
 
+// TODO: Watch files of clientSide-es5 when distribution is used.
 // reload only browser
 gulp.task('livereload:clientSide', ()=> {
 	gulp.watch(

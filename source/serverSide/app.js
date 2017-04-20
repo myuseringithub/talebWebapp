@@ -12,6 +12,8 @@ import serverCommonFunctionality from 'middleware/serverCommonFunctionality.js' 
 import serverStaticFile from 'middleware/serverStaticFile.js' // Middleware extending server functionality
 import rootStaticFile from 'middleware/rootStaticFile.js' // Middleware extending server functionality
 import notFound from 'middleware/notFound.js'
+import useragentDetection from 'file/functionMiddleware/useragentDetection.middleware.js'
+import createClassInstancePerRequest from 'file/functionMiddleware/createClassInstancePerRequest.middleware.js'
 import RestApi from 'middleware/database/restEndpointApi.js'
 let restEndpointApi = new RestApi('api/v1')
 // require(`${AppClass.config.serverBasePath}/configuration.js`) // Load configuration settings.
@@ -37,26 +39,12 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
 
     Class.middlewareArray = [
+        createClassInstancePerRequest(Class),
         async (context, next) => {
-            let instance = new Class() // create new instance for each request.
-            instance.context = context; 
-            context.instance = instance;
             // instance.middlewareArray.push(middleware)
             await next()
         },
-        async (context, next) => {
-            let useragent = 'modern'
-            switch (useragent) {
-                case 'old':
-                    await (context.instance.config.clientBasePath = path.resolve(path.normalize(`${Application.config.serverBasePath}/../clientSide-ES5`)) );
-                break;
-                case 'modern':
-                default:
-                    await (context.instance.config.clientBasePath = Application.config.clientBasePath);
-                break;
-            }
-            await next()
-        },
+        useragentDetection,
         notFound(),
         rootStaticFile(),
         serverCommonFunctionality(),
@@ -101,27 +89,13 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
 
     Class.middlewareArray = [
+        createClassInstancePerRequest(Class),
         async (context, next) => {
-            let instance = new Class()
-            instance.context = context; 
-            context.instance = instance;
             // instance.middlewareArray.push(middleware)
             context.set('Access-Control-Allow-Origin', '*')
             await next()
         },
-        async (context, next) => {
-            let useragent = 'modern'
-            switch (useragent) {
-                case 'old':
-                    await (context.instance.config.clientBasePath = path.resolve(path.normalize(`${Application.config.serverBasePath}/../clientSide-ES5`)) );
-                break;
-                case 'modern':
-                default:
-                    await (context.instance.config.clientBasePath = Application.config.clientBasePath);
-                break;
-            }
-            await next()
-        },
+        useragentDetection,
         serverStaticFile(),
     ]
     Class.applyKoaMiddleware()
@@ -135,9 +109,8 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
 {
     let Class = ApiClass
     Class.middlewareArray = [
+        createClassInstancePerRequest(Class),
         async (context, next) => {
-            let instance = new Class()
-            instance.context = context; context.instance = instance;
             // instance.middlewareArray.push(middleware)
             await next()
             context.set('Access-Control-Allow-Origin', '*')

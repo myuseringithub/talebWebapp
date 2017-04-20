@@ -1,88 +1,81 @@
+const prefix = 'es5'
+
 const GulpTaskDependency = [
     {
-        name: 'install:dependencies',
-        executionType: 'parallel',
+        name: `${prefix}:install:dependencies`,
+        executionType: `parallel`,
         childTask: [
             {
-                label: 'npm'
-            }, 
-            {
-                label: 'jspm'
+                label: `${prefix}:jspm`
             },
             {
-                label: 'bower'
+                label: `${prefix}:bower`
             },
         ]
     },
     {
-        name: 'copy:sourceToDistribution',
-        executionType: 'parallel',
+        name: `${prefix}:copy:sourceToDistribution`,
+        executionType: `parallel`,
         childTask: [
             {
-                label: 'serverSide'
-            },
-            {
-                label: 'clientSide'
+                label: `${prefix}:clientSide`
             },
         ]
     },
     {
-        name: 'buildSourceCode',
-        executionType: 'parallel',
+        name: `${prefix}:buildSourceCode`,
+        executionType: `parallel`,
         childTask: [
             {
-                label: 'json'
+                label: `${prefix}:json`
             },
             {
-                label: 'html:metadata'
+                label: `${prefix}:html:metadata`
             },
             {
-                label: 'html:root'
+                label: `${prefix}:html:root`
             },
             {
-                label: 'html:webcomponent'
+                label: `${prefix}:html:webcomponent`
             },
             {
-                label: 'html:polymer'
+                label: `${prefix}:html:polymer`
             },
             // {
-            //     label: 'html:template'
+            //     label: `html:template`
             // },
             {
-                label: 'stylesheet:css'
+                label: `${prefix}:stylesheet:css`
             },
             {
-                label: 'javascript:js'
-            },
-            {
-                label: 'javascript:serverSide'
+                label: `${prefix}:javascript:js`
             },
         ]
     },
     {
-        name: 'symlink',
-        executionType: 'parallel',
+        name: `${prefix}:symlink`,
+        executionType: `parallel`,
         childTask: [
             {
-                label: 'nodeModules'
+                label: `${prefix}:nodeModules`
             },
         ]
     },
     {
-        name: 'build',
-        executionType: 'series',
+        name: `${prefix}:build`,
+        executionType: `series`,
         childTask: [
             {
-                label: 'install:dependencies'
+                label: `${prefix}:install:dependencies`
             },
             {
-                label: 'copy:sourceToDistribution'
+                label: `${prefix}:copy:sourceToDistribution`
             },
             {
-                label: 'buildSourceCode'
+                label: `${prefix}:buildSourceCode`
             },
             // {
-            //     label: 'symlink'
+            //     label: `symlink`
             // },
         ]
     },

@@ -1,190 +1,157 @@
 import { include, joinPath, source, destination, plugins } from 'gulpfile.js'
 import path from 'path'
-const config = require('configuration/configuration.js') // configuration
+const config = require(`configuration/configuration.js`) // configuration
+const prefix = `es5`
 
 const FileSource = [
     {
-        key: 'npm',
+        key: `${prefix}:jspm`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'npm.js'),
-            argument: [
-				source('/serverSide/')
-			]
-        }
-    },
-    {
-        key: 'jspm',
-        gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'jspm.js'),
+            path: path.join(config.TaskModulePath, `jspm.js`),
             argument: [
 				process.env.NODEJS_VERSION,
-				source('/clientSide/jspm_packageManager/')
+				source(`/clientSide/jspm_packageManager/`)
 			]
         }
     },
     {
-        key: 'bower',
+        key: `${prefix}:bower`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'bower.js'),
+            path: path.join(config.TaskModulePath, `bower.js`),
             argument: [
-				source('/clientSide/bower_packageManager/')
+				source(`/clientSide/bower_packageManager/`)
 			]
         }
     },
 
-    { 
-        key: 'serverSide',
+    {
+        key: `${prefix}:clientSide`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'rsync.js'),
+            path: path.join(config.TaskModulePath, `rsync.js`),
             argument: [
 				source(),
-				'serverSide/',
-				'/app/'
-			]
-        }
-    },
-    {
-        key: 'clientSide',
-        gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'rsync.js'),
-            argument: [
-				source(),
-				'clientSide/',
-				'/app/'
+				`clientSide-${prefix}/`,
+				`/app/`
 			]
         }
     },
 
     {
-        key: 'json',
+        key: `${prefix}:json`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'json.js'),
+            path: path.join(config.TaskModulePath, `json.js`),
             argument: [
                 [
-                    source('clientSide/**/*.json'),
-                    '!' + source('clientSide/asset/webcomponent/bower_components/**/*.json'),
-                    '!' + source('clientSide/asset/javascript/jspm_packages/**/*.json'),
+                    source(`clientSide/**/*.json`),
+                    `!` + source(`clientSide/asset/webcomponent/bower_components/**/*.json`),
+                    `!` + source(`clientSide/asset/javascript/jspm_packages/**/*.json`),
                 ],
-                destination('clientSide/')
+                destination(`clientSide-${prefix}/`)
 			]
         }
     },
 
     {
-        key: 'html:metadata',
+        key: `${prefix}:html:metadata`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'html.js'),
+            path: path.join(config.TaskModulePath, `html.js`),
             argument: [
                 [
-                    source('clientSide/asset/metadata/**/*.html'),
+                    source(`clientSide/asset/metadata/**/*.html`),
                 ],
-                destination('clientSide/asset/metadata/'),
-                'webcomponent'
+                destination(`clientSide-${prefix}/asset/metadata/`),
+                `webcomponentES5`
 			]
         }
     },
     {
-        key: 'html:root',
+        key: `${prefix}:html:root`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'html.js'),
+            path: path.join(config.TaskModulePath, `html.js`),
             argument: [
                 [
-                    source('clientSide/template/root/**/*.html'),
+                    source(`clientSide/template/root/**/*.html`),
                 ],
-                destination('clientSide/template/root/'),
-                'webcomponent'
+                destination(`clientSide-${prefix}/template/root/`),
+                `webcomponentES5`
 			]
         }
     },
     { // TODO: FIX uglify ES6.
-        key: 'html:webcomponent',
+        key: `${prefix}:html:webcomponent`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'html.js'),
+            path: path.join(config.TaskModulePath, `html.js`),
             argument: [
                 [
-                    source('clientSide/asset/webcomponent/**/*.html'),  
-                    // '!'+ source('clientSide/asset/webcomponent/bower_components/**/*.html'),
-                    '!'+ source('clientSide/asset/webcomponent/bower_components/webcomponentsjs/**/*.html'),
-                    '!'+ source('clientSide/asset/webcomponent/bower_components/web-component-tester/**/*.html'),
-                    '!'+ source('clientSide/asset/webcomponent/bower_components/polymer/**/*.html'),
+                    source(`clientSide/asset/webcomponent/**/*.html`),  
+                    // `!`+ source(`clientSide/asset/webcomponent/bower_components/**/*.html`),
+                    `!`+ source(`clientSide/asset/webcomponent/bower_components/webcomponentsjs/**/*.html`),
+                    `!`+ source(`clientSide/asset/webcomponent/bower_components/web-component-tester/**/*.html`),
+                    `!`+ source(`clientSide/asset/webcomponent/bower_components/polymer/**/*.html`),
                 ],
-                destination('clientSide/asset/webcomponent/'),
-                'webcomponent'
+                destination(`clientSide-${prefix}/asset/webcomponent/`),
+                `webcomponentES5`
 			],
         }
     },
     { // TODO: FIX uglify ES6.
-        key: 'html:polymer',
+        key: `${prefix}:html:polymer`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'html.js'),
+            path: path.join(config.TaskModulePath, `html.js`),
             argument: [
                 [
-                    source('clientSide/asset/webcomponent/bower_components/polymer/**/*.html'),  
+                    source(`clientSide/asset/webcomponent/bower_components/polymer/**/*.html`),  
                 ],
-                destination('clientSide/asset/webcomponent/bower_components/polymer'),
-                'polymer'
+                destination(`clientSide-${prefix}/asset/webcomponent/bower_components/polymer`),
+                `polymer`
 			],
         }
     },
     {
-        key: 'stylesheet:css',
+        key: `${prefix}:stylesheet:css`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'stylesheet.js'),
+            path: path.join(config.TaskModulePath, `stylesheet.js`),
             argument: [
-				source(['clientSide/asset/stylesheet/**/*.css']),
-				destination('clientSide/asset/stylesheet')
+				source([`clientSide/asset/stylesheet/**/*.css`]),
+				destination(`clientSide-${prefix}/asset/stylesheet`)
 			]
         }
     },
     { // TODO: Minify ES6 & Transpile
-        key: 'javascript:js',
+        key: `${prefix}:javascript:js`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'javascript.js'),
+            path: path.join(config.TaskModulePath, `javascript.js`),
             argument: [
 				[
-					source('clientSide/asset/javascript/**/*.js'),
-					'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js'),
+					source(`clientSide/asset/javascript/**/*.js`),
+					source('clientSide/jspm_packageManager/**/*.js'),
+					`!`+ source(`clientSide/asset/javascript/jspm_packages/**/*.js`),
 				],
-				destination('clientSide/asset/javascript'),
-                'pureJavascript'
-			]
-        }
-    },
-    { // TODO: Minify ES6 & Transpile
-        key: 'javascript:serverSide',
-        gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'javascript.js'),
-            argument: [
-                [
-                    source('serverSide/**/*.js'),
-                    '!'+ source('serverSide/node_modules/**/*.js'),
-                ],	
-                destination('serverSide/'),
-                'babelTranspile',
-                config.GulpPath,
+				destination(`clientSide-${prefix}/asset/javascript`),
+                `pureJavascript`
 			]
         }
     },
     // { // TODO: Minify ES6 & Transpile
-    //     key: 'javascript:clientSide',
+    //     key: `javascript:clientSide`,
     //     gulpTaskFunction: {
-    //         path: path.join(config.TaskModulePath, 'javascript.js'),
+    //         path: path.join(config.TaskModulePath, `javascript.js`),
     //         argument: [
     //             [
-    //                 source('clientSide/**/*.js'),
-    //                 '!'+ source('clientSide/asset/webcomponent/bower_components/**/*.js'),
-    //                 '!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js')
+    //                 source(`clientSide/**/*.js`),
+    //                 `!`+ source(`clientSide/asset/webcomponent/bower_components/**/*.js`),
+    //                 `!`+ source(`clientSide/asset/javascript/jspm_packages/**/*.js`)
     //             ],	
-    //             destination('clientSide/'),
+    //             destination(`clientSide/`),
     //             config.GulpPath
 	// 		]
     //     }
     // },
 
     {
-        key: 'nodeModules',
+        key: `${prefix}:nodeModules`,
         gulpTaskFunction: {
-            path: path.join(config.TaskModulePath, 'symlinkNodeModules.js'),
+            path: path.join(config.TaskModulePath, `symlinkNodeModules.js`),
             argument: [
 				destination(config.GulpPath),
 			]
@@ -192,7 +159,7 @@ const FileSource = [
     },
 
     // { 
-    //     key: '',
+    //     key: ``,
     //     gulpTaskFunction: {
     //         path: ,
     //         argument: [

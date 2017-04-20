@@ -4,9 +4,6 @@ const GulpTaskDependency = [
         executionType: 'parallel',
         childTask: [
             {
-                label: 'npm'
-            }, 
-            {
                 label: 'jspm'
             },
             {
@@ -18,9 +15,6 @@ const GulpTaskDependency = [
         name: 'copy:sourceToDistribution',
         executionType: 'parallel',
         childTask: [
-            {
-                label: 'serverSide'
-            },
             {
                 label: 'clientSide'
             },
@@ -42,9 +36,9 @@ const GulpTaskDependency = [
             {
                 label: 'html:webcomponent'
             },
-            {
-                label: 'html:polymer'
-            },
+            // {
+            //     label: 'html:polymer'
+            // },
             // {
             //     label: 'html:template'
             // },
@@ -53,9 +47,6 @@ const GulpTaskDependency = [
             },
             {
                 label: 'javascript:js'
-            },
-            {
-                label: 'javascript:serverSide'
             },
         ]
     },
@@ -69,7 +60,7 @@ const GulpTaskDependency = [
         ]
     },
     {
-        name: 'build',
+        name: 'es6:build',
         executionType: 'series',
         childTask: [
             {

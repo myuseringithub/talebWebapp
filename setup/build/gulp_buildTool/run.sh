@@ -50,6 +50,7 @@ development() {
 }
 
 distribution() {
+    # TODO: Add option for watch base directory
     export SZN_OPTION_ENTRYPOINT_NAME="entrypoint.development.js"
     export SZN_OPTION_ENTRYPOINT_PATH="/tmp/distribution/serverSide/"
     (cd /tmp/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
