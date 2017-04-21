@@ -13,7 +13,7 @@ const self = class StaticContent extends Application {
     static initializeStaticClass() {
         super.initializeStaticClass()
         self.port = 8081
-        self.url = `${self.config.PROTOCOL}cdn.${self.config.HOST}/`
+        self.url = `${self.config.PROTOCOL}cdn.${self.config.HOST}`
     }
     constructor() {
         super(true)

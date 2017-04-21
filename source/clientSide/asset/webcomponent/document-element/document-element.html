@@ -1,19 +1,21 @@
+<base target="_top" href="{%= Application.extendedSubclass.static['StaticContent'].url %}">
 <!--<script src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script> Causes problems on browsers supporting native webcomponents -->
 <!-- EXTERNAL ELEMENTS -->
-<link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html">
-<link rel="import" href="/asset/webcomponent/bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="/asset/webcomponent/bower_components/app-route/app-location.html">
-<link rel="import" href="/asset/webcomponent/bower_components/app-route/app-route.html">
+
+<link rel="import" href="asset/webcomponent/bower_components/polymer/polymer-element.html">
+<link rel="import" href="asset/webcomponent/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="asset/webcomponent/bower_components/app-route/app-location.html">
+<link rel="import" href="asset/webcomponent/bower_components/app-route/app-route.html">
 
 <!-- LAYOUT --> 
 <!--<link rel="import" href="/asset/webcomponent/{%= argument['layoutElement'] %}/{%= argument['layoutElement'] %}.html">-->
-<link rel="import" href="/asset/webcomponent/webapp-layout-toolbar/webapp-layout-toolbar.html">
+<link rel="import" href="asset/webcomponent/webapp-layout-toolbar/webapp-layout-toolbar.html">
 <!--<link rel="import" href="/asset/webcomponent/webapp-layout-frontpage/webapp-layout-frontpage.html">-->
 <!--<link rel="import" href="/asset/webcomponent/webapp-layout-step/webapp-layout-step.html">-->
 
 <!-- CUSTOM STYLE --> 
-<link rel="stylesheet" href="/asset/stylesheet/default.css">
-<link rel="import" href="/asset/webcomponent/shared-styles.html">
+<link rel="stylesheet" href="asset/stylesheet/default.css">
+<link rel="import" href="asset/webcomponent/shared-styles.html">
 
 <dom-module id="document-element">
     <template>
@@ -128,18 +130,6 @@
                     <paper-tab slot="toolbartab" link name="countryPage">
                         <a class="link" href$="{{app.setting.location.routeBasePath}}/country" tabindex="-1">الدول</a>
                     </paper-tab>
-                    <!--<view-article-single slot="page" name="view-article-single"></view-article-single>-->
-                    <view-frontpage slot="page" name="frontPage"></view-frontpage>
-                    <view-about slot="page" name="about"></view-about>
-                    <view-article slot="page" name="studyfieldSingleArticle"></view-article>
-                    <view-underconstruction slot="page" name="universityPage" fullbleed></view-underconstruction>
-                    <view-underconstruction slot="page" name="studyfieldPage" fullbleed></view-underconstruction>
-                    <div slot="page" name="universityPage" fullbleed></div>
-                    <div slot="page" name="studyfieldPage" fullbleed></div>
-                    <registration-single slot="page" name="registration-single"></registration-single>
-                    <registration-agency slot="page" name="registration-agency" app="[[app]]" style="max-width: 800px; margin: 30px auto;"></registration-agency>
-                    <view-list-item slot="page" name="countryPage"  app="[[app]]"></view-list-item>
-                    <view-view404 slot="page" name="view-view404"></view-view404>
                 </webapp-layout-toolbar>
                 <!--<webapp-layout-step name="webapp-layout-step" page="{{page}}" route="{{subroute}}" app="[[app]]">
                     

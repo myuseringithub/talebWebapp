@@ -191,6 +191,18 @@
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
+            <!--<view-article-single name="view-article-single"></view-article-single>-->
+            <view-frontpage name="frontPage"></view-frontpage>
+            <view-about name="about"></view-about>
+            <view-article name="studyfieldSingleArticle"></view-article>
+            <view-underconstruction name="universityPage" fullbleed></view-underconstruction>
+            <view-underconstruction name="studyfieldPage" fullbleed></view-underconstruction>
+            <div name="universityPage" fullbleed></div>
+            <div name="studyfieldPage" fullbleed></div>
+            <registration-single name="registration-single"></registration-single>
+            <registration-agency name="registration-agency" app="[[app]]" style="max-width: 800px; margin: 30px auto;"></registration-agency>
+            <view-list-item name="countryPage"  app="[[app]]"></view-list-item>
+            <view-view404 name="view-view404"></view-view404>
             <slot name="page"></slot>
         </iron-pages>
       </app-header-layout>
