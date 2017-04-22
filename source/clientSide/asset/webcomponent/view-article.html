@@ -51,7 +51,6 @@
         font-weight: 300;
         position: absolute;
         bottom: 40px;
-        right: 180px;
         font-size: 45px;
         margin: 0;
         color: white;
@@ -67,12 +66,19 @@
         font-weight: 100;
         font-style: normal;
       }
+      @media (min-width: 639px) {
+        [main-title] {
+            padding-right: 30px;
+        }
+      }
       @media (max-width: 639px) {
         [main-title] {
-          left: 85px;
+            right: 85px;
         }
       }
       @media (max-width: 600px) {
+        [main-title] {
+        }
         [content] {
           max-width: 100%;          
           margin: 0;

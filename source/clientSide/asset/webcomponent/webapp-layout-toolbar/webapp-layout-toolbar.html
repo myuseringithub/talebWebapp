@@ -126,10 +126,10 @@
 
       .menu-drawer-button {
         display: inline-block;
-        max-width: 27px;
+        height: 100%;
         /* width: 34px; */
         min-width: 27px;
-        padding: 0;        
+        padding: 0;
       }
 
       paper-button.play {
@@ -153,6 +153,29 @@
         white-space: nowrap;
       }
 
+      @media only screen and (max-width: 768px) {
+        #headertoolbar {
+          --paper-tabs-container: {
+            width: 100%;
+          }
+        }
+        app-header app-toolbar .logo iron-icon {
+          margin-left: 10px;
+        }
+        app-header app-toolbar .logo a {
+          padding-right: 8px;
+        }
+        .menu-drawer-button {
+          padding-right: 7px;
+          min-width: 40px;
+        }
+        app-header app-toolbar {
+          padding: 0;
+        }
+        paper-button.play {
+          display: none;
+        }
+      }
 
     </style>
     </custom-style>
@@ -178,7 +201,7 @@
                 <span main-title>طالب</span>
               </a>
             </div>
-            <paper-tabs selected="[[page.selectorName]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
+            <paper-tabs id="headertoolbar" selected="[[page.selectorName]]" attr-for-selected="name" scrollable autoselect autoselect-delay="400">
               <slot name="toolbartab"></slot>
             </paper-tabs>
             <a href="https://www.youtube.com/watch?v=D_ik4h1tKSI&list=PLRE-wy1Nn9xZFLnOF_o4yZCy-uIjdRcRp" target="_blank" style="text-decoration: none;">
