@@ -10,7 +10,8 @@
 <script>
 // SZN App global class
 {
-    const AppFrontEnd = JSON.parse('{%= JSON.stringify(Application.frontend) %}');
+    const AppFrontEnd = JSON.parse('{%= JSON.stringify(Application.frontend) %}')
+    AppFrontEnd.instance = JSON.parse('{%= JSON.stringify(context.instance) %}')
     // Initialize the window object 'App' That will contain all utility functions and behaviors for the app //
     // class AppClass {
     //     constructor() {

@@ -57,28 +57,28 @@ const self = class WebappUI extends Application {
 
     async handleTemplateDocument(documentKey) {
         switch (documentKey) {
+            default:
             case 'entrypoint':
                 // let argument = {
                 //     layoutElement: 'webapp-layout-list'
                 // }
                 // let mainDocumentElement = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.html`, 'utf-8')
                 // let mainDocumentElementImport = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.import.html`, 'utf-8')
-                let argument = {}
-                let entrypointJSFile = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.js.html`, 'utf-8')
-                let metadata = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/asset/metadata/metadata.html`, 'utf-8')
-                let view = {
-                    metadata: _.template(metadata, {Application, argument}),
-                    header: _.template(entrypointJSFile, {Application, argument}),
+                const templateArgument = {
+                    context: this.context,
+                    Application,
+                    argument: {}
+                }
+                const view = {
+                    metadata: _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/asset/metadata/metadata.html`, 'utf-8')),
+                    header: _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.js.html`, 'utf-8')),
                     // body: _.template(mainDocumentElement, {Application, argument})
                 }
-                await this.context.render(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, {
-                    Application,
-                    context: this.context, 
-                    view,
-                    argument
-                });
+                await this.context.render(
+                    `${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, 
+                    Object.assign({}, templateArgument, { view, templateArgument })
+                );
                 break;
-            default:
         }
     }
     

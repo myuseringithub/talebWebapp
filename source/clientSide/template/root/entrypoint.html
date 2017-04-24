@@ -4,7 +4,7 @@
 
     <!-- base url for all relative urls.  -->
     <base target="_top" href="{%= Application.extendedSubclass.static['StaticContent'].url %}">
-    
+
     {% if( context.instance.distribution == 'es5') { %} 
       <!-- This block adds the "custom-elements-es5-adapter.js" shim to your application.
           It includes special logic that removes the shim before it can be parsed or run
@@ -33,8 +33,8 @@
     {% } else { %} 
       <script>console.info('☕ Analytics is disabled for development.');</script>
     {% } %}
-    {% if(view['metadata']) print( view['metadata']({ Application, view, argument }) ) %} 
-    {% if(view['header']) print( view['header']({ Application, view, argument }) ) %} 
+    {% if(view['metadata']) print( view['metadata'](templateArgument) ) %} 
+    {% if(view['header']) print( view['header'](templateArgument) ) %} 
 
     <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html">
     <link rel="import" href="/asset:render/webcomponent/document-element/document-element.html">
@@ -43,8 +43,62 @@
   <body>
 
     {% if(view['body']) print( view['body']({ Application, view, argument }) ) %} 
-    
-    <document-element><span style="direction: ltr; text-align: center; width: 100%; display: block; margin: auto;">If the page doesn't display, it means your browser is old ! Please update it or use Chrome instead to view the website correctly.</span></document-element>
+    <style>
+      html, body { height: 100%; }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      $offset: 187;
+      $duration: 1.4s;
+
+      .spinner {
+        animation: rotator $duration linear infinite;
+      }
+
+      @keyframes rotator {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(270deg); }
+      }
+
+      .path {
+        stroke-dasharray: $offset;
+        stroke-dashoffset: 0;
+        transform-origin: center;
+        animation:
+          dash $duration ease-in-out infinite, 
+          colors ($duration*4) ease-in-out infinite;
+      }
+
+      @keyframes colors {
+        0% { stroke: #4285F4; }
+        25% { stroke: #DE3E35; }
+        50% { stroke: #F7C223; }
+        75% { stroke: #1B9A59; }
+        100% { stroke: #4285F4; }
+      }
+
+      @keyframes dash {
+      0% { stroke-dashoffset: $offset; }
+      50% {
+        stroke-dashoffset: $offset/4;
+        transform:rotate(135deg);
+      }
+      100% {
+        stroke-dashoffset: $offset;
+        transform:rotate(450deg);
+      }
+      }
+    </style>
+    <document-element>
+      <span style="direction: ltr; text-align: center; width: 100%; display: block; margin: auto;">
+        If the page doesn't display, it means your browser is old ! Please update it or use Chrome instead to view the website correctly.
+      </span>
+      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="https://www.w3.org/2000/svg"> <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle> </svg>
+    </document-element>
     <!-- With ❤ From AppScript.io -->
 
     <!-- Allows usage of binding in main document. -->

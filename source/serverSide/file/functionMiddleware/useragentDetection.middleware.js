@@ -27,9 +27,9 @@ export default async (context, next) => {
     let agent = useragentParser.lookup(context.request.headers['user-agent']);
     if(isES5(agent)) {
         context.instance.distribution = 'es5'
-        context.instance.config.clientBasePath = path.resolve(path.normalize(`${Application.config.serverBasePath}/../clientSide-es5`)) 
+        context.instance.config.clientBasePath = await path.resolve(path.normalize(`${Application.config.serverBasePath}/../clientSide-es5`)) 
     } else {
-        context.instance.config.clientBasePath = Application.config.clientBasePath
+        context.instance.config.clientBasePath = await Application.config.clientBasePath
     }
     await next()
 }

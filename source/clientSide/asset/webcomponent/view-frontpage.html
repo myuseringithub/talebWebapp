@@ -122,7 +122,7 @@
     </style>
 
 
-      <div class="foo" style="direction: ltr;">
+      <div id="title" class="foo" style="direction: ltr;">
         <span class="letter" data-letter="T">T</span>
         <span class="letter" data-letter="A">A</span>
         <span class="letter" data-letter="L">L</span>
@@ -157,8 +157,17 @@
     class Element extends Polymer.Element {
       static get is() { return 'view-frontpage'; }
       static get properties() {
-        return {}
+        return {
+            app: Object,
+        }
       }
+
+      connectedCallback() {
+        super.connectedCallback();
+        if(this.app.instance.distribution == "es5") this.$.title.style.display = "none"
+      }
+      
+
     }
     customElements.define(Element.is, Element);
   }
