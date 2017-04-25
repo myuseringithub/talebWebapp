@@ -1,5 +1,5 @@
 import compose from 'koa-compose'
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 
 let staticMiddlewareSetting = [
     {

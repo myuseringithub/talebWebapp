@@ -18,6 +18,10 @@ r.db("webapp").table("setting").insert([
   	id: 'template',
     template: []
   },
+  {
+  	id: 'document',
+    document: []
+  },
 	{
     id: 'viewImplementation',
     viewImplementation: []

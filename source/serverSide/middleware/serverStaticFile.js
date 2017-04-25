@@ -1,6 +1,6 @@
 import compose from 'koa-compose'
 import r from 'rethinkdb'
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 
 // let staticMiddlewareSetting = r
 //     .table('setting') // first field assigns name of table
@@ -39,7 +39,7 @@ let staticMiddlewareSetting = [
     },
 ]
 
-let middlewareArray = [] 
+let middlewareArray = []
 
 staticMiddlewareSetting.forEach((setting) => {
     let middleware = require(`${setting.functionPath}`)(setting)

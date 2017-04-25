@@ -1,6 +1,6 @@
 import path from 'path'
 import serverConfig from 'configuration/serverConfig.js'
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 
 export default (Class) => {
     return async (context, next) => {

@@ -1,6 +1,6 @@
 // Static content server - could be upgraded to Content Delivery Network
 import Koa from 'koa' // Koa applicaiton server
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 
 const self = class StaticContent extends Application {
 

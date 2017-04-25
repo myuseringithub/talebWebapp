@@ -8,6 +8,7 @@ const babelConfig = {
     "transform-runtime", 
     "add-module-exports",
     ["transform-class-properties", { "spec": false }]
-  ]
+  ],
+  ignore: /node_modules\/(?!appscript)/ // ignore everythng in node_modules except internal modules.
 }
 require(`${confJson.appDeploymentLifecyclePath}/babel_javascriptTranspilation/babel_JSCompiler.entrypoint.js`)(__dirname, 'app.js', babelConfig)

@@ -1,4 +1,4 @@
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 import config from 'configuration/configuration.export.js'
 import path from 'path'
 import send from 'koa-sendfile' // Static files.

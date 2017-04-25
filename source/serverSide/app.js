@@ -16,13 +16,16 @@ import useragentDetection from 'file/functionMiddleware/useragentDetection.middl
 import createClassInstancePerRequest from 'file/functionMiddleware/createClassInstancePerRequest.middleware.js'
 import RestApi from 'middleware/database/restEndpointApi.js'
 let restEndpointApi = new RestApi('api/v1')
-// require(`${AppClass.config.serverBasePath}/configuration.js`) // Load configuration settings.
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 import WebappUIClass from 'class/WebappUI.class.js'
 import StaticContentClass from 'class/StaticContent.class.js'
 import ApiClass from 'class/Api.class.js'
-import ConditionTree from 'class/ConditionTree.class.js'
-import Condition from 'class/Condition.class.js'
+// import appscript from './appscript'
+import ConditionTree from 'appscript/class/ConditionTree.class.js'
+import Condition from 'appscript/class/Condition.class.js'
+import NestedUnitController from 'appscript/class/NestedUnitController.class.js'
+
+Application.addSubclass([ConditionTree, Condition, NestedUnitController])
 
 // TODO: Custom Dataset Schema/structure/blueprint, data document, custom dataset type, custom fields, custom content type.
 // TODO: Condition Tree:
@@ -30,7 +33,7 @@ import Condition from 'class/Condition.class.js'
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
-Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
+Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
 
 {
     let Class = WebappUIClass
@@ -130,48 +133,8 @@ Application.initialize([ConditionTree, Condition, StaticContentClass, WebappUICl
 }
 
 
-
-
-// let Test = WebappUI.constructor.extendedSubclass.instance['Test']
-// Test.middlewareArray = [
-//     async (context, next) => {
-//         await (WebappUIClass.context = context)
-//         context.set('Access-Control-Allow-Origin', '*')
-//         context.body = 'Using Middleware of Test Server.'
-//         await next()
-//     }, 
-//     serverCommonFunctionality(),
-//     async (context, next) => {
-//         Test.applyConditionCallback()
-//         await next()
-//     },
-// ]
-// Test.applyKoaMiddleware()
-// http.createServer(Test.serverKoa.callback())
-//     .listen(Test.port, ()=> {
-//         console.log(`${Test.constructor.name} listening on port ${Test.port}`.green)
-//     })
-
 // _____________________________________________
 
 // TODO: change base url and access-control-allow-origin header according to DEPLOYMENT environment
-
-// // Conneciton ports:
-// if (!module.parent || module.parent) { // Dummy for future use // if loaded as a standart script.
-
-// }
-
-// TODO: Look at these libraries:
-// import bodyParser from 'koa-bodyparser'
-// import session from 'koa-session' // Session
-// import push from 'koa-server-push' // HTTP/2 push.
-// koa-subdomain
-
-// PURE NODEJS _____________________________________________
-
-// http.createServer((request, response) => {
-//   response.writeHead(200, {'Content-Type': 'application/json'});
-//   response.end(response);
-// }).listen(8082)
 
 

@@ -12,7 +12,7 @@ import enforceHTTPS from 'koa-sslify'
 // Database
 import rethinkdbConfig from 'configuration/rethinkdbConfig.js'
 import r from 'rethinkdb'
-import { handleConnection, createDatabase, createTable } from 'middleware/database/commonDatabaseFunctionality.js'
+import { handleConnection, createDatabase, createTable } from 'appscript/database/commonDatabaseFunctionality.js'
 
 let middlewareArray = [
     responseTime(), // Response time x-response-time

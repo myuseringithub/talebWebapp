@@ -1,6 +1,4 @@
-import Application from 'class/Application.class.js'
-import NestedUnitController from 'class/NestedUnitController.class.js'
-import { connect, getConditionTreeEntrypoint } from 'middleware/database/commonDatabaseFunctionality.js'
+import Application from 'appscript'
 import _ from 'underscore'
 import filesystem from 'fs'
 
@@ -31,7 +29,7 @@ const self = class WebappUI extends Application {
         this.next = next
         // [1] Create instances and check conditions. Get callback either a function or document
         let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
-        let conditionTreeController = await new NestedUnitController(false)
+        let conditionTreeController = await new self.extendedSubclass.static['NestedUnitController'](false)
         let callback = await conditionTreeController.initializeConditionTree(entrypointConditionTree, this)
         // [2] Use callback
         console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)

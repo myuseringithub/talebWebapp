@@ -2,9 +2,9 @@ import path from 'path'
 const useragentParser = require('useragent') // https://www.npmjs.com/package/useragent
 require('useragent/features');
 import serverConfig from 'configuration/serverConfig.js'
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 
-function isES5(agent) {   
+function isES5(agent) {
     switch (agent.family) {
         case 'Chrome':
             return agent.satisfies('<50.0.0') ? true : false;

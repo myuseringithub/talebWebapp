@@ -1,6 +1,6 @@
 // API server
 import Koa from 'koa' // Koa applicaiton server
-import Application from 'class/Application.class.js'
+import Application from 'appscript'
 
 const self = class Api extends Application {
 
