@@ -2,11 +2,14 @@ const prefix = 'serverSide'
 const GulpTaskDependency = [
     {
         name: `${prefix}:install:dependencies`,
-        executionType: 'parallel',
+        executionType: 'series',
         childTask: [
             {
                 label: 'npm'
             },
+            {
+                label: 'npm:appscript'
+            }
         ]
     },
     {

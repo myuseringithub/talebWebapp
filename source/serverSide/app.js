@@ -1,27 +1,26 @@
-import http from 'http'
-import https from 'https'
+// Modules
 import path from 'path'
-let eventEmitter = new (require('events').EventEmitter)
-import views from 'koa-views'
-import _ from 'underscore'
 import filesystem from 'fs'
+import views from 'koa-views'
 
-import route from 'api/middleware/route/route.js' // Routes & API
+// Classes
+import Application from 'appscript'
+import WebappUIClass from 'port/webappUI/WebappUI.class.js'
+import StaticContentClass from 'port/staticContent/StaticContent.class.js'
+import ApiClass from 'port/api/Api.class.js'
+import ConditionTree from 'appscript/class/ConditionTree.class.js'
+import Condition from 'appscript/class/Condition.class.js'
+import NestedUnitController from 'appscript/class/NestedUnitController.class.js'
+
+// Middlewares
+import route from 'port/api/middleware/route/route.js' // Routes & API
 import serverCommonFunctionality from 'appscript/utilityFunction/middleware/serverCommonFunctionality.js' // Middleware extending server functionality
 import implementMiddlewareOnModuleUsingJson from 'appscript/utilityFunction/middleware/implementMiddlewareOnModuleUsingJson.js' // Middleware extending server functionality
 import notFound from 'appscript/utilityFunction/middleware/notFound.js'
 import useragentDetection from 'appscript/utilityFunction/middleware/useragentDetection.middleware.js'
 import createClassInstancePerRequest from 'appscript/utilityFunction/middleware/createClassInstancePerRequest.middleware.js'
-import RestApi from 'api/middleware/database/restEndpointApi.js'
+import RestApi from 'port/api/middleware/database/restEndpointApi.js'
 let restEndpointApi = new RestApi('api/v1')
-import Application from 'appscript'
-import WebappUIClass from 'webappUI/WebappUI.class.js'
-import StaticContentClass from 'staticContent/StaticContent.class.js'
-import ApiClass from 'api/Api.class.js'
-// import appscript from './appscript'
-import ConditionTree from 'appscript/class/ConditionTree.class.js'
-import Condition from 'appscript/class/Condition.class.js'
-import NestedUnitController from 'appscript/class/NestedUnitController.class.js'
 
 // TODO: Custom Dataset Schema/structure/blueprint, data document, custom dataset type, custom fields, custom content type.
 // TODO: Condition Tree:

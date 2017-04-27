@@ -96,8 +96,8 @@ const self = class WebappUI extends Application {
         // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })
         if(self.config.ssl) {
             let options = {
-                key: filesystem.readFileSync('./sampleSSL/server.key'),
-                cert: filesystem.readFileSync('./sampleSSL/server.crt')
+                key: filesystem.readFileSync('port/webappUI/sampleSSL/server.key'),
+                cert: filesystem.readFileSync('port/webappUI/sampleSSL/server.crt')
             }
             https.createServer(options, self.serverKoa.callback())
                 .listen(443, () => {

@@ -26,7 +26,7 @@ data.document = [
     },
     {
         key: 'homePage-view404',
-        layout: 'webapp-layout-list',
+        layout: 'webapp-layout-toolbar',
         page: {
             selectorName: 'view-view404',
             file: 'view-view404.html'
