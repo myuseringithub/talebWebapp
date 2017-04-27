@@ -23,7 +23,7 @@ const GulpTaskDependency = [
     },
     {
         name: `${prefix}:buildSourceCode`,
-        executionType: 'parallel',
+        executionType: 'series',
         childTask: [
             {
                 label: 'javascript:serverSide'
