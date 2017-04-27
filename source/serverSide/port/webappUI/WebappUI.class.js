@@ -1,6 +1,8 @@
 import Application from 'appscript'
 import _ from 'underscore'
 import filesystem from 'fs'
+import https from 'https'
+import http from 'http'
 
 const self = class WebappUI extends Application {
     
@@ -79,7 +81,31 @@ const self = class WebappUI extends Application {
                 break;
         }
     }
-    
+
+    static createHttpServer() {
+        const self = this
+        http.createServer(self.serverKoa.callback())
+            .listen(self.port, ()=> {
+                console.log(`☕%c ${self.name} listening on port ${self.port}`, self.config.style.green)
+                // eventEmitter.emit('listening')
+                // process.emit('listening')
+                if (process.send !== undefined) { // if process is a forked child process.
+                    if(self.config.DEPLOYMENT == 'development') process.send({ message: 'Server listening'});
+                }
+            })
+        // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })
+        if(self.config.ssl) {
+            let options = {
+                key: filesystem.readFileSync('./sampleSSL/server.key'),
+                cert: filesystem.readFileSync('./sampleSSL/server.crt')
+            }
+            https.createServer(options, self.serverKoa.callback())
+                .listen(443, () => {
+                    console.log(`☕%c ${self.name} listening on port 443`, self.config.style.green)
+                })
+        }
+    }
+
 }
 
 self.initializeStaticClass() // initialize static properties on class.

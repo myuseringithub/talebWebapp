@@ -53,7 +53,7 @@ data.conditionTree = [
             },
         ],
         callback: { // fallback function.
-            name: 'file/functionMiddleware/apiBasepath.middleware.js',
+            name: 'appscript/utilityFunction/middleware/apiBasepath.middleware.js',
             type: 'functionMiddleware'
         },
     },
@@ -64,7 +64,7 @@ data.conditionTree = [
         },
         conditionImplementation: 'b62cb56a-1932-42fd-9829-76d8bda4ff12',
         callback: { // fallback function.
-            name: 'file/functionMiddleware/apiV1.middleware.js',
+            name: 'appscript/utilityFunction/middleware/apiV1.middleware.js',
             type: 'functionMiddleware'
         },
         children: [],

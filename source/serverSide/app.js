@@ -2,30 +2,26 @@ import http from 'http'
 import https from 'https'
 import path from 'path'
 let eventEmitter = new (require('events').EventEmitter)
-import colors from 'colors' // https://github.com/marak/colors.js/
 import views from 'koa-views'
 import _ from 'underscore'
 import filesystem from 'fs'
 
-import route from 'middleware/route/route.js' // Routes & API
-import serverCommonFunctionality from 'middleware/serverCommonFunctionality.js' // Middleware extending server functionality
-import serverStaticFile from 'middleware/serverStaticFile.js' // Middleware extending server functionality
-import rootStaticFile from 'middleware/rootStaticFile.js' // Middleware extending server functionality
-import notFound from 'middleware/notFound.js'
-import useragentDetection from 'file/functionMiddleware/useragentDetection.middleware.js'
-import createClassInstancePerRequest from 'file/functionMiddleware/createClassInstancePerRequest.middleware.js'
-import RestApi from 'middleware/database/restEndpointApi.js'
+import route from 'api/middleware/route/route.js' // Routes & API
+import serverCommonFunctionality from 'appscript/utilityFunction/middleware/serverCommonFunctionality.js' // Middleware extending server functionality
+import implementMiddlewareOnModuleUsingJson from 'appscript/utilityFunction/middleware/implementMiddlewareOnModuleUsingJson.js' // Middleware extending server functionality
+import notFound from 'appscript/utilityFunction/middleware/notFound.js'
+import useragentDetection from 'appscript/utilityFunction/middleware/useragentDetection.middleware.js'
+import createClassInstancePerRequest from 'appscript/utilityFunction/middleware/createClassInstancePerRequest.middleware.js'
+import RestApi from 'api/middleware/database/restEndpointApi.js'
 let restEndpointApi = new RestApi('api/v1')
 import Application from 'appscript'
-import WebappUIClass from 'class/WebappUI.class.js'
-import StaticContentClass from 'class/StaticContent.class.js'
-import ApiClass from 'class/Api.class.js'
+import WebappUIClass from 'webappUI/WebappUI.class.js'
+import StaticContentClass from 'staticContent/StaticContent.class.js'
+import ApiClass from 'api/Api.class.js'
 // import appscript from './appscript'
 import ConditionTree from 'appscript/class/ConditionTree.class.js'
 import Condition from 'appscript/class/Condition.class.js'
 import NestedUnitController from 'appscript/class/NestedUnitController.class.js'
-
-Application.addSubclass([ConditionTree, Condition, NestedUnitController])
 
 // TODO: Custom Dataset Schema/structure/blueprint, data document, custom dataset type, custom fields, custom content type.
 // TODO: Condition Tree:
@@ -33,15 +29,14 @@ Application.addSubclass([ConditionTree, Condition, NestedUnitController])
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
+Application.addSubclass([ConditionTree, Condition, NestedUnitController])
 Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
 
 {
     let Class = WebappUIClass
-
     // Templating engine & associated extention.
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
-
-    Class.middlewareArray = [
+    Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
         async (context, next) => {
             // instance.middlewareArray.push(middleware)
@@ -49,7 +44,27 @@ Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows 
         },
         useragentDetection,
         notFound(),
-        rootStaticFile(),
+        implementMiddlewareOnModuleUsingJson([
+            {
+                name: 'Service worker file',
+                filePath: `/asset/javascript/serviceWorker/serviceWorker.js`,
+                urlPath: '/serviceWorker.js', // determines the scope of the service worker.
+                options: {
+                    gzip: true,
+                },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js'
+            },
+            {
+                name: 'Static root files',
+                directoryPath: `/template/`,
+                urlPath: '/',
+                options: {
+                    gzip: true,
+                    // index: 'entrypoint.html'
+                },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
+            },
+        ]),
         serverCommonFunctionality(),
         async (context, next) => {
             let isCalledNext = await context.instance.applyConditionCallback(next)
@@ -59,39 +74,15 @@ Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows 
             console.log('Last Middleware.')
             await next()
         }, 
-    ]
-    Class.applyKoaMiddleware()
-
-    http.createServer(Class.serverKoa.callback())
-        .listen(Class.port, ()=> {
-            console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
-            // eventEmitter.emit('listening')
-            // process.emit('listening')
-            if (process.send !== undefined) { // if process is a forked child process.
-                if(Class.config.DEPLOYMENT == 'development') process.send({ message: 'Server listening'});
-            }
-        })
-    // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })
-    if(Class.config.ssl) {
-        let options = {
-            key: filesystem.readFileSync('./sampleSSL/server.key'),
-            cert: filesystem.readFileSync('./sampleSSL/server.crt')
-        }
-        https.createServer(options, Class.serverKoa.callback())
-            .listen(443, () => {
-                console.log(`☕%c ${Class.name} listening on port 443`, Class.config.style.green)
-            })
-    }
+    ])
+    Class.createHttpServer()
 }
-
 
 {
     let Class = StaticContentClass
-    
     // Templating engine & associated extention.
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
-
-    Class.middlewareArray = [
+    Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
         async (context, next) => {
             // instance.middlewareArray.push(middleware)
@@ -99,19 +90,43 @@ Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows 
             await next()
         },
         useragentDetection,
-        serverStaticFile(),
-    ]
-    Class.applyKoaMiddleware()
-    http.createServer(Class.serverKoa.callback())
-        .listen(Class.port, ()=> {
-            console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
-        })
+        implementMiddlewareOnModuleUsingJson([
+            {
+                name: 'jspm.config.js static file',
+                filePath: `/jspm_packageManager/jspm.config.js`,
+                urlPath: '/asset/javascript/jspm.config.js',
+                options: { gzip: true },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js'
+            },
+            {
+                name: 'static assets',
+                directoryPath: `/asset/`,
+                urlPath: '/asset',
+                options: { gzip: true },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
+            },
+            {   // [NOT EXACTLY] Overrides that of the above general rule for asset folder subfiles.
+                name: 'document-element.html static file',
+                filePath: `/asset/webcomponent/document-element/document-element.html`,
+                urlPath: '/asset:render/webcomponent/document-element/document-element.html',
+                options: { gzip: true },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFileRenderTemplate.middlewareGenerator.js'
+            },
+            {
+                name: 'static uploaded files',
+                directoryPath: `/upload/`,
+                urlPath: '/upload',
+                options: { gzip: true },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
+            },
+        ]),
+    ])
+    Class.createHttpServer()
 }
-
 
 {
     let Class = ApiClass
-    Class.middlewareArray = [
+    Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
         async (context, next) => {
             // instance.middlewareArray.push(middleware)
@@ -123,13 +138,8 @@ Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows 
         // },
         serverCommonFunctionality(),
         restEndpointApi.route(),
-    ]
-    Class.applyKoaMiddleware()
-
-    http.createServer(Class.serverKoa.callback())
-        .listen(Class.port, ()=> {
-            console.log(`☕%c ${Class.name} listening on port ${Class.port}`, Class.config.style.green)
-        })
+    ])
+    Class.createHttpServer()
 }
 
 

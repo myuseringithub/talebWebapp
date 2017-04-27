@@ -30,7 +30,7 @@ const browserSyncConfig = {
 };
 
 const entrypoint = {
-    filename: process.env.SZN_OPTION_ENTRYPOINT_NAME || 'entrypoint.development.js',
+    filename: process.env.SZN_OPTION_ENTRYPOINT_NAME || 'entrypoint.js',
     filePath: process.env.SZN_OPTION_ENTRYPOINT_PATH || '/app/serverSide/'
 }
 

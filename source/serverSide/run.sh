@@ -11,17 +11,20 @@ development.nightly() {
     node --harmony app.js
 }
 development.babelES6() {
-    ./node_modules/babel-cli/bin/babel-node.js --presets node6 entrypoint.development.js
+    export DEPLOYMENT=development   
+    ./node_modules/babel-cli/bin/babel-node.js --presets node6 entrypoint.js
 }
 development.babel.nodemon() {
     export DEPLOYMENT=development
-    nodemon entrypoint.development.js --ignore '.git' --ignore 'node_modules' --watch '*.js' --legacy-watch --ext js,json
+    nodemon entrypoint.js --ignore '.git' --ignore 'node_modules' --watch '*.js' --legacy-watch --ext js,json
 }
 developmentharmonybabel() {
-    node --harmony entrypoint.development.js
+    export DEPLOYMENT=development   
+    node --harmony entrypoint.js
 }
 developmentChrome() {
-    node --inspect=localhost:9229 --debug-brk entrypoint.development.js
+    export DEPLOYMENT=development
+    node --inspect=localhost:9229 --debug-brk entrypoint.js
 }
 
 deployment.test() {
@@ -29,7 +32,8 @@ deployment.test() {
 }
 
 production() { # working directory is pointing to `app` folder inside container the result of distribution code.
-    node entrypoint.production.js
+    export DEPLOYMENT=production
+    node entrypoint.js
 }
 
 # Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/run.sh <functionName>".
