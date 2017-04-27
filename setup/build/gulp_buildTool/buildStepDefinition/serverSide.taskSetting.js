@@ -9,7 +9,7 @@ const FileSource = [
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'npm.js'),
             argument: [
-				source('/serverSide/')
+				source('serverSide/')
 			]
         }
     },
@@ -18,7 +18,7 @@ const FileSource = [
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'npm.js'),
             argument: [
-				source('/serverSide/node_modules/appscript/')
+				source('serverSide/node_modules/appscript/')
 			]
         }
     },
