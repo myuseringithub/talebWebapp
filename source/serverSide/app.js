@@ -8,8 +8,8 @@ import Application from 'appscript'
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
 import StaticContentClass from 'port/staticContent/StaticContent.class.js'
 import ApiClass from 'port/api/Api.class.js'
-import ConditionTree from 'appscript/class/ConditionTree.class.js'
-import Condition from 'appscript/class/Condition.class.js'
+import ConditionTree from 'appscript/class/condition/ConditionTree.class.js'
+import Condition from 'appscript/class/condition/Condition.class.js'
 import NestedUnitController from 'appscript/class/NestedUnitController.class.js'
 
 // Middlewares
@@ -28,7 +28,7 @@ let restEndpointApi = new RestApi('api/v1')
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
-Application.addSubclass([ConditionTree, Condition, NestedUnitController])
+Application.addStaticSubclassToClassArray([ConditionTree, Condition, NestedUnitController])
 Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
 
 {
