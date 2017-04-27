@@ -28,6 +28,9 @@ const GulpTaskDependency = [
             {
                 label: 'javascript:serverSide'
             },
+            {
+                label: 'javascript:appscript'
+            }
         ]
     },
     {

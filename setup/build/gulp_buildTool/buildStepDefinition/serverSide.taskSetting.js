@@ -49,6 +49,20 @@ const FileSource = [
 			]
         }
     },
+    { 
+        key: 'javascript:appscript',
+        gulpTaskFunction: {
+            path: path.join(config.TaskModulePath, 'javascript.js'),
+            argument: [
+                [
+                    source('serverSide/node_modules/appscript/**/*.js'),
+                ],	
+                destination('serverSide/node_modules/appscript'),
+                'babelTranspile',
+                config.GulpPath,
+			]
+        }
+    },
     {
         key: `${prefix}:nodeModules`,
         gulpTaskFunction: {
