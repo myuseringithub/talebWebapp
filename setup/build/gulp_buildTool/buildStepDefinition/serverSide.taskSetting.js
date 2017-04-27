@@ -56,6 +56,8 @@ const FileSource = [
             argument: [
                 [
                     source('serverSide/node_modules/appscript/**/*.js'),
+                    '!'+ source('serverSide/node_modules/appscript/node_modules/**/*.js'),
+
                 ],	
                 destination('serverSide/node_modules/appscript'),
                 'babelTranspile',
