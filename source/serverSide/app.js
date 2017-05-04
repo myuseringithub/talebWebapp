@@ -5,12 +5,15 @@ import views from 'koa-views'
 
 // Classes
 import Application from 'appscript'
+const NestedUnitController = require('appscript/reusableNestedUnit/NestedUnitController.class.js')
+const ConditionController = NestedUnitController.getMethodInstance('ConditionController', {superclass: Application})
+import ConditionTree from 'appscript/class/condition/ConditionTree.class.js'
+import Condition from 'appscript/class/condition/Condition.class.js'
+ConditionController.addStaticSubclassToClassArray([ConditionTree, Condition])
+
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
 import StaticContentClass from 'port/staticContent/StaticContent.class.js'
 import ApiClass from 'port/api/Api.class.js'
-import ConditionTree from 'appscript/class/condition/ConditionTree.class.js'
-import Condition from 'appscript/class/condition/Condition.class.js'
-import NestedUnitController from 'appscript/class/NestedUnitController.class.js'
 
 // Middlewares
 import route from 'port/api/middleware/route/route.js' // Routes & API
@@ -28,7 +31,7 @@ let restEndpointApi = new RestApi('api/v1')
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
-Application.addStaticSubclassToClassArray([ConditionTree, Condition, NestedUnitController])
+Application.addStaticSubclassToClassArray([ConditionController])
 Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
 
 {
@@ -147,3 +150,10 @@ Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows 
 // TODO: change base url and access-control-allow-origin header according to DEPLOYMENT environment
 
 
+let _invalidateRequireCacheForFile = function(filePath){
+	delete require.cache[require.resolve(filePath)];
+};
+let requireNoCache =  function(filePath){
+	_invalidateRequireCacheForFile(filePath);
+	return require(filePath);
+};

@@ -29,6 +29,7 @@
     "babel-register": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "gulp-babel": "^6.1.2",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "jsonfn": "*"
   }
 }
