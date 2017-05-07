@@ -15,22 +15,22 @@ let serverSideTaskAggregator = require('./buildStepDefinition/serverSide.taskAgg
 let GulpTaskDependency = Array.concat(
 	// es6TaskAggregator, 
 	// es5TaskAggregator
-	// serverSideTaskAggregator,
-	// [{
-	// 	name: 'build',
-	// 	executionType: 'series',
-	// 	childTask: [
-	// 		{
-	// 			label: 'serverSide:build'
-	// 		},
-	// 		{
-	// 			label: 'es6:build'
-	// 		}, 
-	// 		{
-	// 			label: 'es5:build'
-	// 		},
-	// 	]
-	// }]
+	serverSideTaskAggregator,
+	[{
+		name: 'build',
+		executionType: 'series',
+		childTask: [
+			{
+				label: 'serverSide:build'
+			},
+			{
+				label: 'es6:build'
+			}, 
+			{
+				label: 'es5:build'
+			},
+		]
+	}]
 )
 
 gulpTaskExecution(FileSource, GulpTaskDependency)
