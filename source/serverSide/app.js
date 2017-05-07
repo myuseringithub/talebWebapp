@@ -9,7 +9,7 @@ const NestedUnitController = require('appscript/reusableNestedUnit/NestedUnitCon
 const ConditionController = NestedUnitController.getMethodInstance('ConditionController', {superclass: Application})
 import ConditionTree from 'appscript/class/condition/ConditionTree.class.js'
 import Condition from 'appscript/class/condition/Condition.class.js'
-ConditionController.addStaticSubclassToClassArray([ConditionTree, Condition])
+ConditionController.addStaticSubclassToClassArray({ConditionTree, Condition})
 
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
 import StaticContentClass from 'port/staticContent/StaticContent.class.js'
@@ -31,8 +31,8 @@ let restEndpointApi = new RestApi('api/v1')
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
-Application.addStaticSubclassToClassArray([ConditionController])
-Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows calling a child class from its parent class.
+Application.addStaticSubclassToClassArray({ConditionController, StaticContent: StaticContentClass, WebappUI: WebappUIClass, Api: ApiClass})
+Application.initialize() // allows calling a child class from its parent class.
 
 {
     let Class = WebappUIClass
@@ -51,6 +51,15 @@ Application.initialize([StaticContentClass, WebappUIClass, ApiClass]) // allows 
                 name: 'Service worker file',
                 filePath: `/asset/javascript/serviceWorker/serviceWorker.js`,
                 urlPath: '/serviceWorker.js', // determines the scope of the service worker.
+                options: {
+                    gzip: true,
+                },
+                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js'
+            },
+            {
+                name: 'Google verification',
+                filePath: `/template/root/google276dc830e9fade0c.html`,
+                urlPath: '/google276dc830e9fade0c.html', // determines the scope of the service worker.
                 options: {
                     gzip: true,
                 },
