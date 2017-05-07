@@ -20,5 +20,9 @@ if [ "$DEPLOYMENT" = "development" ]; then
     ./run.sh watch
 fi
 
+echo "Debug purposes:";
+(cd /app/serverSide; ls -a)
+(cd /app/serverSide/node_modules/appscript/; ls -a)
+
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.
 exec "$@"
