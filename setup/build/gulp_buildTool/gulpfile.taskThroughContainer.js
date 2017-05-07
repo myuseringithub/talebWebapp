@@ -23,12 +23,12 @@ let GulpTaskDependency = Array.concat(
 			{
 				label: 'serverSide:build'
 			},
-			{
-				label: 'es6:build'
-			}, 
-			{
-				label: 'es5:build'
-			},
+			// {
+			// 	label: 'es6:build'
+			// }, 
+			// {
+			// 	label: 'es5:build'
+			// },
 		]
 	}]
 )
