@@ -14,7 +14,7 @@ let es5TaskAggregator = require('./buildStepDefinition/es5.taskAggregator.js')
 let serverSideTaskAggregator = require('./buildStepDefinition/serverSide.taskAggregator.js')
 let GulpTaskDependency = Array.concat(
 	// es6TaskAggregator, 
-	es5TaskAggregator
+	// es5TaskAggregator
 	// serverSideTaskAggregator,
 	// [{
 	// 	name: 'build',
