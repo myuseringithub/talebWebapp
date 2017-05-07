@@ -5,7 +5,7 @@ build() { # ⭐ Gulp - run bulid tasks
     set -ex; 
     # Debug purposes
     node --harmony `which gulp` --tasks --gulpfile ./entrypoint.js
-    node --harmony `which gulp` build --gulpfile ./entrypoint.js
+    node --harmony `which gulp` bower --gulpfile ./entrypoint.js
 }
 
 watch() { # ⌚ Gulp watch
