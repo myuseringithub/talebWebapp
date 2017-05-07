@@ -14,7 +14,7 @@ services:
 
   # internal ports = 80, 443
   nodejs:
-    image: myuserindocker/taleb-webapp:latest
+    image: myuserindocker/taleb-webapp:1.132
     environment:
       DEPLOYMENT: production
       HOST: taleb.io
