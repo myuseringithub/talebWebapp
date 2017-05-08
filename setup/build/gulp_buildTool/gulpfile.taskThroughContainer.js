@@ -32,6 +32,8 @@ module.exports = async () => {
 			]
 		}]
 	)
+	console.log(JSON.stringify(FileSource))
+	console.log(JSON.stringify(GulpTaskDependency))
 
 	await gulpTaskExecution(FileSource, GulpTaskDependency)
 
