@@ -18,7 +18,7 @@ node("docker") {
             sh "chmod -R 777 /workspace; chown jenkins /workspace"
         }
 
-        stage("BuildSourceCode") {   
+        stage("BuildSourceCode") {
             sh '''
                 # remove stopped containers from previous builds.
                 docker rm -v $(docker ps -a -q) || true;
