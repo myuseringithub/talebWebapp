@@ -13,7 +13,7 @@ export const include = (file)=> { eval(filesystem.readFileSync(file) + '') }, //
     plugins = require('gulp-load-plugins')({ camelize: true })
 
 // Deployment container - tasks responsible for builds that happen through temporary container (from one volume to another).
-require('gulpfile.taskThroughContainer.js');
+require('gulpfile.taskThroughContainer.js')();
 
 // livereloading
 require('gulpfile.taskLivereload.js')
