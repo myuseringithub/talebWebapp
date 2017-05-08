@@ -10,49 +10,50 @@ let es6TaskAggregator = require('./buildStepDefinition/es6.taskAggregator.js')
 let es5TaskAggregator = require('./buildStepDefinition/es5.taskAggregator.js')
 let serverSideTaskAggregator = require('./buildStepDefinition/serverSide.taskAggregator.js')
 
-module.exports = async () => {
-	let FileSource = await Array.concat(es6TaskSetting, es5TaskSetting, serverSideTaskSetting)
-	let GulpTaskDependency = await Array.concat(
-		es6TaskAggregator, 
-		es5TaskAggregator,
-		serverSideTaskAggregator,
-		[{
-			name: 'build',
-			executionType: 'series',
-			childTask: [
-				{
-					label: 'serverSide:build'
-				},
-				{
-					label: 'es6:build'
-				}, 
-				{
-					label: 'es5:build'
-				},
-			]
-		}]
-	)
-	console.log(JSON.stringify(FileSource))
-	console.log(JSON.stringify(GulpTaskDependency))
+let FileSource = Array.concat(es6TaskSetting, es5TaskSetting, serverSideTaskSetting)
+let GulpTaskDependency = Array.concat(
+	es6TaskAggregator, 
+	es5TaskAggregator,
+	serverSideTaskAggregator,
+	[{
+		name: 'build',
+		executionType: 'series',
+		childTask: [
+			{
+				label: 'serverSide:build'
+			},
+			{
+				label: 'es6:build'
+			}, 
+			{
+				label: 'es5:build'
+			},
+		]
+	}]
+)
+console.log(JSON.stringify(FileSource))
+console.log(JSON.stringify(GulpTaskDependency))
 
-	await gulpTaskExecution(FileSource, GulpTaskDependency)
+gulpTaskExecution(FileSource, GulpTaskDependency)
 
-	// ⌚ Watch file changes from sources to destination folder.
-	gulp.task('watch:source', ()=> {
+// ⌚ Watch file changes from sources to destination folder.
+gulp.task('watch:source', ()=> {
 
-		// assets
-		gulp.watch(
-			[
-				source('**/*'),
-				source('**/*')
-			], 
-			{interval: INTERVAL, usePolling: usePolling}, 
-			gulp.series(
-				gulp.parallel(
-					// 'build:css'
-				)
+	// assets
+	gulp.watch(
+		[
+			source('**/*'),
+			source('**/*')
+		], 
+		{interval: INTERVAL, usePolling: usePolling}, 
+		gulp.series(
+			gulp.parallel(
+				// 'build:css'
 			)
-		);
+		)
+	);
 
-	});
+});
+
+module.exports = async () => {
 }
