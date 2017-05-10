@@ -9,7 +9,6 @@ const NestedUnitController = require('appscript/reusableNestedUnit/NestedUnitCon
 const ConditionController = NestedUnitController.getMethodInstance('ConditionController', {superclass: Application})
 import ConditionTree from 'appscript/class/condition/ConditionTree.class.js'
 import Condition from 'appscript/class/condition/Condition.class.js'
-ConditionController.addStaticSubclassToClassArray({ConditionTree, Condition})
 
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
 import StaticContentClass from 'port/staticContent/StaticContent.class.js'
@@ -25,13 +24,12 @@ import createClassInstancePerRequest from 'appscript/utilityFunction/middleware/
 import RestApi from 'port/api/middleware/database/restEndpointApi.js'
 let restEndpointApi = new RestApi('api/v1')
 
-// TODO: Custom Dataset Schema/structure/blueprint, data document, custom dataset type, custom fields, custom content type.
+// TODO: Custom Dataset Schema/structure/blueprint, data document, csustom dataset type, custom fields, custom content type.
 // TODO: Condition Tree:
 // • Ability to decide insertion position of unit in subtree. e.g. before, after, first, last.
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
-Application.addStaticSubclassToClassArray({ConditionController, StaticContent: StaticContentClass, WebappUI: WebappUIClass, Api: ApiClass})
 Application.initialize() // allows calling a child class from its parent class.
 
 {
@@ -42,6 +40,7 @@ Application.initialize() // allows calling a child class from its parent class.
         createClassInstancePerRequest(Class),
         async (context, next) => {
             // instance.middlewareArray.push(middleware)
+            context.set('connection', 'keep-alive')
             await next()
         },
         useragentDetection,
@@ -98,6 +97,7 @@ Application.initialize() // allows calling a child class from its parent class.
         async (context, next) => {
             // instance.middlewareArray.push(middleware)
             context.set('Access-Control-Allow-Origin', '*')
+            context.set('connection', 'keep-alive')
             await next()
         },
         useragentDetection,
@@ -142,6 +142,7 @@ Application.initialize() // allows calling a child class from its parent class.
         async (context, next) => {
             // instance.middlewareArray.push(middleware)
             await next()
+            context.set('connection', 'keep-alive')
             context.set('Access-Control-Allow-Origin', '*')
         },
         // async (context, next) => {

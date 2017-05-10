@@ -11,6 +11,11 @@ const self = class Api extends Application {
     middlewareArray = []
 
     static initializeStaticClass() {
+        self.eventEmitter.on('initializationEnd', () => {
+            let ClassObject = {}
+            ClassObject[`${self.name}`] = self
+            self.addStaticSubclassToClassArray(ClassObject)
+        })
         super.initializeStaticClass()
         self.port = 8082
         self.url = `${self.config.PROTOCOL}api.${self.config.HOST}/`

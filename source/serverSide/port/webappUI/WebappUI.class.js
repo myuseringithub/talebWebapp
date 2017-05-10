@@ -16,6 +16,11 @@ const self = class WebappUI extends Application {
     next;
 
     static initializeStaticClass() {
+        self.eventEmitter.on('initializationEnd', () => {
+            let ClassObject = {}
+            ClassObject[`${self.name}`] = self
+            self.addStaticSubclassToClassArray(ClassObject)
+        })
         super.initializeStaticClass()
         self.port = 80
     }
@@ -101,6 +106,9 @@ const self = class WebappUI extends Application {
                 cert: filesystem.readFileSync('port/webappUI/sampleSSL/server.crt')
             }
             https.createServer(options, self.serverKoa.callback())
+                .on('connection', (socket) => {
+                    socket.setTimeout(120);
+                })
                 .listen(443, () => {
                     console.log(`☕%c ${self.name} listening on port 443`, self.config.style.green)
                 })

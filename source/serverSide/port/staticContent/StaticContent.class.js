@@ -11,6 +11,11 @@ const self = class StaticContent extends Application {
     middlewareArray = []
     
     static initializeStaticClass() {
+        self.eventEmitter.on('initializationEnd', () => {
+            let ClassObject = {}
+            ClassObject[`${self.name}`] = self
+            self.addStaticSubclassToClassArray(ClassObject)
+        })
         super.initializeStaticClass()
         self.port = 8081
         self.url = `${self.config.PROTOCOL}cdn.${self.config.HOST}`
