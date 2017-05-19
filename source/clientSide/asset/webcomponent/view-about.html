@@ -30,6 +30,9 @@
       <style is="custom-style">
         :host {
         }
+        .rate {
+          min-height: 143.5px;
+        }
         h1 {
           text-align: center;
         }
@@ -64,7 +67,7 @@
           line-height: 11px;
           display: inline-block;
         }
-        #container {
+        .container {
           @apply --layout;
           @apply --layout-flex-auto;
           @apply --layout-center-center;
@@ -76,6 +79,7 @@
           text-align: right;
         }
         .card-content {
+          max-height: 130px;
         } 
         @media only screen and (max-width: 768px) {
           .card {
@@ -96,7 +100,7 @@
       <paper-card class="rate" style="text-align: center; margin: 10px auto;">
         <div class="card-content" style="">
           <div class="rate-header" style="text-align: center;">موقع Taleb.io</div>
-          <div class="rate-name"></div>
+          <div class="rate-name">المكاتب: الرملة, الناصرة, كفرمندا</div>
           <div></div>
         </div>
         <div class="card-actions" style="text-align: center;">
@@ -111,11 +115,12 @@
       </paper-card>
     </div>
 
-    <div id="container" style="">
+    <div class="container" style="">
           <paper-card class="rate">
             <div class="card-content">
               <div class="rate-header">د. زيدان نصار</div>
               <div class="rate-name">المدير العام</div>
+              <div class="rate-name">כביש מור 6, الرملة</div>
             </div>
             <div class="card-actions" style="padding: 10px 16px">
               <span>050-7346-919 <iron-icon icon="icons:perm-phone-msg" style="margin-right: 5px;"></iron-icon></span>
@@ -124,6 +129,26 @@
               <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>-->
             </div>
             <div class="rate-image" style="background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/10403502_656635401116137_6952688429165316497_n.jpg?oh=094bf7bae889e1b893064a5f3b3f777d&oe=5990E8AA'); background-size: cover; background-position: center; "></div>
+          </paper-card>
+          <paper-card class="rate">
+            <div class="card-content">
+              <div class="rate-header">د. هشام قاسم</div>
+              <!--<div>050-7346919</div>-->
+              <div class="rate-name">مسؤول الناصرة والمنطقة</div> 
+              <div class="rate-name">الحي الشرقي شارع السلام, الناصرة</div> 
+            </div>
+            <div class="card-actions" style="padding: 10px 16px">
+              <span>054-9785-635 <iron-icon icon="icons:perm-phone-msg" style="margin-right: 5px;"></iron-icon></span>
+              <!--<paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>
+              <paper-icon-button class="rate-icon" icon="star"></paper-icon-button>-->
+            </div>
+            <!--<div class="card-actions">
+              <a href="https://www.facebook.com/Dr-Safi-Zeidan-Nassar-263203630469965/" target="_blank" tabindex="-1">
+                <paper-button style="background-color:#3b5998; color: white; height: 34px; margin: 3px 0;">Facebook</paper-button>
+              </a>
+            </div>-->
+            <!--<div class="rate-image" style="background-position-y: top; background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/11046843_289832167807111_655381094911286845_n.jpg?oh=0d2488acf0d32fb76ffe3a0cad3b067f&oe=59958E9A'); background-size: cover; "></div>-->
           </paper-card>
           <paper-card class="rate">
             <div class="card-content">
@@ -137,6 +162,34 @@
               </a>
             </div>
             <div class="rate-image" style="background-position-y: top; background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/11046843_289832167807111_655381094911286845_n.jpg?oh=0d2488acf0d32fb76ffe3a0cad3b067f&oe=59958E9A'); background-size: cover; "></div>
+          </paper-card>
+      </div>
+      <div class="container" style="">
+          <paper-card class="rate">
+            <div class="card-content">
+              <div class="rate-header">ريما نصار</div>
+              <!--<div>050-7346919</div>-->
+              <div class="rate-name">الوكيلة في بوخارست, رومانيا</div> 
+            </div>
+            <!--<div class="card-actions">
+              <a href="https://www.facebook.com/Dr-Safi-Zeidan-Nassar-263203630469965/" target="_blank" tabindex="-1">
+                <paper-button style="background-color:#3b5998; color: white; height: 34px; margin: 3px 0;">Facebook</paper-button>
+              </a>
+            </div>-->
+            <!--<div class="rate-image" style="background-position-y: top; background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/11046843_289832167807111_655381094911286845_n.jpg?oh=0d2488acf0d32fb76ffe3a0cad3b067f&oe=59958E9A'); background-size: cover; "></div>-->
+          </paper-card>
+          <paper-card class="rate">
+            <div class="card-content">
+              <div class="rate-header">محمد نصار</div>
+              <!--<div>050-7346919</div>-->
+              <div class="rate-name">الوكيل في كيشيناو, مولدوفا</div> 
+            </div>
+            <!--<div class="card-actions">
+              <a href="https://www.facebook.com/Dr-Safi-Zeidan-Nassar-263203630469965/" target="_blank" tabindex="-1">
+                <paper-button style="background-color:#3b5998; color: white; height: 34px; margin: 3px 0;">Facebook</paper-button>
+              </a>
+            </div>-->
+            <!--<div class="rate-image" style="background-position-y: top; background: url('https://scontent-fra3-1.xx.fbcdn.net/v/t1.0-9/11046843_289832167807111_655381094911286845_n.jpg?oh=0d2488acf0d32fb76ffe3a0cad3b067f&oe=59958E9A'); background-size: cover; "></div>-->
           </paper-card>
     </div>
   

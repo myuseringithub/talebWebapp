@@ -4,7 +4,8 @@
   "description": "Koa server app",
   "main": "app.js",
   "scripts": {
-    "start": "./run.sh"
+    "start": "./run.sh",
+    "postinstall": "(cd ./node_modules/appscript; npm install)"
   },
   "author": "",
   "license": "ISC",

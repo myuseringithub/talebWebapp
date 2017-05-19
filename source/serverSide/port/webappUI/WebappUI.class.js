@@ -1,8 +1,9 @@
-import Application from 'appscript'
+import { default as Application } from 'appscript'
 import _ from 'underscore'
 import filesystem from 'fs'
 import https from 'https'
 import http from 'http'
+const ConditionController = require('appscript/module/condition').getMethodInstance('ConditionController', Application)
 
 const self = class WebappUI extends Application {
     
@@ -36,7 +37,7 @@ const self = class WebappUI extends Application {
         this.next = next
         // [1] Create instances and check conditions. Get callback either a function or document
         let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
-        let conditionController = await new self.extendedSubclass.static['ConditionController'](false)
+        let conditionController = await new ConditionController(false)
         let portAppInstance = this // The instance responsible for rquests of specific port.
         let callback = await conditionController.initializeConditionTree(entrypointConditionTree, portAppInstance)
         // [2] Use callback

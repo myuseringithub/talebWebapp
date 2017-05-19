@@ -7,9 +7,9 @@ const GulpTaskDependency = [
             {
                 label: 'npm'
             },
-            {
-                label: 'npm:appscript'
-            }
+            // {
+            //     label: 'npm:appscript'
+            // }
         ]
     },
     {

@@ -3,38 +3,38 @@ r.db("webapp").table("setting").insert([
   	id: 'dataBlueprint',
     dataBlueprint: {
       template: {
-        key: 'String', // key
+        key: 'XXXXX', // key
         filePath: 'String',
         insertionPosition: 'Object'
       },
       view: {
-        key: 'String', // key
+        key: 'XXXXX', // key
         template: 'String', // key
         argument: 'Object',
       },
       valueReturningFile: {
-        key: 'String', // key
+        key: 'XXXXX', // key
         filePath: 'String',
         type: 'String'
       },
       condition: {
-        key: 'String', //key
+        key: 'XXXXX', //key
         valueReturningFile: 'String', //key
         expectedReturn: 'String'
       },
       conditionTree: {
-        key: 'String', //key
+        key: 'XXXXX', //key
         insertionPoint: 'Array',
         callback: 'Object',
         children: 'Array'
       },
       viewTree: {
-        key: 'String', //key
+        key: 'XXXXX', //key
         insertionPoint: 'Array',
         children: 'Array'
       },
       customDatasetSchema: {
-        key: 'String',
+        key: 'XXXXX',
         name: 'String',
         blueprint: 'Array'
       }
