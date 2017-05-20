@@ -186,7 +186,7 @@
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" align="right">
         <app-toolbar style="line-height: 20px;font-weight: inherit; min-height: 100px;display: grid;margin: 10px auto;">
-          <a style="margin: auto;" href="http://localhost/"><img style="max-width: 115px;" src="/asset/upload/LogoTaleb30v21.png"></a>
+          <a style="margin: auto;" href$="{{app.setting.location.routeBasePath}}"><img style="max-width: 115px;" src="/asset/upload/LogoTaleb30v21.png"></a>
           <span style="text-align: center;margin-top: 9px;">موقع طالب - معلومات عن الدراسة في الخارج</span>
         </app-toolbar>
         <iron-selector selected="[[page.selectorName]]" attr-for-selected="name" class="drawer-list" role="navigation">
