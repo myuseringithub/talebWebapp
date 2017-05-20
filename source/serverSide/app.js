@@ -13,8 +13,7 @@ import StaticContentClass from 'port/staticContent/StaticContent.class.js'
 import ApiClass from 'port/api/Api.class.js'
 
 // Middlewares
-import route from 'port/api/middleware/route/route.js' // Routes & API
-import serverCommonFunctionality from 'appscript/utilityFunction/middleware/serverCommonFunctionality.js' // Middleware extending server functionality
+// import route from 'port/api/middleware/route/route.js' // Routes & API
 import implementMiddlewareOnModuleUsingJson from 'appscript/utilityFunction/middleware/implementMiddlewareOnModuleUsingJson.js' // Middleware extending server functionality
 import createClassInstancePerRequest from 'appscript/utilityFunction/middleware/createClassInstancePerRequest.middleware.js'
 import RestApi from 'port/api/middleware/database/restEndpointApi.js'
@@ -25,9 +24,6 @@ let restEndpointApi = new RestApi('api/v1')
 // • Ability to decide insertion position of unit in subtree. e.g. before, after, first, last.
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
-
-
-import useragentDetection from 'appscript/utilityFunction/middleware/useragentDetection.middleware.js'
 
 Application.eventEmitter.on('initializationEnd', () => {
     let Class = WebappUIClass

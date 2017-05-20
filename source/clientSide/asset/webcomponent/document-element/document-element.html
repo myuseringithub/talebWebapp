@@ -82,7 +82,6 @@
             pattern="/:pathTopLevel"
             data="{{routeData}}"
             tail="{{subroute}}"></app-route>
-        
         <!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
         <!--<document-element layout="{{layout}}" page="{{page}}" subroute="{{subroute}}" app="{{app}}">-->
             <iron-pages
@@ -199,6 +198,7 @@
                     // document.page.filename = document.page.file.substr(0, document.page.file.indexOf('.'));
                     this.layout = document.layout
                     this.page = document.page
+                    
                 }
 
                 checkConditionTree(pathTopLevel, pathLevel2) {

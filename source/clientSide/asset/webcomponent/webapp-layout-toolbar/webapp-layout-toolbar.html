@@ -13,6 +13,7 @@
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/iron-icons/av-icons.html">
 <link rel="import" href="../view-icons.html">
+<!--<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">-->
 
 <dom-module id="webapp-layout-toolbar">
   <template>
@@ -184,7 +185,10 @@
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" align="right">
-        <app-toolbar>موقع طالب - معلومات عن الدراسة في الخارج</app-toolbar>
+        <app-toolbar style="line-height: 20px;font-weight: inherit; min-height: 100px;display: grid;margin: 10px auto;">
+          <a style="margin: auto;" href="http://localhost/"><img style="max-width: 115px;" src="/asset/upload/LogoTaleb30v21.png"></a>
+          <span style="text-align: center;margin-top: 9px;">موقع طالب - معلومات عن الدراسة في الخارج</span>
+        </app-toolbar>
         <iron-selector selected="[[page.selectorName]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <slot name="drawertab"></slot>
         </iron-selector>
@@ -209,6 +213,7 @@
             </a>
           </app-toolbar>
         </app-header>
+        <!--<paper-spinner id="spinner" active style="padding: 8px;border-radius: 22px; background: white;"></paper-spinner>        -->
         <iron-pages 
             selected="[[page.selectorName]]"
             attr-for-selected="name"
@@ -247,6 +252,12 @@
               reflectToAttribute: true,
               observer: '_pageChanged',
             },
+            // showspinner: {
+            //     type: Boolean,
+            //     notify: true,
+            //     reflectToAttribute: true,
+            //     observer: 'toggleSpinner',
+            // },
           }
         }
 
@@ -263,22 +274,31 @@
 
         ready() {
           super.ready();
-          
           if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
         }
 
         _pageChanged(page, oldView) {
           // Load page import on demand. Show 404 page if fails
           if (page.selectorName != null) {
-              let callback = this._showPage404;
+              let callbackError = this._showPage404;
+              // let callbackOnload = this.hideSpinner;
               let resolvedPageUrl = this.resolveUrl(`../${page.file}`);
-              Polymer.importHref(resolvedPageUrl, null, callback, true);
+              Polymer.importHref(resolvedPageUrl, null, callbackError, true);
           }
 
           if (!this.$.drawer.persistent) {
               this.$.drawer.close();  
           }
         }
+
+        // hideSpinner() {
+        //   this.showspinner = false;
+        // }
+
+        // toggleSpinner(newValue, oldValue) {
+        //   console.log(this.$.spinner)
+        //   (newValue == true) ? this.$.spinner.setAttribute('active', "") : this.$.spinner.removeProperty("active");
+        // }
 
         _showPage404() {
           this.page.selectorName = 'view404';
