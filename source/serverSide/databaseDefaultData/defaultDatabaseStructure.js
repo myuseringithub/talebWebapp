@@ -39,6 +39,20 @@ r.db("webapp").table("setting").insert([
     fieldDataType: []
   },
 
+  // Middleware
+	{
+    id: 'middlewareNestedUnit',
+    middlewareNestedUnit: []
+  },
+	{
+    id: 'middlewareImplementation',
+    middlewareImplementation: []
+  },
+	{
+    id: 'middlewareFile',
+    middlewareFile: []
+  },
+
 ],
 {conflict: "update"}
 )

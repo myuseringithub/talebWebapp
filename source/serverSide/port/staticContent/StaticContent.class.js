@@ -22,7 +22,7 @@ const self = class StaticContent extends Application {
     }
     constructor() {
         super(true)
-        this.config = {}
+        this.config = {} // populated by useragentDetection module.
     }
 
 }

@@ -5,7 +5,8 @@ import views from 'koa-views'
 
 // Classes
 import { default as Application } from 'appscript'
-const ConditionController = require('appscript/module/condition').getMethodInstance('ConditionController', Application)
+const ConditionController = require('appscript/module/condition')(Application)
+// const MiddlewareController = require('appscript/module/middleware')(Application)
 // TODO: + initialize options for callback as functionMiddleware or document template rendering.
 
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
@@ -30,6 +31,11 @@ Application.eventEmitter.on('initializationEnd', () => {
     // Templating engine & associated extention.
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     let middlewareSequence = [
+            {
+                name: "commonFunctionality middlewares",
+                executionType: 'regularFunction',
+                functionPath: 'appscript/utilityFunction/middleware/serverCommonFunctionality.js'
+            },
             {
                 name: 'useragentDetection',
                 executionType: 'middleware',
@@ -77,11 +83,6 @@ Application.eventEmitter.on('initializationEnd', () => {
                 executionType: 'regularFunction',
                 functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
             },
-            {
-                name: "commonFunctionality middlewares",
-                executionType: 'regularFunction',
-                functionPath: 'appscript/utilityFunction/middleware/serverCommonFunctionality.js'
-            }
             // {
             //     name: 'applyConditionCallback',
             //     entrypointConditionTreeKey: 'default',
@@ -96,6 +97,13 @@ Application.eventEmitter.on('initializationEnd', () => {
             await next()
         },
         implementMiddlewareOnModuleUsingJson(middlewareSequence),
+        // async (context, next) => {
+        //     let portAppInstance = context.instance
+        //     let middlewareController = await new MiddlewareController(false, portAppInstance)
+        //     let result = await middlewareController.initializeNestedUnit('0adb621b-ae9d-4d4c-9166-16aefbfe0e21')
+        //     console.log(result)
+        //     await next()
+        // },
         async (context, next) => {
             let isCalledNext = await context.instance.applyConditionCallback(next)
             if(!isCalledNext) next()

@@ -3,7 +3,7 @@ import _ from 'underscore'
 import filesystem from 'fs'
 import https from 'https'
 import http from 'http'
-const ConditionController = require('appscript/module/condition').getMethodInstance('ConditionController', Application)
+const ConditionController = require('appscript/module/condition')(Application)
 
 const self = class WebappUI extends Application {
     
@@ -27,7 +27,7 @@ const self = class WebappUI extends Application {
     }
     constructor(skipConstructor = false) {
         super(true)
-        this.config = {}
+        this.config = {} // populated by useragentDetection module.
         if(skipConstructor) return;
         // if (!new.target) console.log(new.target) // not supported by babel
         // if (!(this instanceof WebappUI)) return new WebappUI() // This is used in factory functions not classes.
@@ -36,10 +36,10 @@ const self = class WebappUI extends Application {
     async applyConditionCallback(next) {
         this.next = next
         // [1] Create instances and check conditions. Get callback either a function or document
-        let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
-        let conditionController = await new ConditionController(false)
         let portAppInstance = this // The instance responsible for rquests of specific port.
-        let callback = await conditionController.initializeConditionTree(entrypointConditionTree, portAppInstance)
+        let conditionController = await new ConditionController(false, portAppInstance)
+        let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
+        let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
         // [2] Use callback
         console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)
         let isCalledNext = false
