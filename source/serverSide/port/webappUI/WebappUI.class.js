@@ -36,8 +36,8 @@ const self = class WebappUI extends Application {
     async applyConditionCallback(next) {
         this.next = next
         // [1] Create instances and check conditions. Get callback either a function or document
-        let portAppInstance = this // The instance responsible for rquests of specific port.
-        let conditionController = await new ConditionController(false, portAppInstance)
+        // The instance responsible for rquests of specific port.
+        let conditionController = await new ConditionController(false, { portAppInstance: this})
         let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
         let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
         // [2] Use callback
@@ -63,6 +63,7 @@ const self = class WebappUI extends Application {
     }
 
     async handleTemplateDocument(documentKey) {
+        // context.instance.config.clientBasePath should be defined using useragentDetection module.
         switch (documentKey) {
             default:
             case 'entrypoint':

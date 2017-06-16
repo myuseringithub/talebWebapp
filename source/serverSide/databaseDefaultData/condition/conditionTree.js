@@ -19,14 +19,30 @@ data.conditionTree = [
         ],
         children: [
             {
-                key: '7c0da598-9bbe-40f8-9d4e-626a88770cbe',
-                treePath: null, // tree child key represent the path
-                insertionPointKey: '2299cc1e-238f-4fe5-9069-51351ded59a7'
+                nestedUnit: '7c0da598-9bbe-40f8-9d4e-626a88770cbe',
+                pathPointerKey: 'XYZ3',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '2299cc1e-238f-4fe5-9069-51351ded59a7',
+                    order: 1,
+                    // placement: {
+                    //     type: 'after/before', 
+                    //     pathPointer: 'KeyXXXX', 
+                    // }
+                }
             },
             {
-                key: '12e03c10-d9fb-4890-a6e9-51052a8c011f',
-                treePath: null, // tree child key represent the path
-                insertionPointKey: '2299cc1e-238f-4fe5-9069-51351ded59a7'
+                nestedUnit: '12e03c10-d9fb-4890-a6e9-51052a8c011f',
+                pathPointerKey: 'XYZ4',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '2299cc1e-238f-4fe5-9069-51351ded59a7',
+                    order: 2,   
+                    // placement: {
+                    //     type: 'after/before',
+                    //     pathPointer: 'KeyXXXX',
+                    // }
+                }
             }
         ],
     },
@@ -47,9 +63,12 @@ data.conditionTree = [
         ],
         children: [
             {
-                key: '29f3a820-251c-4b71-99c1-b3e9f7d95002', // TODO: CHANGE NAME TO conditionTreeKey
-                treePath: null, // tree child key represent the path
-                insertionPointKey: 'a9e163e4-3389-481e-afa2-d23f6e650c76'
+                nestedUnit: '29f3a820-251c-4b71-99c1-b3e9f7d95002', // TODO: CHANGE NAME TO conditionTreeKey
+                pathPointerKey: 'XYZ6',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: 'a9e163e4-3389-481e-afa2-d23f6e650c76'
+                }
             },
         ],
         callback: { // fallback function.
@@ -88,14 +107,20 @@ data.conditionTree = [
         ],
         children: [
             {
-                key: '8009c3d2-b7c3-4f68-bb0a-045822647960',
-                treePath: null, // tree child key represent the path
-                insertionPointKey: '1d53f4e7-74f4-41b0-937c-68f976b7d271'
+                nestedUnit: '8009c3d2-b7c3-4f68-bb0a-045822647960',
+                pathPointerKey: 'XYZ2',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '1d53f4e7-74f4-41b0-937c-68f976b7d271'
+                }
             },
             {
-                key: 'c6cede34-70f0-456e-863b-73f5f3a76a54',
-                treePath: null, // tree child key represent the path
-                insertionPointKey: '1d53f4e7-74f4-41b0-937c-68f976b7d271'
+                nestedUnit: 'c6cede34-70f0-456e-863b-73f5f3a76a54',
+                pathPointerKey: 'XYZ1',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '1d53f4e7-74f4-41b0-937c-68f976b7d271'
+                }
             }
         ],
     },

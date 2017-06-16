@@ -6,7 +6,7 @@ import views from 'koa-views'
 // Classes
 import { default as Application } from 'appscript'
 const ConditionController = require('appscript/module/condition')(Application)
-// const MiddlewareController = require('appscript/module/middleware')(Application)
+const MiddlewareController = require('appscript/module/middleware')(Application)
 // TODO: + initialize options for callback as functionMiddleware or document template rendering.
 
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
@@ -31,58 +31,6 @@ Application.eventEmitter.on('initializationEnd', () => {
     // Templating engine & associated extention.
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     let middlewareSequence = [
-            {
-                name: "commonFunctionality middlewares",
-                executionType: 'regularFunction',
-                functionPath: 'appscript/utilityFunction/middleware/serverCommonFunctionality.js'
-            },
-            {
-                name: 'useragentDetection',
-                executionType: 'middleware',
-                functionPath: 'appscript/utilityFunction/middleware/useragentDetection.middleware.js'
-            },
-            {
-                name: 'notFound',
-                executionType: 'regularFunction',
-                functionPath: 'appscript/utilityFunction/middleware/notFound.js'
-            },
-            {
-                name: 'Service worker file',
-                arguments: {
-                    filePath: `/asset/javascript/serviceWorker/serviceWorker.js`,
-                    urlPath: '/serviceWorker.js', // determines the scope of the service worker.
-                    options: {
-                        gzip: true,
-                    },
-                },
-                executionType: 'regularFunction',
-                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js'
-            },
-            {
-                name: 'Google verification',
-                arguments: {
-                    filePath: `/template/root/google276dc830e9fade0c.html`,
-                    urlPath: '/google276dc830e9fade0c.html', // determines the scope of the service worker.
-                    options: {
-                        gzip: true,
-                    }
-                },
-                executionType: 'regularFunction',
-                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js'
-            },
-            {
-                name: 'Static root files',
-                arguments: {
-                    directoryPath: `/template/`,
-                    urlPath: '/',
-                    options: {
-                        gzip: true,
-                        // index: 'entrypoint.html'
-                    }
-                },
-                executionType: 'regularFunction',
-                functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
-            },
             // {
             //     name: 'applyConditionCallback',
             //     entrypointConditionTreeKey: 'default',
@@ -96,13 +44,42 @@ Application.eventEmitter.on('initializationEnd', () => {
             context.set('connection', 'keep-alive')
             await next()
         },
-        implementMiddlewareOnModuleUsingJson(middlewareSequence),
+        // implementMiddlewareOnModuleUsingJson(middlewareSequence),
+        async (context, next) => {
+            let middleware;
+            let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+            middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
+            await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
+        },
         // async (context, next) => {
-        //     let portAppInstance = context.instance
-        //     let middlewareController = await new MiddlewareController(false, portAppInstance)
-        //     let result = await middlewareController.initializeNestedUnit('0adb621b-ae9d-4d4c-9166-16aefbfe0e21')
-        //     console.log(result)
-        //     await next()
+        //     let middleware;
+        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
+        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
+        // },
+        // async (context, next) => {
+        //     let middleware;
+        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '1b18ecb2-b281-4cb6-a3fa-6d3bdf9c583d' })
+        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
+        // },
+        // async (context, next) => {
+        //     let middleware;
+        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '27af18c4-d2b1-4420-951c-bb3933184f6d' })
+        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
+        // },
+        // async (context, next) => {
+        //     let middleware;
+        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: 'cfa43f4b-f351-46e1-92e4-40636f279eb9' })
+        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
+        // },
+        // async (context, next) => {
+        //     let middleware;
+        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '7d0e5a56-f5a0-4d5b-b329-bbf1cccd4552' })
+        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
         // },
         async (context, next) => {
             let isCalledNext = await context.instance.applyConditionCallback(next)
