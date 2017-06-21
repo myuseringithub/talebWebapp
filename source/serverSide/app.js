@@ -48,39 +48,9 @@ Application.eventEmitter.on('initializationEnd', () => {
         async (context, next) => {
             let middleware;
             let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
-            middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
-            await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
+            middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
+            await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
         },
-        // async (context, next) => {
-        //     let middleware;
-        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
-        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
-        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
-        // },
-        // async (context, next) => {
-        //     let middleware;
-        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
-        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '1b18ecb2-b281-4cb6-a3fa-6d3bdf9c583d' })
-        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
-        // },
-        // async (context, next) => {
-        //     let middleware;
-        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
-        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '27af18c4-d2b1-4420-951c-bb3933184f6d' })
-        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
-        // },
-        // async (context, next) => {
-        //     let middleware;
-        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
-        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: 'cfa43f4b-f351-46e1-92e4-40636f279eb9' })
-        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
-        // },
-        // async (context, next) => {
-        //     let middleware;
-        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
-        //     middleware = await middlewareController.initializeNestedUnit({ nestedUnitKey: '7d0e5a56-f5a0-4d5b-b329-bbf1cccd4552' })
-        //     await implementMiddlewareOnModuleUsingJson(middleware)(context, next)
-        // },
         async (context, next) => {
             let isCalledNext = await context.instance.applyConditionCallback(next)
             if(!isCalledNext) next()
