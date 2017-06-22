@@ -24,23 +24,23 @@ data.middlewareFile = [
   {
     key: '81902e75-17a0-41a1-a12d-e5d4446e85d9',
     label: {
-      name: 'Service worker file'
-    },
-    filePath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js',
-  },
-  {
-    key: '53cc8bc5-b1e4-4dc8-a4d6-6ebe1f4c8a54',
-    label: {
-      name: 'Google verification'
+      name: 'serveStaticSingleFile.middlewareGenerator.js'
     },
     filePath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js',
   },
   {
     key: 'bb770b52-e40a-46a7-91ca-efd7f355d10f',
     label: {
-      name: 'Static root files'
+      name: 'serveStaticDirectory.middlewareGenerator.js'
     },
     filePath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js',
+  },
+  {
+    key: 'aad0f39d-ebcc-40ce-a2f5-4ab41a971b46',
+    label: {
+      name: 'serveStaticSingleFileRenderTemplate.middlewareGenerator.js'
+    },
+    filePath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFileRenderTemplate.middlewareGenerator.js',
   }
 ];
 r.db("webapp").table("setting").get("middlewareFile").update({ middlewareFile: data.middlewareFile}, { nonAtomic: true });

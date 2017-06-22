@@ -173,7 +173,157 @@ data.middlewareNestedUnit = [
             //     }
             // },
         ],
-    }
+    },
+
+
+
+
+
+    {
+        key: '47475dab-0987-40af-b8d4-e6c126ad3172',
+        label: {
+            name: 'useragentDetection'
+        },
+        middlewareImplementation: '3544ab32-f236-4e66-aacd-6fdf20df069b',
+        insertionPoint: [
+            {
+                key: 'af59ba38-d514-4ac4-9137-b80180f70ca8',
+                order: 1,
+                executionType: 'middlewareArray'
+            },
+        ],
+        children: [
+            {
+                nestedUnit: '64d52586-2521-4dd7-8877-96d65698d5e8',
+                pathPointerKey: '01b0c64a-6584-4da8-ab0e-8a9c1c7b3a39',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: 'af59ba38-d514-4ac4-9137-b80180f70ca8',
+                    order: 1,
+                    // placement: {
+                    //     type: 'after/before', 
+                    //     pathPointer: 'KeyXXXX', 
+                    // }
+                }
+            },
+        ],
+    },
+    {
+        key: '64d52586-2521-4dd7-8877-96d65698d5e8',
+        label: {
+            name: 'jspm.config.js static file'
+        },
+        middlewareImplementation: 'fe175a7c-45ab-4d7a-9fba-57245eee0527',
+        insertionPoint: [
+            {
+                key: 'a9e421b4-2d9e-4b75-a6d5-56e927dcf375',
+                order: 1,
+                executionType: 'middlewareArray'
+            },
+        ],
+        children: [
+            {
+                nestedUnit: '24b8080b-27b5-4928-8a42-dd2e86e1a74e',
+                pathPointerKey: 'ff04602e-dad6-4ac5-bb1a-2fa69d5b3693',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: 'a9e421b4-2d9e-4b75-a6d5-56e927dcf375',
+                    order: 1,
+                    // placement: {
+                    //     type: 'after/before', 
+                    //     pathPointer: 'KeyXXXX', 
+                    // }
+                }
+            },
+        ],
+    },
+    {
+        key: '24b8080b-27b5-4928-8a42-dd2e86e1a74e',
+        label: {
+            name: 'static assets'
+        },
+        middlewareImplementation: 'c2539d29-d217-41c9-a984-a17d741946c5',
+        insertionPoint: [
+            {
+                key: '7f594b07-8dc1-4f3d-8dd9-ef5fad1c9784',
+                order: 1,
+                executionType: 'middlewareArray'
+            },
+        ],
+        children: [
+            {
+                nestedUnit: 'b28ef74e-4b12-42bb-80aa-89b96e30ad80',
+                pathPointerKey: '506ab93b-aafd-491f-b624-22947fea4c85',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '7f594b07-8dc1-4f3d-8dd9-ef5fad1c9784',
+                    order: 1,
+                    // placement: {
+                    //     type: 'after/before', 
+                    //     pathPointer: 'KeyXXXX', 
+                    // }
+                }
+            },
+        ],
+    },
+    {
+        key: 'b28ef74e-4b12-42bb-80aa-89b96e30ad80',
+        label: {
+            name: 'document-element.html static file'
+        },
+        middlewareImplementation: '07e1ba94-0808-4dc1-b832-f7a54b377692',
+        insertionPoint: [
+            {
+                key: 'beedd85b-b3ee-451d-a724-8d0f5f59701a',
+                order: 1,
+                executionType: 'middlewareArray'
+            },
+        ],
+        children: [
+            {
+                nestedUnit: 'a0c21787-fea9-499d-abcd-f77a8478e910',
+                pathPointerKey: '468630e2-7cdc-48dd-89c1-ecee190f6f0e',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: 'beedd85b-b3ee-451d-a724-8d0f5f59701a',
+                    order: 1,
+                    // placement: {
+                    //     type: 'after/before', 
+                    //     pathPointer: 'KeyXXXX', 
+                    // }
+                }
+            },
+        ],
+    },
+    {
+        key: 'a0c21787-fea9-499d-abcd-f77a8478e910',
+        label: {
+            name: 'static uploaded files'
+        },
+        middlewareImplementation: '2f862d7f-0ae9-4dd0-aae8-4796bbe0581f',
+        insertionPoint: [
+            {
+                key: '0f3202dc-c47d-46cf-9477-542545aa32eb',
+                order: 1,
+                executionType: 'middlewareArray'
+            },
+        ],
+        children: [
+            // {
+            //     nestedUnit: '',
+            //     pathPointerKey: 'b5ceae82-c3f9-4d06-bf21-e385c7789272',
+            //     insertionPosition: {
+            //         insertionPathPointer: null, 
+            //         insertionPoint: '0f3202dc-c47d-46cf-9477-542545aa32eb',
+            //         order: 1,
+            //         // placement: {
+            //         //     type: 'after/before', 
+            //         //     pathPointer: 'KeyXXXX', 
+            //         // }
+            //     }
+            // },
+        ],
+    },
 ];
 
 r.db("webapp").table("setting").get("middlewareNestedUnit").update({ middlewareNestedUnit: data.middlewareNestedUnit}, { nonAtomic: true });

@@ -52,7 +52,7 @@ data.middlewareImplementation = [
             }
         },
         executionType: 'regularFunction',
-        middlewareFile: '53cc8bc5-b1e4-4dc8-a4d6-6ebe1f4c8a54',
+        middlewareFile: '81902e75-17a0-41a1-a12d-e5d4446e85d9',
     },
     {
         key: '20c4b7dd-66de-4b89-9188-f1601f9fc217',
@@ -70,6 +70,63 @@ data.middlewareImplementation = [
         executionType: 'regularFunction',
         middlewareFile: 'bb770b52-e40a-46a7-91ca-efd7f355d10f',
     },
+
+
+
+
+    {
+        key: 'fe175a7c-45ab-4d7a-9fba-57245eee0527',
+        label: {
+            name: 'jspm.config.js static file'
+        },
+        arguments: {
+            filePath: `/jspm_packageManager/jspm.config.js`,
+            urlPath: '/asset/javascript/jspm.config.js',
+            options: { gzip: true },
+        },
+        executionType: 'regularFunction',
+        middlewareFile: '81902e75-17a0-41a1-a12d-e5d4446e85d9',
+    },
+    {
+        key: 'c2539d29-d217-41c9-a984-a17d741946c5',
+        label: {
+            name: 'static assets'
+        },
+        arguments: {
+            directoryPath: `/asset/`,
+            urlPath: '/asset',
+            options: { gzip: true },
+        },
+        executionType: 'regularFunction',
+        middlewareFile: 'bb770b52-e40a-46a7-91ca-efd7f355d10f',
+    },
+    { // [NOT EXACTLY] Overrides that of the above general rule for asset folder subfiles.
+        key: '07e1ba94-0808-4dc1-b832-f7a54b377692',
+        label: {
+            name: 'document-element.html static file'
+        },
+        arguments: {
+            filePath: `/asset/webcomponent/document-element/document-element.html`,
+            urlPath: '/asset:render/webcomponent/document-element/document-element.html',
+            options: { gzip: true },
+        },
+        executionType: 'regularFunction',
+        middlewareFile: 'aad0f39d-ebcc-40ce-a2f5-4ab41a971b46',
+    },
+    {
+        key: '2f862d7f-0ae9-4dd0-aae8-4796bbe0581f',
+        label: {
+            name: 'static uploaded files'
+        },
+        arguments: {
+            directoryPath: `/upload/`,
+            urlPath: '/upload',
+            options: { gzip: true },
+        },
+        executionType: 'regularFunction',
+        middlewareFile: 'bb770b52-e40a-46a7-91ca-efd7f355d10f',
+    },
+
 ];
 
 r.db("webapp").table("setting").get("middlewareImplementation").update({ middlewareImplementation: data.middlewareImplementation}, { nonAtomic: true, returnChanges: 'always' });

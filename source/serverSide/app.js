@@ -26,6 +26,8 @@ let restEndpointApi = new RestApi('api/v1')
 // • Check non immediate children for each insertion point to insert them in their correct destination.
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
+// ████████████████████████████████████████████████████████████████████████████████████████████████
+
 Application.eventEmitter.on('initializationEnd', () => {
     let Class = WebappUIClass
     // Templating engine & associated extention.
@@ -46,7 +48,7 @@ Application.eventEmitter.on('initializationEnd', () => {
         },
         // implementMiddlewareOnModuleUsingJson(middlewareSequence),
         async (context, next) => {
-            let middleware;
+            let middlewareArray;
             let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
             middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
             await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
@@ -63,57 +65,12 @@ Application.eventEmitter.on('initializationEnd', () => {
     Class.createHttpServer()
 })
 
+// ████████████████████████████████████████████████████████████████████████████████████████████████
+
 Application.eventEmitter.on('initializationEnd', () => {
     let Class = StaticContentClass
     // Templating engine & associated extention.
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
-    let middlewareSequence = [
-        {
-            name: 'useragentDetection',
-            executionType: 'middleware',
-            functionPath: 'appscript/utilityFunction/middleware/useragentDetection.middleware.js'
-        },
-        {
-            name: 'jspm.config.js static file',
-            arguments: {
-                filePath: `/jspm_packageManager/jspm.config.js`,
-                urlPath: '/asset/javascript/jspm.config.js',
-                options: { gzip: true },
-            },
-            executionType: 'regularFunction',
-            functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFile.middlewareGenerator.js'
-        },
-        {
-            name: 'static assets',
-            arguments: {
-                directoryPath: `/asset/`,
-                urlPath: '/asset',
-                options: { gzip: true },
-            },
-            executionType: 'regularFunction',
-            functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
-        },
-        {   // [NOT EXACTLY] Overrides that of the above general rule for asset folder subfiles.
-            name: 'document-element.html static file',
-            arguments: {
-                filePath: `/asset/webcomponent/document-element/document-element.html`,
-                urlPath: '/asset:render/webcomponent/document-element/document-element.html',
-                options: { gzip: true },
-            },
-            executionType: 'regularFunction',
-            functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFileRenderTemplate.middlewareGenerator.js'
-        },
-        {
-            name: 'static uploaded files',
-            arguments: {
-                directoryPath: `/upload/`,
-                urlPath: '/upload',
-                options: { gzip: true },
-            },
-            executionType: 'regularFunction',
-            functionPath: 'appscript/utilityFunction/middleware/staticFile/serveStaticDirectory.middlewareGenerator.js'
-        },
-    ]
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
         async (context, next) => {
@@ -122,20 +79,19 @@ Application.eventEmitter.on('initializationEnd', () => {
             context.set('connection', 'keep-alive')
             await next()
         },
-        implementMiddlewareOnModuleUsingJson(middlewareSequence),
+        async (context, next) => {
+            let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+            let middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: '47475dab-0987-40af-b8d4-e6c126ad3172' })
+            await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
+        },
     ])
     Class.createHttpServer()
 })
 
+// ████████████████████████████████████████████████████████████████████████████████████████████████
+
 Application.eventEmitter.on('initializationEnd', () => {
     let Class = ApiClass
-    let middlewareSequence = [
-        {
-            name: "commonFunctionality middlewares",
-            executionType: 'regularFunction',
-            functionPath: 'appscript/utilityFunction/middleware/serverCommonFunctionality.js'
-        }
-    ]
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
         async (context, next) => {
@@ -145,6 +101,12 @@ Application.eventEmitter.on('initializationEnd', () => {
             context.set('Access-Control-Allow-Origin', '*')
         },
         // async (context, next) => {
+        //     let middleware;
+        //     let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
+        //     middlewareArray = await middwareController.initializeNestedUnit({ nestedUnitKey: '' })
+        //     await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
+        // },
+        // async (context, next) => {
         //     context.instance.middlewareArray[0](context, next)
         // },
         restEndpointApi.route(),
@@ -152,6 +114,7 @@ Application.eventEmitter.on('initializationEnd', () => {
     Class.createHttpServer()
 })
 
+// ████████████████████████████████████████████████████████████████████████████████████████████████
 
 Application.initialize() // allows calling a child class from its parent class.
 
