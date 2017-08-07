@@ -59,11 +59,11 @@ Application.eventEmitter.on('initializationEnd', () => {
             // The instance responsible for rquests of specific port.
             let conditionController = await new ConditionController(false, { portAppInstance: context.instance})
             let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
-            console.log(`🍊 Condition Key: ${entrypointConditionTree}`)
+            if(process.env.SZN_DEBUG == 'true') console.log(`🍊 Condition Key: ${entrypointConditionTree}`)
             let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
-            console.log(`🍊 Callback object: ${callback.name}`)
+            if(process.env.SZN_DEBUG == 'true') console.log(`🍊 Callback object: ${callback.name}`)
             // [2] Use callback
-            console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)
+            if(process.env.SZN_DEBUG == 'true') console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)
             let isCalledNext = false
             switch(callback.type) {
                 case 'functionMiddleware':
@@ -74,7 +74,7 @@ Application.eventEmitter.on('initializationEnd', () => {
                     await context.instance.handleTemplateDocument(callback.name)
                     break;
                 default: 
-                    console.log('SZN - %c callback doesn\'t match any kind.', self.config.style.red)
+                if(process.env.SZN_DEBUG == 'true') console.log('SZN - %c callback doesn\'t match any kind.', self.config.style.red)
             }             
         }, 
         async (context, next) => {

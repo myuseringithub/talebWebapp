@@ -35,7 +35,7 @@ const entrypoint = {
 }
 
 let debugArguments = []
-if (process.env.SZN_DEBUG) {
+if (process.env.SZN_DEBUG == 'true') {
     if(process.env.SZN_OPTION_BREAK == 'true') {
         debugArguments = ["--inspect=localhost:9229", "--debug-brk"]
     } else {
