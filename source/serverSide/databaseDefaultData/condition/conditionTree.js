@@ -7,7 +7,7 @@ data.conditionTree = [
         },
         conditionImplementation: 'c639cd53-c764-4967-b052-1e1652107923',
         callback: { // fallback function.
-            name: 'entrypoint',
+            name: '518d7b08-f825-486d-be88-1a4df2653022',
             type: 'document'
         },
         insertionPoint: [

@@ -3,7 +3,8 @@ import _ from 'underscore'
 import filesystem from 'fs'
 import https from 'https'
 import http from 'http'
-const ConditionController = require('appscript/module/condition')(Application)
+const TemplateController = require('appscript/module/template')(Application)
+import getTableDocument from 'appscript/utilityFunction/database/query/getTableDocument.query.js'
 
 const self = class WebappUI extends Application {
     
@@ -34,27 +35,6 @@ const self = class WebappUI extends Application {
     }
    
     async applyConditionCallback(next) {
-        this.next = next
-        // [1] Create instances and check conditions. Get callback either a function or document
-        // The instance responsible for rquests of specific port.
-        let conditionController = await new ConditionController(false, { portAppInstance: this})
-        let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
-        let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
-        // [2] Use callback
-        console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)
-        let isCalledNext = false
-        switch(callback.type) {
-            case 'functionMiddleware':
-                await this.handleFunctionMiddleware(callback.name)
-                isCalledNext = true
-                break;
-            case 'document':
-                await this.handleTemplateDocument(callback.name)
-                break;
-            default: 
-                console.log('SZN - %c callback doesn\'t match any kind.', self.config.style.red)
-        }
-        return isCalledNext;
     }
 
     async handleFunctionMiddleware(filePath) {
@@ -63,31 +43,49 @@ const self = class WebappUI extends Application {
     }
 
     async handleTemplateDocument(documentKey) {
+        
+        let documentObject = await getTableDocument('documentBackend')(self.rethinkdbConnection, documentKey)
         // context.instance.config.clientBasePath should be defined using useragentDetection module.
-        switch (documentKey) {
-            default:
-            case 'entrypoint':
-                // let argument = {
-                //     layoutElement: 'webapp-layout-list'
-                // }
-                // let mainDocumentElement = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.html`, 'utf-8')
-                // let mainDocumentElementImport = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.import.html`, 'utf-8')
-                const templateArgument = {
-                    context: this.context,
-                    Application,
-                    argument: {}
-                }
-                const view = {
-                    metadata: _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/asset/metadata/metadata.html`, 'utf-8')),
-                    header: _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.js.html`, 'utf-8')),
-                    // body: _.template(mainDocumentElement, {Application, argument})
-                }
-                await this.context.render(
-                    `${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, 
-                    Object.assign({}, templateArgument, { view, templateArgument })
-                );
-                break;
-        }
+        // NOTE:  documentKey should be received from database and nested unit key retreived from there too.
+        // document could have different rules for users etc.. access previlages
+        let templateController = await new TemplateController(false, { portAppInstance: this.context.instance })
+        let renderedContent = await templateController.initializeNestedUnit({ nestedUnitKey: documentObject.viewNestedUnit })
+        this.context.body = renderedContent;
+
+        // // let argument = {
+        // //     layoutElement: 'webapp-layout-list'
+        // // }
+        // // let mainDocumentElement = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.html`, 'utf-8')
+        // // let mainDocumentElementImport = await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/document-element/document-element.import.html`, 'utf-8')
+        
+        // // Shared arguments between all templates being rendered
+        // const templateArgument = {
+        //      templateController,
+        //     context: this.context,
+        //     Application,
+        //     argument: {}
+        // }
+        
+        // const view = {
+        //     metadata: _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/asset/metadata/metadata.html`, 'utf-8')),
+        //     header: _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.js.html`, 'utf-8')),
+        //     // body: _.template(mainDocumentElement, {Application, argument})
+        // }
+        // let template = _.template(await filesystem.readFileSync(`${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, 'utf-8'))
+        // this.context.body = template( 
+        //     Object.assign(
+        //         {}, 
+        //         templateArgument, 
+        //         { view, templateArgument }
+        //     )
+        // )
+
+
+        // // Using 'context.render' using koa-views that uses consolidate.js as an underlying module.
+        // // await this.context.render(
+        // //     `${this.context.instance.config.clientBasePath}/template/root/entrypoint.html`, 
+        // //     Object.assign({}, templateArgument, { view, templateArgument })
+        // // );
     }
 
     static createHttpServer() {

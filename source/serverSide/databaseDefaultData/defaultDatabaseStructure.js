@@ -2,6 +2,8 @@
 r.dbCreate('webapp');
 r.db("webapp").tableCreate('setting');
 r.db("webapp").table("setting").insert([
+  
+  // Condition
 	{
     id: 'valueReturningFile',
     valueReturningFile: []
@@ -13,23 +15,31 @@ r.db("webapp").table("setting").insert([
 	{
     id: 'conditionImplementation',
     conditionImplementation: []
-	},
+  },
+  
+  // Template
   {
-  	id: 'template',
+  	id: 'templateFile',
     template: []
   },
   {
-  	id: 'document',
-    document: []
+  	id: 'documentFrontend',
+    documentFrontend: []
+  },
+  {
+  	id: 'documentBackend',
+    documentBackend: []
   },
 	{
     id: 'viewImplementation',
     viewImplementation: []
 	},
 	{
-    id: 'viewTree',
+    id: 'viewNestedUnit',
     viewTree: []
   },
+
+  // Other
 	{
     id: 'customDatasetSchema',
     customDatasetSchema: []

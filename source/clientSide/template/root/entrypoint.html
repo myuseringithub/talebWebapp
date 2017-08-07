@@ -33,9 +33,9 @@
     {% } else { %} 
       <script>console.info('☕ Analytics is disabled for development.');</script>
     {% } %}
-    {% if(view['metadata']) print( view['metadata'](templateArgument) ) %} 
-    {% if(view['header']) print( view['header'](templateArgument) ) %} 
-
+    {% print(templateController.renderedContentString('metadata', view)) %}
+    {% print(templateController.renderedContentString('header', view)) %}
+    
     <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html">
     <link rel="import" href="/asset:render/webcomponent/document-element/document-element.html">
     
@@ -117,7 +117,7 @@
   </head>
   <body>
 
-    {% if(view['body']) print( view['body']({ Application, view, argument }) ) %} 
+    {% print(templateController.renderedContentString('body', view)) %}
     
     <document-element>
       <h1 id="loader" class="loader">

@@ -47,15 +47,35 @@ Application.eventEmitter.on('initializationEnd', () => {
             await next()
         },
         // implementMiddlewareOnModuleUsingJson(middlewareSequence),
-        async (context, next) => {
+        async (context, next) => { // MIDDLEWARE
             let middlewareArray;
             let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
             middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21' })
             await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
         },
-        async (context, next) => {
-            let isCalledNext = await context.instance.applyConditionCallback(next)
-            if(!isCalledNext) next()
+        async (context, next) => { // CONDITION
+            let self = Class
+            // [1] Create instances and check conditions. Get callback either a function or document
+            // The instance responsible for rquests of specific port.
+            let conditionController = await new ConditionController(false, { portAppInstance: context.instance})
+            let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
+            console.log(`🍊 Condition Key: ${entrypointConditionTree}`)
+            let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
+            console.log(`🍊 Callback object: ${callback.name}`)
+            // [2] Use callback
+            console.log(`🔀 Choosen callback is: %c ${callback.name}`, self.config.style.green)
+            let isCalledNext = false
+            switch(callback.type) {
+                case 'functionMiddleware':
+                    await context.instance.handleFunctionMiddleware(callback.name)
+                    isCalledNext = true
+                    break;
+                case 'document':
+                    await context.instance.handleTemplateDocument(callback.name)
+                    break;
+                default: 
+                    console.log('SZN - %c callback doesn\'t match any kind.', self.config.style.red)
+            }             
         }, 
         async (context, next) => {
             console.log('Last Middleware.')

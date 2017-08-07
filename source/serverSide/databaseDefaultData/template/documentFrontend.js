@@ -1,5 +1,5 @@
 var data = [];
-data.document = [
+data.documentFrontend = [
     {
         key: 'registration-single',
         layout: 'webapp-layout-toolbar',
@@ -98,6 +98,6 @@ data.document = [
     },
     
 ];
-r.db("webapp").table("setting").get("document").update({ document: data.document}, { nonAtomic: true });
+r.db("webapp").table("setting").get("documentFrontend").update({ documentFrontend: data.documentFrontend}, { nonAtomic: true });
 
 
