@@ -1,5 +1,4 @@
-var data = [];
-data.templateFile = [
+let data = [
     {
         key: "9a856182-e0e0-485c-a4b6-4c409481b063",
         label: {
@@ -23,4 +22,7 @@ data.templateFile = [
     }
 ];
 
-r.db("webapp").table("setting").get("templateFile").update({ templateFile: data.templateFile}, { nonAtomic: true });
+module.exports = {
+    databaseTableName: 'template_templateFile',
+    data: data
+}

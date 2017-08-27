@@ -1,5 +1,4 @@
-var data = [];
-data.conditionImplementation = [
+let data = [
     {
         key: 'c639cd53-c764-4967-b052-1e1652107923',
         label: {
@@ -52,4 +51,7 @@ data.conditionImplementation = [
     },
 ];
 
-r.db("webapp").table("setting").get("conditionImplementation").update({ conditionImplementation: data.conditionImplementation}, { nonAtomic: true, returnChanges: 'always' });
+module.exports = {
+    databaseTableName: 'condition_conditionImplementation',
+    data: data
+}

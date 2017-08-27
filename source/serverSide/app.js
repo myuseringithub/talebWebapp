@@ -27,6 +27,55 @@ let restEndpointApi = new RestApi('api/v1')
 // • Define unique key for each child, to allow insertion into other inserted children. i.e. extending existing trees with other trees and children. 
 
 // ████████████████████████████████████████████████████████████████████████████████████████████████
+import r from 'rethinkdb'
+// initialize database contents
+Application.eventEmitter.on('initializationEnd', () => {
+    const connection = Application.rethinkdbConnection
+    async function createDatabase(databaseName) {
+        let databaseExists = await r.dbList().contains(databaseName).run(connection);
+        if(!databaseExists) {
+            let dbCreationResponse = await r.dbCreate(databaseName).run(connection)
+            if(dbCreationResponse.dbs_created > 0)  console.log(`📢 ${databaseName} database created !`)
+        } else {
+            console.log(`📢📁 ${databaseName} database already exists !`)            
+        }
+    }
+
+    function createTableAndInsertData(databaseName, databaseData) {
+        for (let tableData of databaseData) {
+            r.db(databaseName).tableCreate(tableData.databaseTableName).run(connection)
+                .then(tableCreationResponse => {
+                    if(tableCreationResponse.tables_created > 0) console.log(`📢 ${tableData.databaseTableName} table created.`)
+                    r.db(databaseName).table(tableData.databaseTableName).insert(tableData.data).run(connection)
+                        .then(response => {
+                            console.log(`📢📥 ${response.inserted} documents inserted to ${tableData.databaseTableName}.`)
+                        })
+                        .catch(error => console.log(error))
+                })
+                .catch(error => console.log(`📢 ${tableData.databaseTableName} table already exists.`))
+        }
+    }
+
+    let databaseData = require('databaseDefaultData/databaseData.js')
+    
+    createDatabase('webappSetting')
+        .then(() => {
+            createTableAndInsertData('webappSetting', databaseData.webappSetting)
+        })
+
+    createDatabase('webappContent')
+        .then(() => {
+            createTableAndInsertData('webappContent', databaseData.webappContent)            
+        })
+
+    // .do(function(databaseExists) {
+    //   return r.branch(
+    //     databaseExists,
+    //     { dbs_created: 0 },
+    //     r.dbCreate('webapp')
+    //   );
+    // })
+})
 
 Application.eventEmitter.on('initializationEnd', () => {
     let Class = WebappUIClass
@@ -78,7 +127,7 @@ Application.eventEmitter.on('initializationEnd', () => {
             }             
         }, 
         async (context, next) => {
-            console.log('Last Middleware.')
+            console.log('Last Middleware reached.')
             await next()
         }, 
     ])

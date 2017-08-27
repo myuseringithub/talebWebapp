@@ -1,5 +1,4 @@
-var data = [];
-data.conditionTree = [
+let data = [
     {
         key: 'default',
         label: {
@@ -153,4 +152,7 @@ data.conditionTree = [
 
 ];
 
-r.db("webapp").table("setting").get("conditionTree").update({ conditionTree: data.conditionTree}, { nonAtomic: true });
+module.exports = {
+    databaseTableName: 'condition_conditionTree',
+    data: data
+}

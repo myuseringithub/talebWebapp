@@ -1,5 +1,4 @@
-var data = [];
-data.middlewareFile = [
+let data = [
   {
     key: '1f7531cc-1302-4eab-93f1-d48a1aec07b9',
     label: {
@@ -43,4 +42,8 @@ data.middlewareFile = [
     filePath: 'appscript/utilityFunction/middleware/staticFile/serveStaticSingleFileRenderTemplate.middlewareGenerator.js',
   }
 ];
-r.db("webapp").table("setting").get("middlewareFile").update({ middlewareFile: data.middlewareFile}, { nonAtomic: true });
+
+module.exports = {
+  databaseTableName: 'middleware_middlewareFile',
+  data: data
+}

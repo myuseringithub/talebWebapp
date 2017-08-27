@@ -1,5 +1,4 @@
-var data = [];
-data.viewImplementation = [
+let data = [
     {
         key: '73b661df-2f53-498c-a01b-d3db971f1a3e',
         label: {
@@ -29,4 +28,7 @@ data.viewImplementation = [
     }
 ];
 
-r.db("webapp").table("setting").get("viewImplementation").update({ viewImplementation: data.viewImplementation}, { nonAtomic: true });
+module.exports = {
+    databaseTableName: 'template_viewImplementation',
+    data: data
+}

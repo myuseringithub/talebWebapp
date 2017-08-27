@@ -1,5 +1,4 @@
-var data = [];
-data.middlewareImplementation = [
+let data = [
     {
         key: '3544ab32-f236-4e66-aacd-6fdf20df069b',
         label: {
@@ -129,4 +128,7 @@ data.middlewareImplementation = [
 
 ];
 
-r.db("webapp").table("setting").get("middlewareImplementation").update({ middlewareImplementation: data.middlewareImplementation}, { nonAtomic: true, returnChanges: 'always' });
+module.exports = {
+    databaseTableName: 'middleware_middlewareImplementation',
+    data: data
+}

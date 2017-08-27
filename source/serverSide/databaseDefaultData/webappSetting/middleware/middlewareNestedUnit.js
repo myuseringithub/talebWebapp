@@ -1,5 +1,4 @@
-var data = [];
-data.middlewareNestedUnit = [
+let data = [
     {
         key: '0adb621b-ae9d-4d4c-9166-16aefbfe0e21',
         label: {
@@ -326,4 +325,7 @@ data.middlewareNestedUnit = [
     },
 ];
 
-r.db("webapp").table("setting").get("middlewareNestedUnit").update({ middlewareNestedUnit: data.middlewareNestedUnit}, { nonAtomic: true });
+module.exports = {
+    databaseTableName: 'middleware_middlewareNestedUnit',
+    data: data
+}

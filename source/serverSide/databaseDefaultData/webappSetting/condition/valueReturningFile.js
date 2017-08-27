@@ -1,5 +1,4 @@
-var data = [];
-data.valueReturningFile = [
+let data = [
       {
       	key: '301ff7c3-e0f7-45be-9ac3-8ce2c88416fe',
         label: {
@@ -33,4 +32,9 @@ data.valueReturningFile = [
         filePath: 'appscript/utilityFunction/conditionCheck/getUrlPathLevel3.js',
       },
 ];
-r.db("webapp").table("setting").get("valueReturningFile").update({ valueReturningFile: data.valueReturningFile}, { nonAtomic: true });
+
+
+module.exports = {
+  databaseTableName: 'condition_valueReturningFile',
+  data: data
+}

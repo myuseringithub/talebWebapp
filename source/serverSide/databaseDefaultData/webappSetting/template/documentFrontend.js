@@ -1,5 +1,4 @@
-var data = [];
-data.documentFrontend = [
+let data = [
     {
         key: 'registration-single',
         layout: 'webapp-layout-toolbar',
@@ -98,6 +97,9 @@ data.documentFrontend = [
     },
     
 ];
-r.db("webapp").table("setting").get("documentFrontend").update({ documentFrontend: data.documentFrontend}, { nonAtomic: true });
 
 
+module.exports = {
+    databaseTableName: 'template_documentFrontend',
+    data: data
+}

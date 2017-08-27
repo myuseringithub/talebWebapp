@@ -1,5 +1,4 @@
-var data = [];
-data.viewNestedUnit = [
+let data = [
     {
         key: '0d65c113-acce-4f01-8eea-ab6cb7152405',
         label: {
@@ -83,5 +82,7 @@ data.viewNestedUnit = [
 
 ];
 
-
-r.db("webapp").table("setting").get("viewNestedUnit").update({ viewNestedUnit: data.viewNestedUnit}, { nonAtomic: true });
+module.exports = {
+    databaseTableName: 'template_viewNestedUnit',
+    data: data
+}

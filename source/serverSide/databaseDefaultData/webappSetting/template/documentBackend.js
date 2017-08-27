@@ -1,5 +1,4 @@
-var data = [];
-data.documentBackend = [
+let data = [
     {
         key: '518d7b08-f825-486d-be88-1a4df2653022',
         label: {
@@ -9,4 +8,8 @@ data.documentBackend = [
     },
     
 ];
-r.db("webapp").table("setting").get("documentBackend").update({ documentBackend: data.documentBackend}, { nonAtomic: true });
+
+module.exports = {
+    databaseTableName: 'template_documentBackend',
+    data: data
+}

@@ -4,7 +4,11 @@ import filesystem from 'fs'
 import https from 'https'
 import http from 'http'
 const TemplateController = require('appscript/module/template')(Application)
-import getTableDocument from 'appscript/utilityFunction/database/query/getTableDocument.query.js'
+let getTableDocument = {
+    generate: require('appscript/utilityFunction/database/query/getTableDocument.query.js'),
+    instance: []
+}
+getTableDocument.instance['template_documentBackend'] = getTableDocument.generate('template_documentBackend')
 
 const self = class WebappUI extends Application {
     
@@ -44,7 +48,7 @@ const self = class WebappUI extends Application {
 
     async handleTemplateDocument(documentKey) {
         
-        let documentObject = await getTableDocument('documentBackend')(self.rethinkdbConnection, documentKey)
+        let documentObject = await getTableDocument.instance['template_documentBackend'](self.rethinkdbConnection, documentKey)
         // context.instance.config.clientBasePath should be defined using useragentDetection module.
         // NOTE:  documentKey should be received from database and nested unit key retreived from there too.
         // document could have different rules for users etc.. access previlages
