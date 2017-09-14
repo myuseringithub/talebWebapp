@@ -11,6 +11,13 @@ let data = [
         filePath: 'appscript/utilityFunction/conditionCheck/getUrlPathAsArray.js',
       },
       {
+      	key: 'a701d0ee-a934-4f2c-b625-6ae97514be15',
+        label: {
+            name: 'return boolean - if path level 1 exist'
+        },
+        filePath: 'appscript/utilityFunction/conditionCheck/isExistUrlPathLevel1.js',
+      },
+      {
       	key: '956a0f0f-437a-4cdf-9bcd-f205fc8336f9',
         label: {
             name: 'return path level 1'

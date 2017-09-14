@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
 
     <!-- base url for all relative urls.  -->
-    <base target="_top" href="{%= Application.extendedSubclass.static['StaticContent'].url %}">
+    <base href="{%= Application.extendedSubclass.static['StaticContent'].url %}" target="_top">
 
     {% if( context.instance.distribution == 'es5') { %} 
       <!-- This block adds the "custom-elements-es5-adapter.js" shim to your application.
@@ -36,7 +36,10 @@
     {% print(templateController.renderedContentString('metadata', view)) %}
     {% print(templateController.renderedContentString('header', view)) %}
     
-    <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html">
+    <!-- 
+      NOTE: Loading Polymer on the main document, in addition to the elements causes issues for some reason.
+      <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html"> 
+    -->
     <link rel="import" href="/asset:render/webcomponent/document-element/document-element.html">
     
     <style>
@@ -118,7 +121,7 @@
   <body>
 
     {% print(templateController.renderedContentString('body', view)) %}
-    
+
     <document-element>
       <h1 id="loader" class="loader">
         <span>جـ</span>

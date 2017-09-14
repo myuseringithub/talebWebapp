@@ -195,7 +195,7 @@
       </app-drawer>
 
       <!-- Main content -->
-      <app-header-layout>
+      <app-header-layout fullbleed>
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar dir="rtl">
             <paper-icon-button class="menu-drawer-button" icon="view-icons:menu" drawer-toggle></paper-icon-button>
@@ -238,7 +238,7 @@
   </template>
 
   <script>
-  {
+    {
     // window.addEventListener('WebComponentsReady', function() {
       class Element extends Polymer.Element {
         static get is() { return 'webapp-layout-toolbar'; }

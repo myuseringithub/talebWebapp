@@ -12,7 +12,12 @@ module.exports = {
 
         require('./webappSetting/condition/conditionTree.js'),
         require('./webappSetting/condition/conditionImplementation.js'),
-        require('./webappSetting/condition/valueReturningFile.js')
+        require('./webappSetting/condition/valueReturningFile.js'),
+
+        require('./webappSetting/oAuth/client.js'),
+        require('./webappSetting/oAuth/token.js'),
+        require('./webappSetting/oAuth/user.js'),
+        
     ], 
     webappContent: [
         require('./webappContent/university.js'),

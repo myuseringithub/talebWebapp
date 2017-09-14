@@ -1,5 +1,13 @@
 let data = [
     {
+        key: 'e28c566e-e456-44a9-a85f-28a3bb225e97',
+        label: {
+            name: 'Empty middleware for creating chains'
+        },
+        executionType: 'regularFunction',
+        middlewareFile: '350d2024-49ad-4c6a-afa1-f348b212170f',
+    },
+    {
         key: '3544ab32-f236-4e66-aacd-6fdf20df069b',
         label: {
             name: 'useragentDetection'
@@ -102,11 +110,10 @@ let data = [
     { // [NOT EXACTLY] Overrides that of the above general rule for asset folder subfiles.
         key: '07e1ba94-0808-4dc1-b832-f7a54b377692',
         label: {
-            name: 'document-element.html static file'
+            name: 'document-element.html static file with URL: asset:render'
         },
         arguments: {
             filePath: `/asset/webcomponent/document-element/document-element.html`,
-            urlPath: '/asset:render/webcomponent/document-element/document-element.html',
             options: { gzip: true },
         },
         executionType: 'regularFunction',
@@ -124,6 +131,21 @@ let data = [
         },
         executionType: 'regularFunction',
         middlewareFile: 'bb770b52-e40a-46a7-91ca-efd7f355d10f',
+    },
+
+        /**
+         * 
+         */
+    {
+        key: '122c9a40-5872-4219-ad4e-ad1c237deacd',
+        label: {
+            name: 'RenderTemplateDocument: Main page.'
+        },
+        arguments: {
+            documentKey: '518d7b08-f825-486d-be88-1a4df2653022'
+        },
+        executionType: 'regularFunction',
+        middlewareFile: '20f0e914-e22b-4a07-83d0-1ff2c1d51902',
     },
 
 ];
