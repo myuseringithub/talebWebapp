@@ -1,6 +1,6 @@
 let data = [
     {
-        key: '',
+        key: 'example',
         email: 'x@x.com',
         password: 'password'
     }

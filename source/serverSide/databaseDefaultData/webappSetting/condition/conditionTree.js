@@ -367,7 +367,90 @@ let data = [
         insertionPoint: []
     },
 
-
+    /**
+     * Port: OAuth
+     */
+    {
+        key: '0681f25c-4c00-4295-b12a-6ab81a3cb440',
+        label: {
+            name: 'POST'
+        },
+        conditionImplementation: '94765b71-4361-412e-80a0-4e5bfe08f2ed',
+        callback: { // fallback function.
+            name: 'post',
+            type: 'consoleLogMessage'
+        },
+        insertionPoint: [
+            {
+                key: '2299cc1e-238f-4fe5-9069-51351ded59a7',
+                order: 1, 
+                executionType: 'raceFirstPromise'
+            },
+            {
+                key: '13a170c5-be67-4a60-9630-b9d0750641f4',
+                order: 2, 
+                executionType: 'raceFirstPromise'
+            },
+        ],
+        children: [
+            {
+                nestedUnit: '3e458ef2-82ba-4312-a696-ceea6338ae33', 
+                pathPointerKey: 'XYZ2',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '2299cc1e-238f-4fe5-9069-51351ded59a7'
+                }
+            },
+            {
+                nestedUnit: 'aa88def0-9d45-4404-a8c9-e438712658ca', 
+                pathPointerKey: 'XYZ2',
+                insertionPosition: {
+                    insertionPathPointer: null, 
+                    insertionPoint: '2299cc1e-238f-4fe5-9069-51351ded59a7'
+                }
+            },
+        ],
+    },
+    {
+        key: '3e458ef2-82ba-4312-a696-ceea6338ae33',
+        label: {
+            name: 'URL: /token'
+        },
+        conditionImplementation: 'd3b015b3-e860-4687-83a0-29d28c5c5fe7',
+        callback: { // fallback function.
+            name: 'token',
+            type: 'portClassMethodMiddleware'
+        },
+        insertionPoint: [
+            {
+                key: '2299cc1e-238f-4fe5-9069-51351ded59a7',
+                order: 1, 
+                executionType: 'raceFirstPromise'
+            },
+        ],
+        children: [
+        ],
+    },
+    {
+        key: 'aa88def0-9d45-4404-a8c9-e438712658ca',
+        label: {
+            name: 'URL: /authorize'
+        },
+        conditionImplementation: '7d89c2df-c76f-4ad2-aa2f-d9e58271c7eb',
+        callback: { // fallback function.
+            name: 'authorize',
+            type: 'portClassMethodMiddleware'
+        },
+        insertionPoint: [
+            {
+                key: '2299cc1e-238f-4fe5-9069-51351ded59a7',
+                order: 1, 
+                executionType: 'raceFirstPromise'
+            },
+        ],
+        children: [
+        ],
+    },
 
 ];
 

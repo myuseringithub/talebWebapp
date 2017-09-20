@@ -103,6 +103,36 @@ let data = [
         expectedReturn: 'v1',
         valueReturningFileKey: 'd3b24455-3c21-4b5d-80b6-55bd9cdb98e2',
     },
+
+
+    /**
+     * General conditions
+     */
+    {
+        key: '94765b71-4361-412e-80a0-4e5bfe08f2ed',
+        label: {
+            name: 'Method = POST'
+        },
+        expectedReturn: 'POST',
+        valueReturningFileKey: '301ff7c3-e0f7-45be-9ac3-8ce2c88416fe',
+    },
+    {
+        key: 'd3b015b3-e860-4687-83a0-29d28c5c5fe7',
+        label: {
+            name: 'URL: /token/'
+        },
+        expectedReturn: 'token',
+        valueReturningFileKey: '956a0f0f-437a-4cdf-9bcd-f205fc8336f9',
+    },
+    {
+        key: '7d89c2df-c76f-4ad2-aa2f-d9e58271c7eb',
+        label: {
+            name: 'URL: /authorize/'
+        },
+        expectedReturn: 'authorize',
+        valueReturningFileKey: '956a0f0f-437a-4cdf-9bcd-f205fc8336f9',
+    },
+
 ];
 
 module.exports = {
