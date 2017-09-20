@@ -261,7 +261,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             //     console.log('Sorry unauthorized access')
             // }
 
-            // await next()
+            await next()
         },
         async (context, next) => {
             // let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -304,7 +304,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             await implementConditionActionOnModuleUsingJson({setting: callback})(context, next)
         }, 
         async (context, next) => {
-            // console.log('Last Middleware reached.')
+            console.log('Last Middleware reached.')
             await next()
         },
     ])
