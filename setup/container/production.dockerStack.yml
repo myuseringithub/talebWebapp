@@ -13,6 +13,8 @@ networks:
 services:
 
   # internal ports = 80, 443
+
+  # https://hub.docker.com/r/myuserindocker/taleb-webapp/tags/
   nodejs:
     image: myuserindocker/taleb-webapp:latest
     environment:
@@ -30,8 +32,10 @@ services:
     # command: sleep 100000
 
   # internal port = 8080
+
+  # RethinkDB - https://hub.docker.com/r/library/rethinkdb/tags/
   rethinkdb:
-    image: rethinkdb:latest
+    image: rethinkdb:2.3.5
     volumes:
       - "/mnt/datadisk-1/taleb/rethinkdbData:/data/rethinkdb_data/"
     environment:

@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:8.5.0
 
 # Environment Variables & Arguments
 # default value is override if build argument is specified in docker compose.
