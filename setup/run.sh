@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+projectPath="/project"
+dependencyPath="$projectPath/dependency"
+applicationPath="$projectPath/application"
 
 production.stack() {
     # 1.
@@ -26,12 +29,20 @@ development() {
     # localhost:8081      cdn.localhost
     # localhost:8082      api.localhost
 
-    # 2. 
+    # 2. connect to VM
+    VM=machine
+    eval $(docker-machine env $VM)
+
+    # 3. 
     export DEPLOYMENT=development
     docker-compose -f ./setup/container/development.dockerCompose.yml up -d --force-recreate
 
-    # 3. Run services using gulp
-    (cd /tmp/build/gulp_buildTool/; ./run.sh development)
+    # 4. Run services using gulp inside container
+    VM=machine
+    docker-machine ssh $VM
+    dockerContainerID=""
+    docker exec -it $dockerContainerID bash
+    (cd $applicationPath/setup/build/gulp_buildTool/; ./run.sh developmentharmonybabel)
 }
 
 deployment.buildDistribution() { # ⭐

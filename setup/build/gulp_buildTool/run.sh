@@ -52,15 +52,15 @@ watch.livereload.chrome.noBreak() {
 
 development() {
     export DEPLOYMENT=development
-    (cd /tmp/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
+    (cd /project/application/setup/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
 }
 
 distribution() {
     # TODO: Add option for watch base directory
     export DEPLOYMENT=development
     export SZN_OPTION_ENTRYPOINT_NAME="entrypoint.js"
-    export SZN_OPTION_ENTRYPOINT_PATH="/tmp/distribution/serverSide/"
-    (cd /tmp/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
+    export SZN_OPTION_ENTRYPOINT_PATH="/project/application/distribution/serverSide/"
+    (cd /project/application/setup/build/gulp_buildTool/; ./run.sh watch.livereload.chrome)
 }
 
 # Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/run.sh <functionName>".

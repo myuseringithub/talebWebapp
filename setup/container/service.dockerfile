@@ -5,7 +5,7 @@ FROM node:8.5.0
 ARG DEPLOYMENT=production
 ENV DEPLOYMENT ${DEPLOYMENT}
 
-COPY ./distribution /app/
+COPY ./distribution /project/application/distribution/
 
-WORKDIR /app/serverSide
+WORKDIR /project/application/distribution/serverSide
 ENTRYPOINT ./run.sh production

@@ -5,7 +5,7 @@ version: '2.1'
 services:
     
     deploymentEnvironment:
-        image: myuserindocker/deployment-environment:latest
+        image: myuserindocker/deployment-environment:2.3-PHP7-NodeJS-ForWordpressFirebaseTemplateSystem
 
     buildDistributionCode: # Build source code & download project dependencies.
         extends: deploymentEnvironment
@@ -13,14 +13,14 @@ services:
         environment:
             DEPLOYMENT: ${DEPLOYMENT:-production}
         volumes:
-          - ../../source:/tmp/source/
-          - ../../setup/container/shellScript:/tmp/shellScript/
-          - ../../setup/build:/tmp/build/
-          - ../../setup/utility:/tmp/utility/
-          - ../../appDeploymentLifecycle:/tmp/appDeploymentLifecycle/
-          - ../../distribution:/app/
-        working_dir: /tmp/build/gulp_buildTool/
-        entrypoint: /tmp/shellScript/buildSourceCode.entrypoint.sh
+          - ../../source:/project/application/source/
+          - ../../setup/container/shellScript:/project/application/setup/container/shellScript/
+          - ../../setup/build:/project/application/setup/build/
+          - ../../setup/utility:/project/application/setup/utility/
+          - ../../appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
+          - ../../distribution:/project/application/distribution/
+        working_dir: /project/application/setup/build/gulp_buildTool/
+        entrypoint: /project/application/setup/container/shellScript/buildSourceCode.entrypoint.sh
         # command: bash -c "sleep 100000"
 
     # localUnitTest:

@@ -27,6 +27,11 @@ developmentChrome() {
     node --inspect=localhost:9229 --debug-brk entrypoint.js
 }
 
+development.distributionCode() {
+    export DEPLOYMENT=development
+    node --harmony /project/application/distribution/serverSide/entrypoint.js
+}
+
 deployment.test() {
     echo \"Error: no test specified\" && exit 1
 }

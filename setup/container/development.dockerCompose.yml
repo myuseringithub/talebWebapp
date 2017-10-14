@@ -31,11 +31,11 @@ services:
     environment:
         DEPLOYMENT: ${DEPLOYMENT:-development}
     volumes:
-      - ../../source:/app/
-      - ../../setup/build:/tmp/build/
-      - ../../distribution:/tmp/distribution/
-      - ../../appDeploymentLifecycle:/tmp/appDeploymentLifecycle/
-    working_dir: /app/
+      - ../../source:/project/application/source/
+      - ../../setup/build:/project/application/setup/build/
+      - ../../distribution:/project/application/distribution/
+      - ../../appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
+    working_dir: /project/application/source/serverSide/
     command: bash -c "sleep 100000000;"
 
   rethinkdb:

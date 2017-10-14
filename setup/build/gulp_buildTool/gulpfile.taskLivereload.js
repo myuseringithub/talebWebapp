@@ -31,7 +31,7 @@ const browserSyncConfig = {
 
 const entrypoint = {
     filename: process.env.SZN_OPTION_ENTRYPOINT_NAME || 'entrypoint.js',
-    filePath: process.env.SZN_OPTION_ENTRYPOINT_PATH || '/app/serverSide/'
+    filePath: process.env.SZN_OPTION_ENTRYPOINT_PATH || '/project/application/source/serverSide/'
 }
 
 let debugArguments = []
@@ -50,10 +50,10 @@ const $ = {} // shared object
 gulp.task('livereload:ServerSide', ()=> {
 	gulp.watch(
 		[ 
-            '/app/serverSide/**/*.js', 
-            '/app/serverSide/**/*.css', 
-            '/app/serverSide/**/*.html', 
-            '!/app/serverSide/**/node_modules{,/**/*}'
+            '/project/application/source/serverSide/**/*.js', 
+            '/project/application/source/serverSide/**/*.css', 
+            '/project/application/source/serverSide/**/*.html', 
+            '!/project/application/source/serverSide/**/node_modules{,/**/*}'
         ], // equals to '!/app/{node_modules,node_modules/**/*}'
 		{ interval: INTERVAL, usePolling: usePolling }, 
 		async (done) => {
@@ -70,11 +70,11 @@ gulp.task('livereload:ServerSide', ()=> {
 gulp.task('livereload:clientSide', ()=> {
 	gulp.watch(
 		[
-            '/app/clientSide/**/*.js', 
-            '/app/clientSide/**/*.css', 
-            '/app/clientSide/**/*.html', 
-            '!/app/clientSide/**/node_modules{,/**/*}'
-        ], // equals to '!/app/{node_modules,node_modules/**/*}'
+            '/project/application/source/clientSide/**/*.js', 
+            '/project/application/source/clientSide/**/*.css', 
+            '/project/application/source/clientSide/**/*.html', 
+            '!/project/application/source/clientSide/**/node_modules{,/**/*}'
+        ], // equals to '!/project/application/source/{node_modules,node_modules/**/*}'
 		{ interval: INTERVAL, usePolling: usePolling }, 
 		async (done) => {
             setTimeout(function(){

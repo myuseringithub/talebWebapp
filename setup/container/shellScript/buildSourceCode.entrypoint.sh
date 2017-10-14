@@ -6,19 +6,19 @@ gulp -v;
 
 
 # ⭐ install dependencies / node modules (from packages.json) in working directory "/tmp/build/gulp_buildTool/" & update to latest versions
-(cd /tmp/build/gulp_buildTool;
+(cd /project/application/setup/build/gulp_buildTool;
 npm install; npm install --only=dev; npm update;)
-(cd /tmp/appDeploymentLifecycle/gulp_buildTool; 
+(cd /project/dependency/appDeploymentLifecycle/gulp_buildTool.js; 
     npm install; npm install --only=dev; npm update;)
-(cd /tmp/appDeploymentLifecycle/babel_javascriptTranspilation; 
+(cd /project/dependency/appDeploymentLifecycle/babel_javascriptTranspilation.js; 
     npm install; npm install --only=dev; npm update;)
 
-(cd /tmp/build/gulp_buildTool;
+(cd /project/application/setup/build/gulp_buildTool;
 ./run.sh build)
 
 echo "Gulp watch ? ";
 if [ "$DEPLOYMENT" = "development" ]; then
-    (cd /tmp/build/gulp_buildTool;
+    (cd /project/application/setup/build/gulp_buildTool;
     ./run.sh watch)
 fi
 
