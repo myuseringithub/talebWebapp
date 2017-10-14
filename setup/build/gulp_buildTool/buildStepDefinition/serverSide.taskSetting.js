@@ -29,7 +29,7 @@ const FileSource = [
             argument: [
 				source(),
 				'serverSide/',
-				'/app/',
+				'/project/application/distribution/',
                 'sourceToSame'
 			]
         }
@@ -49,7 +49,7 @@ const FileSource = [
 			]
         }
     },
-    { 
+    {
         key: 'javascript:appscript',
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'javascript.js'),

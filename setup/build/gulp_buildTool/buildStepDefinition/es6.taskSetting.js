@@ -30,7 +30,7 @@ const FileSource = [
             argument: [
 				source(),
 				'clientSide/',
-				'/app/',
+				'/project/application/distribution/',
                 'sourceToSame'
 			]
         }
@@ -126,6 +126,7 @@ const FileSource = [
 					source('clientSide/asset/javascript/**/*.js'),
 					source('clientSide/jspm_packageManager/**/*.js'),
 					'!'+ source('clientSide/asset/javascript/jspm_packages/**/*.js'),
+					'!'+ source('**/node_modules/**/*.js'),
 				],
 				destination('clientSide/asset/javascript'),
                 'pureJavascript'
