@@ -14,12 +14,13 @@ npm install; npm install --only=dev; npm update;)
     npm install; npm install --only=dev; npm update;)
 
 (cd /project/application/setup/build/gulp_buildTool;
-./run.sh build)
+./entrypoint.sj build)
 
 echo "Gulp watch ? ";
 if [ "$DEPLOYMENT" = "development" ]; then
     (cd /project/application/setup/build/gulp_buildTool;
-    ./run.sh watch)
+    ./en
+    trypoint.sj watch)
 fi
 
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.

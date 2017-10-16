@@ -34,7 +34,7 @@ services:
       - ../../source:/project/application/source/
       - ../../setup/build:/project/application/setup/build/
       - ../../distribution:/project/application/distribution/
-      - ../../appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
+      - ../../dependency/appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
     working_dir: /project/application/source/serverSide/
     command: bash -c "sleep 100000000;"
 

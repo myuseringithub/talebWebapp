@@ -42,7 +42,7 @@ development() {
     docker-machine ssh $VM
     dockerContainerID=""
     docker exec -it $dockerContainerID bash
-    (cd $applicationPath/setup/build/gulp_buildTool/; ./run.sh developmentharmonybabel)
+    (cd $applicationPath/setup/build/gulp_buildTool/; ./entrypoint.sh developmentharmonybabel)
 }
 
 deployment.buildDistribution() { # ⭐
@@ -58,7 +58,7 @@ deployment.buildImage() { # ⭐
     # export COMPOSE_PROJECT_NAME= # Not needed as name is taken from image field.
 
     # 2. Build Source COde:
-    ./setup/run.sh deployment.buildDistribution
+    ./setup/entrypoint.sh deployment.buildDistribution
 
     # 3.
     # Problem cannot pass arguments to dockerfile
@@ -67,5 +67,5 @@ deployment.buildImage() { # ⭐
     # 4. tag image and push
 }
 
-# Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/run.sh <functionName>".
+# Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/entrypoint.sh <functionName>".
 $@

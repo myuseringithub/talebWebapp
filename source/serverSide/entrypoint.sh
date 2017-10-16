@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# USAGE with NPM: add to scripts of package.json "./run.sh" & when running:
+# USAGE with NPM: add to scripts of package.json "./entrypoint.sj" & when running:
 # "npm run start -- <functionName>"
 # "npm start -- <functionName>"
 # Note: Running scripts through npm is important, because local dev depencies are required (which aren't installed globally).
@@ -41,5 +41,5 @@ production() { # working directory is pointing to `app` folder inside container 
     node entrypoint.js
 }
 
-# Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/run.sh <functionName>".
+# Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/entrypoint.sj <functionName>".
 $@

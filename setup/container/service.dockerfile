@@ -8,4 +8,4 @@ ENV DEPLOYMENT ${DEPLOYMENT}
 COPY ./distribution /project/application/distribution/
 
 WORKDIR /project/application/distribution/serverSide
-ENTRYPOINT ./run.sh production
+ENTRYPOINT ./entrypoint.sj production
