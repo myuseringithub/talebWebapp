@@ -150,7 +150,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
         }, 
         async (context, next) => {
             context.status = 404            
-            console.log('Last Middleware reached.')
+            // console.log('Last Middleware reached.')
             await next()
         },
     ])
@@ -229,7 +229,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             await implementConditionActionOnModuleUsingJson({setting: callback})(context, next)
         }, 
         async (context, next) => {
-            console.log('Last Middleware reached.')
+            // console.log('Last Middleware reached.')
             await next()
         }, 
     ])
@@ -304,7 +304,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             await implementConditionActionOnModuleUsingJson({setting: callback})(context, next)
         }, 
         async (context, next) => {
-            console.log('Last Middleware reached.')
+            // console.log('Last Middleware reached.')
             await next()
         },
     ])
