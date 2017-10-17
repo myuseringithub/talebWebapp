@@ -87,7 +87,11 @@ container.deployment.buildImage() { # ⭐
     # Problem cannot pass arguments to dockerfile
     docker-compose -f ./setup/container/deployment.dockerCompose.yml build --no-cache buildImage
 
-    # 4. tag image and push
+    # 4. tag image and 
+    docker tag <image>:latest <image>:1.0.0
+    docker-machine ssh machine
+    docker login
+    docker push <image>:1.0.0
 }
 
 if [[ $# -eq 0 ]] ; then # if no arguments supplied, fallback to default

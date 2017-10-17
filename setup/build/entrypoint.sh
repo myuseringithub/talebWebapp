@@ -9,8 +9,7 @@ cd "$currentFileDirectory"
 build() { # ⭐ Gulp - run bulid tasks
     set -ex; 
     # Debug purposes
-    node --harmony `which gulp` --tasks --gulpfile $currentFileDirectory/entrypoint.js
-    node --harmony `which gulp` build --gulpfile $currentFileDirectory/entrypoint.js
+    node --harmony $currentFileDirectory/entrypoint.js build
 }
 
 if [[ $# -eq 0 ]] ; then # if no arguments supplied, fallback to default

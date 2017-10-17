@@ -8,7 +8,7 @@ cd "$currentFileDirectory"
 
 watch() { # ⌚ Gulp watch
     set -ex; 
-    node --harmony $(which gulp) watch:source --gulpfile $currentFileDirectory/entrypoint.js
+    node --harmony $currentFileDirectory/entrypoint.js watch:source
 }
 
 # watch.livereload() {
@@ -26,7 +26,7 @@ watch.livereload() {
     # --inspect --debug-brk allows for debugging node with chrome.
     export DEPLOYMENT=development
     export SZN_DEBUG=false
-    node --harmony $(which gulp) watch:livereload --gulpfile $currentFileDirectory/entrypoint.js
+    node --harmony $currentFileDirectory/entrypoint.js watch:livereload
 }
 
 watch.livereload.chrome() {
@@ -37,7 +37,7 @@ watch.livereload.chrome() {
     export DEPLOYMENT=development
     export SZN_DEBUG=true
     export SZN_OPTION_BREAK=true
-    node --harmony $(which gulp) watch:livereload --gulpfile $currentFileDirectory/entrypoint.js
+    node --harmony $currentFileDirectory/entrypoint.js watch:livereload
 }
 
 watch.livereload.chrome.noBreak() {
