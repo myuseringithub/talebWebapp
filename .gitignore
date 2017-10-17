@@ -9,4 +9,4 @@ Thumbs.db
 privateRepository
 bower_components
 jspm_packages
-setup/build/gulp_buildTool/npm-debug.log
+npm-debug.log

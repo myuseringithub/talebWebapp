@@ -19,7 +19,7 @@ services:
           - ../../setup/utility:/project/application/setup/utility/
           - ../../dependency/appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
           - ../../distribution:/project/application/distribution/
-        working_dir: /project/application/setup/build/gulp_buildTool/
+        working_dir: /project/application/setup/build/
         entrypoint: /project/application/setup/container/shellScript/buildSourceCode.entrypoint.sh
         # command: bash -c "sleep 100000"
 

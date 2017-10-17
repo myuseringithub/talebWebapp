@@ -1,9 +1,32 @@
 #!/usr/bin/env bash
+## Entrypoints & commands portal/interface
+
+# current file parent directory path:
+# also can use - echo "$(dirname "$0")"
+currentFileDirectory=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P ) # path of this file, regardless of where it is executed from.
+cd "$currentFileDirectory"
+
 projectPath="/project"
 dependencyPath="$projectPath/dependency"
 applicationPath="$projectPath/application"
 
-production.stack() {
+# • Run in live reload: ./setup/build/entrypoint.sh
+# • Run containers & build source code: ./setup/etnrypoint.sh
+# • Run in different modes: ./source/serverSide/entrypoint.sh
+
+run() {
+    ../source/serverSide/entrypoint.sh $@
+}
+
+run.livereload() {
+    ./livereload/entrypoint.sh $@
+}
+
+run.build() {
+    ./build/entrypoint.sh $@
+}
+
+container.production.stack() {
     # 1.
     docker-machine ssh $VM-1
     VolumeBasePath=/mnt/datadisk-1/taleb
@@ -16,7 +39,7 @@ production.stack() {
     docker stack deploy -c ./setup/container/production.dockerStack.yml talebwebapp
 }
 
-development() {
+container.development() {
     # DOESN'T WORK
     # fix issue caused by virtualbox & Windows apparently that don't support sync directory - https://forums.docker.com/t/issues-with-rethinkdb-example-using-volumes/13720/4
     # Download exe and run exe - https://www.rethinkdb.com/docs/install/windows/
@@ -42,16 +65,16 @@ development() {
     docker-machine ssh $VM
     dockerContainerID=""
     docker exec -it $dockerContainerID bash
-    (cd $applicationPath/setup/build/gulp_buildTool/; ./entrypoint.sh developmentharmonybabel)
+    (cd $applicationPath/setup/build/; ./entrypoint.sh developmentharmonybabel)
 }
 
-deployment.buildDistribution() { # ⭐
+container.deployment.buildDistribution() { # ⭐
     # development / production
     export DEPLOYMENT=production
     docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode
 }
 
-deployment.buildImage() { # ⭐
+container.deployment.buildImage() { # ⭐
     # 1. development / production
     export DEPLOYMENT=production
     # export DEPLOYMENT=development
@@ -67,5 +90,12 @@ deployment.buildImage() { # ⭐
     # 4. tag image and push
 }
 
-# Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/entrypoint.sh <functionName>".
-$@
+if [[ $# -eq 0 ]] ; then # if no arguments supplied, fallback to default
+    echo -n "xEnter command: "
+    read command
+    echo "• Executing: $command. Passing arguments ${@:2}"
+    $command
+else
+    # Important: call arguments verbatim. i.e. allows first argument to call functions inside file. So that it could be called as "./setup/entrypoint.sh <functionName>".
+    $@ ${@:2} # execute first command as function and pass it 2nd and all following arguments.
+fi

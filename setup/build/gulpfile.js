@@ -15,5 +15,5 @@ export const include = (file)=> { eval(filesystem.readFileSync(file) + '') }, //
 // Deployment container - tasks responsible for builds that happen through temporary container (from one volume to another).
 require('gulpfile.taskThroughContainer.js');
 
-// livereloading
-require('gulpfile.taskLivereload.js')
+const passedCommandArray /* Array */ = process.argv.slice(2) // this returns array of the passed tasks names.
+gulp.parallel(passedCommandArray)() // execute tasks.

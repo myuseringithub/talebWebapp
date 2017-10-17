@@ -4,7 +4,7 @@
   "description": "Koa server app",
   "main": "app.js",
   "scripts": {
-    "start": "./entrypoint.sj",
+    "start": "./entrypoint.sh",
     "postinstall": "(cd ./node_modules/appscript; npm install)"
   },
   "author": "",

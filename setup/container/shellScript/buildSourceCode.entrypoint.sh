@@ -6,21 +6,24 @@ gulp -v;
 
 
 # ⭐ install dependencies / node modules (from packages.json) in working directory "/tmp/build/gulp_buildTool/" & update to latest versions
-(cd /project/application/setup/build/gulp_buildTool;
+(cd /project/application/setup/build;
 npm install; npm install --only=dev; npm update;)
+if [ -d "/project/application/setup/livereload" ]; then
+    (cd /project/application/setup/livereload;
+    npm install; npm install --only=dev; npm update;)
+fi;
 (cd /project/dependency/appDeploymentLifecycle/gulp_buildTool.js; 
     npm install; npm install --only=dev; npm update;)
 (cd /project/dependency/appDeploymentLifecycle/babel_javascriptTranspilation.js; 
     npm install; npm install --only=dev; npm update;)
 
-(cd /project/application/setup/build/gulp_buildTool;
-./entrypoint.sj build)
+(cd /project/application/setup/build;
+./entrypoint.sh build)
 
 echo "Gulp watch ? ";
 if [ "$DEPLOYMENT" = "development" ]; then
-    (cd /project/application/setup/build/gulp_buildTool;
-    ./en
-    trypoint.sj watch)
+    (cd /project/application/setup/livereload;
+    ./entrypoint.sh watch)
 fi
 
 # ⭐ call docker-compose command after entrypoint as they are passed as arguments when entrypoint is set.

@@ -31,10 +31,10 @@ services:
     environment:
         DEPLOYMENT: ${DEPLOYMENT:-development}
     volumes:
+      - ../../dependency:/project/dependency
+      - ../../setup:/project/application/setup
       - ../../source:/project/application/source/
-      - ../../setup/build:/project/application/setup/build/
       - ../../distribution:/project/application/distribution/
-      - ../../dependency/appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
     working_dir: /project/application/source/serverSide/
     command: bash -c "sleep 100000000;"
 
