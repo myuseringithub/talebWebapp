@@ -95,7 +95,19 @@ container.deployment.buildImage() { # ⭐
 }
 
 if [[ $# -eq 0 ]] ; then # if no arguments supplied, fallback to default
-    echo -n "xEnter command: "
+    # List function names:
+    # compgen -A function 
+    # typeset -f | awk '/ \(\) $/ && !/^main / {print $1}'
+    function script.functions () { # https://stackoverflow.com/questions/2630812/get-a-list-of-function-names-in-a-shell-script
+        local fncs=`declare -F -p | cut -d " " -f 3`; # Get function list
+        echo $fncs; # not quoted here to create shell "argument list" of funcs.
+    }
+    declare functionList=($(script.functions));
+    # declare -rx functionList=($(script.functions));
+    printf "• %s " "${functionList[@]}"; echo "\n"
+    
+    # input command
+    echo -n "Enter command: "
     read command
     echo "• Executing: $command. Passing arguments ${@:2}"
     $command

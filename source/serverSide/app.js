@@ -369,8 +369,7 @@ Application.eventEmitter.on('initializationEnd', () => {
 
 Application.initialize() // allows calling a child class from its parent class.
 
+
 // _____________________________________________
 
 // TODO: change base url and access-control-allow-origin header according to DEPLOYMENT environment
-
-

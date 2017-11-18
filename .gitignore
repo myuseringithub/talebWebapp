@@ -10,3 +10,4 @@ privateRepository
 bower_components
 jspm_packages
 npm-debug.log
+source/serverSide/yarn-error\.log
