@@ -1,0 +1,10 @@
+localhost:8081      cdn.localhost
+localhost:8082      api.localhost
+localhost:8087      websocket.localhost
+localhost:8083      test.localhost
+localhost:8081      cdn.192.168.14.178
+localhost:8082      api.192.168.14.178
+localhost:8088      oauth.localhost
+localhost:8083      test.192.168.14.178
+# Doesn't work
+# 192.168.14.178		localhost

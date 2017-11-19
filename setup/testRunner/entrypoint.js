@@ -1,6 +1,6 @@
 const path = require('path')
-const confJson = require('./configuration/configuration.js')
 const moduleSystem = require('module')
+const confJson = require('../configuration.json')
 
 const appRootPath = path.normalize(`${__dirname}`)
 // add root path (app base path) to the resolved module paths.
@@ -18,4 +18,4 @@ babelJSCompiler({
 
 
 // run app code
-require('./gulpfile.js')
+require('./mocha.js')

@@ -22,6 +22,10 @@ run.livereload() {
     ./livereload/entrypoint.sh $@
 }
 
+run.test() {
+    ./testRunner/entrypoint.sh $@
+}
+
 run.build() {
     ./build/entrypoint.sh $@
 }

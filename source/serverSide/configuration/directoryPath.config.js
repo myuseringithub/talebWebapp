@@ -2,10 +2,8 @@
  * Paths to module directories in the Docker container.
  */
 const path = require('path')
+const confJson = require('../../../setup/configuration.json')
 
-const dependencyPath = '/project/dependency'
-const appDeploymentLifecyclePath = path.join(dependencyPath, 'appDeploymentLifecycle')
-
- module.exports = {
-  appDeploymentLifecyclePath: appDeploymentLifecyclePath
+module.exports = {
+  appDeploymentLifecyclePath: confJson.appDeploymentLifecyclePath
 }
