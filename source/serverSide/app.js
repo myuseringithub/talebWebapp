@@ -108,8 +108,8 @@ Application.eventEmitter.on('initializationEnd', () => {
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = OAuthClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = await MiddlewareController(Application)
-    let ConditionControllerCachedInstance = await ConditionController(Application)
+    let MiddlewareControllerCachedInstance = await MiddlewareController({superclass: Application})
+    let ConditionControllerCachedInstance = await ConditionController({superclass: Application})
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
@@ -185,8 +185,8 @@ process.env.SZN_DEBUG = true // show/hide console messages.
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = WebappUIClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = await MiddlewareController(Application)
-    let ConditionControllerCachedInstance = await ConditionController(Application)
+    let MiddlewareControllerCachedInstance = await MiddlewareController({superclass: Application})
+    let ConditionControllerCachedInstance = await ConditionController({superclass: Application})
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
@@ -241,8 +241,8 @@ Application.eventEmitter.on('initializationEnd', async () => {
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = StaticContentClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = await MiddlewareController(Application)
-    let ConditionControllerCachedInstance = await ConditionController(Application)
+    let MiddlewareControllerCachedInstance = await MiddlewareController({superclass: Application})
+    let ConditionControllerCachedInstance = await ConditionController({superclass: Application})
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
