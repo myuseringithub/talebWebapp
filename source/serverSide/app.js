@@ -108,12 +108,12 @@ Application.eventEmitter.on('initializationEnd', () => {
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = OAuthClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = createStaticInstanceClasses({ 
+    let MiddlewareController = createStaticInstanceClasses({ 
         superclass: Application, 
         implementationType: 'Middleware',
         cacheName: true
     })
-    let ConditionControllerCachedInstance = createStaticInstanceClasses({ 
+    let ConditionController = createStaticInstanceClasses({ 
         superclass: Application, 
         implementationType: 'Condition',
         cacheName: true
@@ -132,7 +132,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
         async (context, next) => {
             // let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
             // await wait(500)
-            let middlewareController = await new MiddlewareControllerCachedInstance(false, { portAppInstance: context.instance })
+            let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
             let middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: 'd908335b-b60a-4a00-8c33-b9bc4a9c64ec' })
             await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
 
@@ -143,7 +143,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             let self = Class
             // [1] Create instances and check conditions. Get callback either a function or document
             // The instance responsible for rquests of specific port.
-            let conditionController = await new ConditionControllerCachedInstance(false, { portAppInstance: context.instance})
+            let conditionController = await new ConditionController(false, { portAppInstance: context.instance})
             let entrypointConditionTree = '0681f25c-4c00-4295-b12a-6ab81a3cb440'
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🍊 Entrypoint Condition Key: ${entrypointConditionTree} \n \n`)
             let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
@@ -193,12 +193,12 @@ process.env.SZN_DEBUG = true // show/hide console messages.
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = WebappUIClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = createStaticInstanceClasses({ 
+    let MiddlewareController = createStaticInstanceClasses({ 
         superclass: Application, 
         implementationType: 'Middleware',
         cacheName: true
     })
-    let ConditionControllerCachedInstance = createStaticInstanceClasses({ 
+    let ConditionController = createStaticInstanceClasses({ 
         superclass: Application, 
         implementationType: 'Condition',
         cacheName: true
@@ -228,7 +228,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
         },            
         async (context, next) => { // MIDDLEWARE
             let middlewareArray;
-            let middlewareController = await new MiddlewareControllerCachedInstance(false, { portAppInstance: context.instance })
+            let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
             middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: '43d6e114-54b4-47d8-aa68-a2ae97b961d5' })
             await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
         },
@@ -236,7 +236,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             let self = Class
             // [1] Create instances and check conditions. Get callback either a function or document
             // The instance responsible for rquests of specific port.
-            let conditionController = await new ConditionControllerCachedInstance(false, { portAppInstance: context.instance})
+            let conditionController = await new ConditionController(false, { portAppInstance: context.instance})
             let entrypointConditionTree = self.entrypointSetting.defaultConditionTreeKey
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🍊 Entrypoint Condition Key: ${entrypointConditionTree} \n \n`)
             let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
@@ -258,12 +258,12 @@ Application.eventEmitter.on('initializationEnd', async () => {
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = StaticContentClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = createStaticInstanceClasses({ 
+    let MiddlewareController = createStaticInstanceClasses({ 
         superclass: Application, 
         implementationType: 'Middleware',
         cacheName: true
     })
-    let ConditionControllerCachedInstance = createStaticInstanceClasses({ 
+    let ConditionController = createStaticInstanceClasses({ 
         superclass: Application, 
         implementationType: 'Condition',
         cacheName: true
@@ -292,7 +292,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
         async (context, next) => {
             // let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
             // await wait(500)
-            let middlewareController = await new MiddlewareControllerCachedInstance(false, { portAppInstance: context.instance })
+            let middlewareController = await new MiddlewareController(false, { portAppInstance: context.instance })
             let middlewareArray = await middlewareController.initializeNestedUnit({ nestedUnitKey: 'd908335b-b60a-4a00-8c33-b9bc4a9c64ec' })
             await implementMiddlewareOnModuleUsingJson(middlewareArray)(context, next)
 
@@ -320,7 +320,7 @@ Application.eventEmitter.on('initializationEnd', async () => {
             let self = Class
             // [1] Create instances and check conditions. Get callback either a function or document
             // The instance responsible for rquests of specific port.
-            let conditionController = await new ConditionControllerCachedInstance(false, { portAppInstance: context.instance})
+            let conditionController = await new ConditionController(false, { portAppInstance: context.instance})
             let entrypointConditionTree = '78f91938-f9cf-4cbf-9bc8-f97836ff23dd'
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🍊 Entrypoint Condition Key: ${entrypointConditionTree} \n \n`)
             let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
