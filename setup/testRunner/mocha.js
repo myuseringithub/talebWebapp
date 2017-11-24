@@ -11,20 +11,20 @@ var mocha = new Mocha(); // Instantiate a Mocha instance.
 var testDirectory = path.join(confJson.SourceCodePath, 'serverSide')
 
 /* List all files in a directory recursively */
-var listFileRecursively = directory => {
+var listFileRecursively = ({directory}) => {
     var results = []
     var list = filesystem.readdirSync(directory)
     list.forEach(filename => {
         let filepath = path.join(directory, filename)
         let stat = filesystem.statSync(filepath)
-        if (stat && stat.isDirectory()) results = results.concat(listFileRecursively(filepath))
+        if (stat && stat.isDirectory()) results = results.concat(listFileRecursively({directory: filepath}))
         else results.push({ name: filename, path: filepath })
     })
     return results
 }
 
 // Add each .js file to the mocha instance
-listFileRecursively(testDirectory)
+listFileRecursively({directory: testDirectory})
     .filter(file => {
         // Only keep the .test.js files
         return file.name.substr(-8) === '.test.js';

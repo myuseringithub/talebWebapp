@@ -8,8 +8,8 @@ import bodyParser from 'koa-bodyparser'
 
 // Classes
 import { default as Application } from 'appscript'
-const ConditionController = require('appscript/module/condition')
-const MiddlewareController = require('appscript/module/middleware')
+import createStaticInstanceClasses from 'appscript/module/reusableNestedUnit'
+
 // TODO: + initialize options for callback as functionMiddleware or document template rendering.
 
 import WebappUIClass from 'port/webappUI/WebappUI.class.js'
@@ -108,8 +108,16 @@ Application.eventEmitter.on('initializationEnd', () => {
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = OAuthClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = await MiddlewareController({superclass: Application})
-    let ConditionControllerCachedInstance = await ConditionController({superclass: Application})
+    let MiddlewareControllerCachedInstance = createStaticInstanceClasses({ 
+        superclass: Application, 
+        implementationType: 'Middleware',
+        cacheName: true
+    })
+    let ConditionControllerCachedInstance = createStaticInstanceClasses({ 
+        superclass: Application, 
+        implementationType: 'Condition',
+        cacheName: true
+    })       
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
@@ -185,8 +193,17 @@ process.env.SZN_DEBUG = true // show/hide console messages.
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = WebappUIClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = await MiddlewareController({superclass: Application})
-    let ConditionControllerCachedInstance = await ConditionController({superclass: Application})
+    let MiddlewareControllerCachedInstance = createStaticInstanceClasses({ 
+        superclass: Application, 
+        implementationType: 'Middleware',
+        cacheName: true
+    })
+    let ConditionControllerCachedInstance = createStaticInstanceClasses({ 
+        superclass: Application, 
+        implementationType: 'Condition',
+        cacheName: true
+    })       
+
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),
@@ -241,8 +258,17 @@ Application.eventEmitter.on('initializationEnd', async () => {
 Application.eventEmitter.on('initializationEnd', async () => {
     let Class = StaticContentClass
     // Templating engine & associated extention.
-    let MiddlewareControllerCachedInstance = await MiddlewareController({superclass: Application})
-    let ConditionControllerCachedInstance = await ConditionController({superclass: Application})
+    let MiddlewareControllerCachedInstance = createStaticInstanceClasses({ 
+        superclass: Application, 
+        implementationType: 'Middleware',
+        cacheName: true
+    })
+    let ConditionControllerCachedInstance = createStaticInstanceClasses({ 
+        superclass: Application, 
+        implementationType: 'Condition',
+        cacheName: true
+    })       
+
     Class.serverKoa.use(views('/', { map: { html: 'underscore', js: 'underscore' } } ));
     Class.applyKoaMiddleware([
         createClassInstancePerRequest(Class),

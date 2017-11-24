@@ -11,6 +11,11 @@ test() { # ⭐ Gulp - run bulid tasks
     node --harmony $currentFileDirectory/entrypoint.js
 }
 
+test.debug() { # ⭐ Gulp - run bulid tasks
+    set -ex; 
+    node --harmony --inspect=0.0.0.0:9229 --debug-brk $currentFileDirectory/entrypoint.js
+}
+
 if [[ $# -eq 0 ]] ; then # if no arguments supplied, fallback to default
     # List function names:
     # compgen -A function 
