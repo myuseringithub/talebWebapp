@@ -3,8 +3,11 @@ import _ from 'underscore'
 import filesystem from 'fs'
 import https from 'https'
 import http from 'http'
+import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
 
-const self = class WebappUI extends Application {
+const self = 
+@execute({ staticMethod: 'initializeStaticClass' })
+class WebappUI extends Application {
     
     static serverKoa;
     static createdHttpServer;
@@ -16,12 +19,8 @@ const self = class WebappUI extends Application {
     middlewareArray = []
     next;
 
-    static initializeStaticClass() {
-        self.eventEmitter.on('initializationEnd', () => {
-            let ClassObject = {}
-            ClassObject[`${self.name}`] = self
-            self.addStaticSubclassToClassArray(ClassObject)
-        })
+    static initializeStaticClass(self) {
+        super.addSubclass()
         super.initializeStaticClass()
         self.port = 80
     }
@@ -108,5 +107,4 @@ const self = class WebappUI extends Application {
 
 }
 
-self.initializeStaticClass() // initialize static properties on class.
 export default self

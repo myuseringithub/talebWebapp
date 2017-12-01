@@ -1,8 +1,11 @@
 // API server
 import Koa from 'koa' // Koa applicaiton server
 import Application from 'appscript'
+import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
 
-const self = class Api extends Application {
+const self = 
+@execute({ staticMethod: 'initializeStaticClass' })
+class Api extends Application {
 
     static serverKoa;
     static port;
@@ -10,12 +13,8 @@ const self = class Api extends Application {
     static middlewareArray = []
     middlewareArray = []
 
-    static initializeStaticClass() {
-        self.eventEmitter.on('initializationEnd', () => {
-            let ClassObject = {}
-            ClassObject[`${self.name}`] = self
-            self.addStaticSubclassToClassArray(ClassObject)
-        })
+    static initializeStaticClass(self) {
+        super.addSubclass()
         super.initializeStaticClass()
         self.port = 8082
         self.url = `${self.config.PROTOCOL}api.${self.config.HOST}/`
@@ -26,5 +25,4 @@ const self = class Api extends Application {
 
 }
 
-self.initializeStaticClass() // initialize static properties on class.
 export default self

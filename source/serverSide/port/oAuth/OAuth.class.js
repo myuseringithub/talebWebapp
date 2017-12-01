@@ -7,11 +7,14 @@ import OAuth2Server from 'oauth2-server'
 import oAuth2ServerModel from 'port/oAuth/oAuth2Server.model.js'
 let Request = OAuth2Server.Request;
 let Response = OAuth2Server.Response;
+import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
 
 // for endpoint requests examples for each grant type made - see: https://aaronparecki.com/oauth-2-simplified/#other-app-types)
 // Regarding request - should be x-www-form-urlencoded
 
-const self = class OAuth extends Application {
+const self = 
+@execute({ staticMethod: 'initializeStaticClass' })
+class OAuth extends Application {
     
     static OAuth2Server; // oauth2-server class
     static oAuth2Server; // oauth2-server instance
@@ -25,12 +28,8 @@ const self = class OAuth extends Application {
     middlewareArray = []
     next;
 
-    static initializeStaticClass() {
-        self.eventEmitter.on('initializationEnd', () => {
-            let ClassObject = {}
-            ClassObject[`${self.name}`] = self
-            self.addStaticSubclassToClassArray(ClassObject)
-        })
+    static initializeStaticClass(self) {
+        super.addSubclass()
         super.initializeStaticClass()
         self.port = 8088
 
@@ -155,5 +154,4 @@ const self = class OAuth extends Application {
 
 }
 
-self.initializeStaticClass() // initialize static properties on class.
 export default self

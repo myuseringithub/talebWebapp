@@ -1,18 +1,17 @@
 import { default as Application } from 'appscript'
 import WebSocketModule from 'ws'
+import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
 
-const self = class WebSocket extends Application {
+const self = 
+@execute({ staticMethod: 'initializeStaticClass' })
+class WebSocket extends Application {
 
     static port;
     static webSocketServer;
     static url; 
 
-    static initializeStaticClass() {
-        self.eventEmitter.on('initializationEnd', () => {
-            let ClassObject = {}
-            ClassObject[`${self.name}`] = self
-            self.addStaticSubclassToClassArray(ClassObject)
-        })
+    static initializeStaticClass(self) {
+        super.addSubclass()
         self.port = 8087
         self.url = `${self.config.SOCKET_PROTOCOL}websocket.${self.config.HOST}`        
     }
@@ -58,5 +57,4 @@ const self = class WebSocket extends Application {
 
 }
 
-self.initializeStaticClass() // initialize static properties on class.
 export default self
