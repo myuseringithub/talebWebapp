@@ -2,9 +2,11 @@
 import Koa from 'koa' // Koa applicaiton server
 import Application from 'appscript'
 import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
+import { extendedSubclassPattern } from 'appscript/utilityFunction/extendedSubclassPattern.js';
 
 const self =
 @execute({ staticMethod: 'initializeStaticClass' })
+@extendedSubclassPattern.Subclass()
 class StaticContent extends Application {
 
     static serverKoa;
@@ -14,7 +16,6 @@ class StaticContent extends Application {
     middlewareArray = []
     
     static initializeStaticClass(self) {
-        super.addSubclass()
         super.initializeStaticClass()
         self.port = 8081
         self.url = `${self.config.PROTOCOL}cdn.${self.config.HOST}`

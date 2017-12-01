@@ -8,12 +8,14 @@ import oAuth2ServerModel from 'port/oAuth/oAuth2Server.model.js'
 let Request = OAuth2Server.Request;
 let Response = OAuth2Server.Response;
 import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
+import { extendedSubclassPattern } from 'appscript/utilityFunction/extendedSubclassPattern.js';
 
 // for endpoint requests examples for each grant type made - see: https://aaronparecki.com/oauth-2-simplified/#other-app-types)
 // Regarding request - should be x-www-form-urlencoded
 
 const self = 
 @execute({ staticMethod: 'initializeStaticClass' })
+@extendedSubclassPattern.Subclass()
 class OAuth extends Application {
     
     static OAuth2Server; // oauth2-server class
@@ -29,7 +31,6 @@ class OAuth extends Application {
     next;
 
     static initializeStaticClass(self) {
-        super.addSubclass()
         super.initializeStaticClass()
         self.port = 8088
 

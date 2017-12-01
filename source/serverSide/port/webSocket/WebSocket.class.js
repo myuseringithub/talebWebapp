@@ -1,9 +1,11 @@
 import { default as Application } from 'appscript'
 import WebSocketModule from 'ws'
 import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
+import { extendedSubclassPattern } from 'appscript/utilityFunction/extendedSubclassPattern.js';
 
 const self = 
 @execute({ staticMethod: 'initializeStaticClass' })
+@extendedSubclassPattern.Subclass()
 class WebSocket extends Application {
 
     static port;
@@ -11,7 +13,6 @@ class WebSocket extends Application {
     static url; 
 
     static initializeStaticClass(self) {
-        super.addSubclass()
         self.port = 8087
         self.url = `${self.config.SOCKET_PROTOCOL}websocket.${self.config.HOST}`        
     }

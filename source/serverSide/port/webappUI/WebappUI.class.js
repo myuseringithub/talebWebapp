@@ -4,9 +4,11 @@ import filesystem from 'fs'
 import https from 'https'
 import http from 'http'
 import { add, execute, applyMixin } from 'appscript/utilityFunction/decoratorUtility.js'
+import { extendedSubclassPattern } from 'appscript/utilityFunction/extendedSubclassPattern.js'
 
 const self = 
 @execute({ staticMethod: 'initializeStaticClass' })
+@extendedSubclassPattern.Subclass()
 class WebappUI extends Application {
     
     static serverKoa;
@@ -20,7 +22,6 @@ class WebappUI extends Application {
     next;
 
     static initializeStaticClass(self) {
-        super.addSubclass()
         super.initializeStaticClass()
         self.port = 80
     }
