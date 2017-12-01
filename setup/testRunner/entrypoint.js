@@ -16,6 +16,7 @@ babelJSCompiler({
     babelConfigurationFile: 'es2015.BabelConfig.js'
 })
 
+//TODO: Work with JSDom module for frontend testing using nodejs.
 
 // run app code
 require('./mocha.js')

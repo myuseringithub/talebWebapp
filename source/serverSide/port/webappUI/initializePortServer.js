@@ -12,12 +12,12 @@ export default async () => {
     let Class = WebappUIClass
     // Templating engine & associated extention.
     let MiddlewareController = createStaticInstanceClasses({ 
-        superclass: Application, 
+        Superclass: Application, 
         implementationType: 'Middleware',
         cacheName: true
     })
     let ConditionController = createStaticInstanceClasses({ 
-        superclass: Application, 
+        Superclass: Application, 
         implementationType: 'Condition',
         cacheName: true
     })       
