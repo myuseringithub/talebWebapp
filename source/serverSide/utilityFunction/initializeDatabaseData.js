@@ -1,5 +1,6 @@
 import rethinkDB from 'rethinkdb' 
 import { default as Application } from 'appscript'
+import {default as getTableDocumentDefault} from "appscript/utilityFunction/database/query/getTableDocument.query.js";
 
 function initializeDatabaseData() {
     return () => {
@@ -38,7 +39,7 @@ function initializeDatabaseData() {
             .then(async () => { // initialize template document front end.
                 const self = Application
                 let getTableDocument = {
-                    generate: require('appscript/utilityFunction/database/query/getTableDocument.query.js'),
+                    generate: getTableDocumentDefault,
                     instance: []
                 }
                 getTableDocument.instance['template_documentFrontend'] = await getTableDocument.generate('template_documentFrontend')
