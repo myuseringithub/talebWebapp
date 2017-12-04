@@ -49,7 +49,7 @@ export default async () => {
             
             let entrypointConditionTree = '0681f25c-4c00-4295-b12a-6ab81a3cb440'
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🍊 Entrypoint Condition Key: ${entrypointConditionTree} \n \n`)
-            let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
+            let callback = await conditionController.initializeNestedUnit({nestedUnitKey: entrypointConditionTree})
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🔀✔️ Choosen callback is: %c ${callback.name}`, self.config.style.green)
             // [2] Use callback
             await implementConditionActionOnModuleUsingJson({setting: callback})(context, next)

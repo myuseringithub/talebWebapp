@@ -59,7 +59,7 @@ export default async () => {
         //     let conditionController = await new ConditionController(false, { portAppInstance: context.instance})
         //     let entrypointConditionTree = '78f91938-f9cf-4cbf-9bc8-f97836ff23dd'
         //     if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🍊 Entrypoint Condition Key: ${entrypointConditionTree} \n \n`)
-        //     let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
+        //     let callback = await conditionController.initializeNestedUnit({nestedUnitKey: entrypointConditionTree})
         //     // if(process.env.SZN_DEBUG == 'true') console.log(`🍊 Callback object: ${callback.name}`)
         //     // [2] Use callback
         //     if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🔀✔️ Choosen callback is: %c ${callback.name}`, self.config.style.green)
@@ -76,7 +76,7 @@ export default async () => {
             let conditionController = await ConditionController.createContext({ portAppInstance: context.instance })
             let entrypointConditionTree = '78f91938-f9cf-4cbf-9bc8-f97836ff23dd'
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🍊 Entrypoint Condition Key: ${entrypointConditionTree} \n \n`)
-            let callback = await conditionController.initializeConditionTree({nestedUnitKey: entrypointConditionTree})
+            let callback = await conditionController.initializeNestedUnit({nestedUnitKey: entrypointConditionTree})
             // if(process.env.SZN_DEBUG == 'true') console.log(`🍊 Callback object: ${callback.name}`)
             // [2] Use callback
             if(process.env.SZN_DEBUG == 'true' && context.header.debug == 'true') console.log(`🔀✔️ Choosen callback is: %c ${callback.name}`, self.config.style.green)
