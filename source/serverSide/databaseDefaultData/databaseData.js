@@ -1,24 +1,15 @@
-module.exports = {
-    webappSetting: [
-        require('./webappSetting/template/documentBackend.js'),
-        require('./webappSetting/template/documentFrontend.js'),
-        require('./webappSetting/template/templateFile.js'),
-        require('./webappSetting/template/viewImplementation.js'),
-        require('./webappSetting/template/viewNestedUnit.js'),
+let middlewareArray = require('./webappSetting/middleware')
+let templateArray = require('./webappSetting/template')
+let conditionArray = require('./webappSetting/condition')
+let oAuthArray = require('./webappSetting/oAuth')
 
-        require('./webappSetting/middleware/middlewareFile.js'),
-        require('./webappSetting/middleware/middlewareImplementation.js'),
-        require('./webappSetting/middleware/middlewareNestedUnit.js'),
-
-        require('./webappSetting/condition/conditionTree.js'),
-        require('./webappSetting/condition/conditionImplementation.js'),
-        require('./webappSetting/condition/valueReturningFile.js'),
-
-        require('./webappSetting/oAuth/client.js'),
-        require('./webappSetting/oAuth/token.js'),
-        require('./webappSetting/oAuth/user.js'),
-        
-    ], 
+export default {
+    webappSetting: Array.prototype.push.apply(
+        middlewareArray, 
+        templateArray,
+        conditionArray,
+        oAuthArray
+    ), 
     webappContent: [
         require('./webappContent/university.js'),
         

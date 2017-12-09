@@ -6,7 +6,7 @@ let data = [
     }
 ];
 
-module.exports = {
-    databaseTableName: 'oAuth_user',
+export default {
+    databaseTableName: 'user',
     data: data
 }

@@ -28,7 +28,7 @@ let data = [
     }
 ];
 
-module.exports = {
-    databaseTableName: 'template_viewImplementation',
+export default {
+    databaseTableName: 'viewImplementation',
     data: data
 }

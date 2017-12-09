@@ -10,7 +10,7 @@ let data = [
     }
 ];
 
-module.exports = {
-    databaseTableName: 'oAuth_client',
+export default {
+    databaseTableName: 'client',
     data: data
 }

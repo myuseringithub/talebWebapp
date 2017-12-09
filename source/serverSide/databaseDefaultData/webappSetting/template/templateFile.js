@@ -22,7 +22,7 @@ let data = [
     }
 ];
 
-module.exports = {
-    databaseTableName: 'template_templateFile',
+export default {
+    databaseTableName: 'templateFile',
     data: data
 }

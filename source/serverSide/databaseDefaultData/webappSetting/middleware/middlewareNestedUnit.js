@@ -16,7 +16,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -71,7 +71,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -87,7 +87,7 @@ let data = [
             {
                 key: 'b5eec3f5-9fbc-48a6-840a-2279e7e7c5ce',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -103,7 +103,7 @@ let data = [
             {
                 key: 'c587e9c0-7ef9-445d-8815-786ff9c6ce57',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -123,7 +123,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -191,7 +191,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -207,7 +207,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -223,7 +223,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -252,7 +252,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -272,7 +272,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -354,7 +354,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -370,7 +370,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -386,7 +386,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -402,7 +402,7 @@ let data = [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
                 order: 1,
-                executionType: 'middlewareArray'
+                executionType: 'chronological'
             },
         ],
         children: [
@@ -413,7 +413,7 @@ let data = [
 
 ];
 
-module.exports = {
-    databaseTableName: 'middleware_middlewareNestedUnit',
+export default {
+    databaseTableName: 'middlewareNestedUnit',
     data: data
 }

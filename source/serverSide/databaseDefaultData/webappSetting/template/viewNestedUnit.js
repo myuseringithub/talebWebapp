@@ -82,7 +82,7 @@ let data = [
 
 ];
 
-module.exports = {
-    databaseTableName: 'template_viewNestedUnit',
+export default {
+    databaseTableName: 'viewNestedUnit',
     data: data
 }

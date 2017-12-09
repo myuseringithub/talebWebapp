@@ -454,7 +454,7 @@ let data = [
 
 ];
 
-module.exports = {
-    databaseTableName: 'condition_conditionTree',
+export default {
+    databaseTableName: 'conditionTree',
     data: data
 }

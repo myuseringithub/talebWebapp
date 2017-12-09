@@ -150,7 +150,7 @@ let data = [
 
 ];
 
-module.exports = {
-    databaseTableName: 'middleware_middlewareImplementation',
+export default {
+    databaseTableName: 'middlewareImplementation',
     data: data
 }

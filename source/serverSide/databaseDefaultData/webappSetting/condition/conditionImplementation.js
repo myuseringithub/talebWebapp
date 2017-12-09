@@ -135,7 +135,7 @@ let data = [
 
 ];
 
-module.exports = {
-    databaseTableName: 'condition_conditionImplementation',
+export default {
+    databaseTableName: 'conditionImplementation',
     data: data
 }

@@ -41,7 +41,7 @@ let data = [
 ];
 
 
-module.exports = {
-  databaseTableName: 'condition_valueReturningFile',
+export default {
+  databaseTableName: 'valueReturningFile',
   data: data
 }

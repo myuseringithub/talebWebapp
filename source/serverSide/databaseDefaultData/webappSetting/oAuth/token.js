@@ -29,7 +29,7 @@ let data = [
     }
 ];
 
-module.exports = {
-    databaseTableName: 'oAuth_token',
+export default {
+    databaseTableName: 'token',
     data: data
 }

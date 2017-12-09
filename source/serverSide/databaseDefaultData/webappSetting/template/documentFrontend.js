@@ -99,7 +99,7 @@ let data = [
 ];
 
 
-module.exports = {
-    databaseTableName: 'template_documentFrontend',
+export default {
+    databaseTableName: 'documentFrontend',
     data: data
 }
