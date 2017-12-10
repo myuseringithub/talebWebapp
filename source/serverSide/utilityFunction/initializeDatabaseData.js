@@ -1,6 +1,7 @@
 import rethinkDB from 'rethinkdb' 
 import { default as Application } from 'appscript'
 import {default as getTableDocumentDefault} from "appscript/utilityFunction/database/query/getTableDocument.query.js";
+import databaseData from 'databaseDefaultData/databaseData.js'
 
 function initializeDatabaseData() {
     return () => {
@@ -30,11 +31,16 @@ function initializeDatabaseData() {
             }
         }
 
-        let databaseData = require('databaseDefaultData/databaseData.js')
         
         createDatabase('webappSetting')
             .then(async () => {
-                await createTableAndInsertData('webappSetting', databaseData.webappSetting)
+                try {
+                    await createTableAndInsertData('webappSetting', databaseData.webappSetting)
+                } catch (error) {
+                    console.log('webappSetting - cannot create table / insert data for webappSetting')
+                    console.log(error)
+                    process.exit(1)
+                }
             })
             .then(async () => { // initialize template document front end.
                 const self = Application
@@ -58,7 +64,12 @@ function initializeDatabaseData() {
 
         createDatabase('webappContent')
             .then(() => {
-                createTableAndInsertData('webappContent', databaseData.webappContent)            
+                try {
+                    createTableAndInsertData('webappContent', databaseData.webappContent)            
+                } catch (error) {
+                    console.log('webappContent - cannot create table / insert data for webappContent')
+                    console.log(error)
+                }
             })
 
         // .do(function(databaseExists) {

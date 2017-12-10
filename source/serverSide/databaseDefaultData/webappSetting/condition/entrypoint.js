@@ -9,4 +9,5 @@ export default [
     require('./conditionTree.js'),
 ].map(object => {
     object.databaseTableName = tablePrefix.concat(object.databaseTableName)
+    return object
 })

@@ -9,4 +9,5 @@ export default [
     require('./user.js'),
 ].map(object => {
     object.databaseTableName = tablePrefix.concat(object.databaseTableName)
+    return object
 })
