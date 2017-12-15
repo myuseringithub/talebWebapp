@@ -1,10 +1,15 @@
-version: '2.1'
+version: '2.2'
+
+networks: 
+  "default":
+    driver: bridge # bridge for the same host, while overlay is for swarm hosts.
+    # external: false
 
 # USAGE (from root directory): docker-compose -f ./setup/<docker-compose>.yml up
 services:
 
   nodejs: 
-    image: myuserindocker/deployment-environment:latest
+    image: myuserindocker/deployment-environment:latest # 2.2 working
     ports:
       - "80:80"
       - "443:443"
@@ -26,8 +31,8 @@ services:
       - "9229:9229"
     depends_on:
       - rethinkdb
-    links:
-      - rethinkdb
+    networks:
+        - default
     environment:
         DEPLOYMENT: ${DEPLOYMENT:-development}
     volumes:
@@ -48,3 +53,7 @@ services:
     volumes:
       # volume inside docker-machine not through Windows volume. because it causes problems otherwise.
       - /mnt/datadisk-1/taleb/rethinkdbData:/data/rethinkdb_data/
+    networks:
+        default:
+            aliases:
+                - rethinkdb
