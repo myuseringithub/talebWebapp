@@ -62,7 +62,10 @@ container.development() {
 
     # 3. 
     export DEPLOYMENT=development
-    docker-compose -f ./setup/container/development.dockerCompose.yml up -d --force-recreate
+    docker-compose \
+        -f ./setup/container/development.dockerCompose.yml \
+        --project-name talebwebapp \
+        up -d --force-recreate
 
     # 4. Run services using gulp inside container
     VM=machine
@@ -75,7 +78,10 @@ container.development() {
 container.deployment.buildDistribution() { # ⭐
     # development / production
     export DEPLOYMENT=production
-    docker-compose -f ./setup/container/deployment.dockerCompose.yml up buildDistributionCode
+    docker-compose \
+        -f ./setup/container/deployment.dockerCompose.yml \
+        --project-name talebwebapp_distribution \
+        up buildDistributionCode
 }
 
 container.deployment.buildImage() { # ⭐
@@ -89,7 +95,10 @@ container.deployment.buildImage() { # ⭐
 
     # 3.
     # Problem cannot pass arguments to dockerfile
-    docker-compose -f ./setup/container/deployment.dockerCompose.yml build --no-cache buildImage
+    docker-compose \
+        -f ./setup/container/deployment.dockerCompose.yml \
+        --project-name talebwebapp_build \
+        build --no-cache buildImage
 
     # 4. tag image and 
     docker tag <image>:latest <image>:1.0.0

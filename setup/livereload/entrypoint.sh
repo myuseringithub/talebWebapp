@@ -26,7 +26,7 @@ watch.livereload() {
     # --inspect --debug-brk allows for debugging node with chrome.
     export DEPLOYMENT=development
     export SZN_DEBUG=false
-    node --harmony $currentFileDirectory/entrypoint.js watch:livereload
+    node $currentFileDirectory/entrypoint.js watch:livereload
 }
 
 watch.livereload.chrome() {
@@ -37,7 +37,7 @@ watch.livereload.chrome() {
     export DEPLOYMENT=development
     export SZN_DEBUG=true
     export SZN_OPTION_BREAK=true
-    node --harmony $currentFileDirectory/entrypoint.js watch:livereload
+    node $currentFileDirectory/entrypoint.js watch:livereload
 }
 
 watch.livereload.chrome.noBreak() {
@@ -46,7 +46,7 @@ watch.livereload.chrome.noBreak() {
     export SZN_DEBUG=true
     export SZN_OPTION_BREAK=false
     # node --harmony $(which gulp) watch:livereload --gulpfile $currentFileDirectory/entrypoint.js
-    node --harmony $currentFileDirectory/entrypoint.js watch:livereload
+    node $currentFileDirectory/entrypoint.js watch:livereload
 }
 
 development() {
