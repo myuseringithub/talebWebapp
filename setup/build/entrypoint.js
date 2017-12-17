@@ -1,5 +1,5 @@
 const path = require('path')
-const confJson = require('./configuration/configuration.json')
+const confJson = require('./configuration/configuration.js')
 const moduleSystem = require('module')
 
 const appRootPath = path.normalize(`${__dirname}`)

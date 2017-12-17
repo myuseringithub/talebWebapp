@@ -5,7 +5,7 @@ version: '2.1'
 services:
     
     deploymentEnvironment:
-        image: myuserindocker/deployment-environment:2.3-PHP7-NodeJS-ForWordpressFirebaseTemplateSystem
+        image: myuserindocker/deployment-environment:latest
 
     buildDistributionCode: # Build source code & download project dependencies.
         extends: deploymentEnvironment
@@ -17,6 +17,7 @@ services:
           - ../../setup/container/shellScript:/project/application/setup/container/shellScript/
           - ../../setup/build:/project/application/setup/build/
           - ../../setup/utility:/project/application/setup/utility/
+          - ../../setup/configuration.json:/project/application/setup/configuration.json
           - ../../dependency/appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
           - ../../distribution:/project/application/distribution/
         working_dir: /project/application/setup/build/

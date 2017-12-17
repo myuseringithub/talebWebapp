@@ -4,24 +4,61 @@
 set -ex; 
 echo "Deploying as ${DEPLOYMENT}";
 
-gulp -v;
+echo 'Node Version: '; node -v;
+echo 'NPM Version: '; npm -v;
+echo 'Gulp Version: '; gulp -v;
 
+# ⭐ install dependencies / node modules (from packages.json) in working directory "/tmp/build/gulp_buildTool/" & update to latest versions
+# --no-bin-links --no-optional (removes fsevents which fails on Windows volume) options may sovle issues with installation. & 'npm cache verify' may fix inconsitencies with new npm and windows.
+(
+    cd /project/application/setup/build;
+    # npm cache verify;
+    # npm install --no-optional;
+    # npm install --only=dev;
+    # Use yarn instead of npm.
+    # npm update;
+    yarn install --pure-lockfile --production=false # Install prod & dev dependencies and do not generate lock file, but read from if exists.
 
-# # ⭐ install dependencies / node modules (from packages.json) in working directory "/tmp/build/gulp_buildTool/" & update to latest versions
-# --no-bin-links --no-optional options may sovle issues with installation.
-(cd /project/application/setup/build;
-npm install --no-optional; npm install --only=dev; npm update;)
+)
+;sleep 1;
+
 if [ -d "/project/application/setup/livereload" ]; then
-    (cd /project/application/setup/livereload;
-    npm install; npm install --only=dev; npm update;)
+    (
+        cd /project/application/setup/livereload;
+        # npm install;
+        # npm install --only=dev;
+        # npm update;
+        yarn install --pure-lockfile --production=false;
+    )
 fi
-(cd /project/dependency/appDeploymentLifecycle/gulp_buildTool.js; 
-    npm install; npm install --only=dev; npm update;)
-(cd /project/dependency/appDeploymentLifecycle/babel_javascriptTranspilation.js; 
-    npm install; npm install --only=dev; npm update;)
+;sleep 1;
 
-(cd /project/application/setup/build;
-./entrypoint.sh build)
+(
+    cd /project/dependency/appDeploymentLifecycle/gulp_buildTool.js; 
+    # npm install;
+    # npm install --only=dev;
+    # npm update;
+    # yarn install --pure-lockfile --production=false; 
+    yarn install;
+    yarn upgrade; 
+)
+;sleep 1;
+
+(
+    cd /project/dependency/appDeploymentLifecycle/babel_javascriptTranspilation.js; 
+    # npm install;
+    # npm install --only=dev;
+    # npm update;
+    yarn install --pure-lockfile --production=false;
+);
+;sleep 1;
+
+sleep 4;
+(
+    cd /project/application/setup/build;
+    ./entrypoint.sh build
+)
+;sleep 1;
 
 echo "Gulp watch ? ";
 if [ "$DEPLOYMENT" = "development" ]; then
