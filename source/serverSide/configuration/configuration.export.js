@@ -1,3 +1,3 @@
-const directoryPathConfig = require('./directoryPath.config.js')
+const configuration = require('../../../setup/configuration/configuration.json')
 
-module.exports = Object.assign({}, directoryPathConfig);
+module.exports = Object.assign({}, configuration);

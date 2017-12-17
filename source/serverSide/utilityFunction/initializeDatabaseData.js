@@ -1,12 +1,15 @@
 import { default as Application } from 'appscript'
 import {default as getTableDocumentDefault} from "appscript/utilityFunction/database/query/getTableDocument.query.js";
-import { createDatabase, createTableAndInsertData } from "appscript/utilityFunction/database/initializeDatabase.query.js";
+import { createDatabase, createTableAndInsertData, deleteAllDatabase } from "appscript/utilityFunction/database/initializeDatabase.query.js";
 import databaseData from 'databaseDefaultData/databaseData.js'
+import configuration from '../configuration/configuration.export.js'
 
 function initializeDatabaseData() {
-    return () => {
+    return async () => {
         const connection = Application.rethinkdbConnection
-        
+        console.log(`SZN Database version: ${configuration.databaseVersion}`)
+        if(!configuration.databaseVersion) await deleteAllDatabase(connection).then(console.log('SZN Rethinkdb - All databases dropped.'))
+
         createDatabase('webappSetting', connection)
             .then(async () => {
                 try {
