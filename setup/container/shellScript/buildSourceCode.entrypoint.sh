@@ -20,7 +20,7 @@ echo 'Gulp Version: '; gulp -v;
     yarn install --pure-lockfile --production=false # Install prod & dev dependencies and do not generate lock file, but read from if exists.
 
 )
-;sleep 1;
+sleep 1;
 
 if [ -d "/project/application/setup/livereload" ]; then
     (
@@ -31,7 +31,7 @@ if [ -d "/project/application/setup/livereload" ]; then
         yarn install --pure-lockfile --production=false;
     )
 fi
-;sleep 1;
+sleep 1;
 
 (
     cd /project/dependency/appDeploymentLifecycle/gulp_buildTool.js; 
@@ -42,7 +42,7 @@ fi
     yarn install;
     yarn upgrade; 
 )
-;sleep 1;
+sleep 1;
 
 (
     cd /project/dependency/appDeploymentLifecycle/babel_javascriptTranspilation.js; 
@@ -50,15 +50,15 @@ fi
     # npm install --only=dev;
     # npm update;
     yarn install --pure-lockfile --production=false;
-);
-;sleep 1;
+)
+sleep 1;
 
 sleep 4;
 (
     cd /project/application/setup/build;
     ./entrypoint.sh build
 )
-;sleep 1;
+sleep 1;
 
 echo "Gulp watch ? ";
 if [ "$DEPLOYMENT" = "development" ]; then

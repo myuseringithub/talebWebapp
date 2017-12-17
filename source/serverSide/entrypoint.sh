@@ -9,42 +9,33 @@
 currentFileDirectory=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P ) # path of this file, regardless of where it is executed from.
 cd "$currentFileDirectory"
 
-development.stable() {
-    node $currentFileDirectory/app.js
+run() { # first argument is 'directory' 
+    if [[ $# -eq 0 ]] ; then
+        directory=$currentFileDirectory
+    else 
+        directory=$1
+    fi;
+    node $directory/entrypoint.js
 }
-development.nightly() {
-    node --harmony $currentFileDirectory/app.js
-}
-development.babelES6() {
-    export DEPLOYMENT=development   
+development.babelCLI.ES6() {   
     $currentFileDirectory/node_modules/babel-cli/bin/babel-node.js --presets node6 entrypoint.js
 }
-development.babel.nodemon() {
-    export DEPLOYMENT=development
+development.livereload.nodemon() {
     nodemon $currentFileDirectory/entrypoint.js --ignore '.git' --ignore 'node_modules' --watch '*.js' --legacy-watch --ext js,json
 }
-developmentharmonybabel() {
-    export DEPLOYMENT=development   
-    node --harmony $currentFileDirectory/entrypoint.js
-}
-developmentChrome() {
-    export DEPLOYMENT=development
+development.debug.chrome() {
     node --inspect=localhost:9229 --debug-brk $currentFileDirectory/entrypoint.js
 }
-
 development.distributionCode() {
-    export DEPLOYMENT=development
-    node --harmony /project/application/distribution/serverSide/entrypoint.js
+    directory="/project/application/distribution/serverSide"
+    run $directory
 }
 
-deployment.test() {
-    echo \"Error: no test specified\" && exit 1
-}
-
+### DEPRECATED 
+#TODO: REMOVE ALL REFERENCES.
 production() { # working directory is pointing to `app` folder inside container the result of distribution code.
-    export DEPLOYMENT=production
-    node $currentFileDirectory/entrypoint.js
-}
+    run
+} 
 
 if [[ $# -eq 0 ]] ; then # if no arguments supplied, fallback to default
     # List function names:

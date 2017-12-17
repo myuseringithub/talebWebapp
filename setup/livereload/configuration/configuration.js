@@ -1,5 +1,5 @@
 const path = require('path')
-const confJson = require('../../configuration.json')
+const confJson = require('../../configuration/configuration.json')
 const ConfigPath = __dirname,
     TaskModulePath = path.join(confJson.appDeploymentLifecyclePath, 'gulp_buildTool.js' , 'taskModule/'),
     UtilityModulePath = path.join(confJson.appDeploymentLifecyclePath, 'gulp_buildTool.js', 'utilityModule/'),

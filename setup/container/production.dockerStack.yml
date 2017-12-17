@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'
 
 networks: 
   default:
@@ -12,9 +12,8 @@ networks:
 
 services:
 
-  # internal ports = 80, 443
-
   # https://hub.docker.com/r/myuserindocker/taleb-webapp/tags/
+  # internal ports = 80, 443
   nodejs:
     image: myuserindocker/taleb-webapp:latest
     environment:
@@ -28,18 +27,13 @@ services:
     networks:
       - default
       - proxy_default
-    # entrypoint: node babelCompile.entrypoint.js
-    # command: sleep 100000
-
-  # internal port = 8080
 
   # RethinkDB - https://hub.docker.com/r/library/rethinkdb/tags/
+  # internal port = 8080
   rethinkdb:
-    image: rethinkdb:2.3.5
+    image: rethinkdb:2.3.6
     volumes:
       - "/mnt/datadisk-1/taleb/rethinkdbData:/data/rethinkdb_data/"
-    environment:
-      DEPLOYMENT: production
     networks:
       - default
       - proxy_default

@@ -4,7 +4,7 @@
 const Mocha = require('mocha'),
     filesystem = require('fs'),
     path = require('path'),
-    confJson = require('../configuration.json')
+    confJson = require('../configuration/configuration.json')
     
 var mocha = new Mocha(); // Instantiate a Mocha instance.
 

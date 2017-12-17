@@ -17,7 +17,7 @@ services:
           - ../../setup/container/shellScript:/project/application/setup/container/shellScript/
           - ../../setup/build:/project/application/setup/build/
           - ../../setup/utility:/project/application/setup/utility/
-          - ../../setup/configuration.json:/project/application/setup/configuration.json
+          - ../../setup/configuration/configuration.json:/project/application/setup/configuration/configuration.json
           - ../../dependency/appDeploymentLifecycle:/project/dependency/appDeploymentLifecycle/
           - ../../distribution:/project/application/distribution/
         working_dir: /project/application/setup/build/
