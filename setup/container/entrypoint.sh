@@ -19,7 +19,6 @@ container.production.stack() { # ⭐
     # 2. Add raw Github reverse proxy file to Redbird proxy.
 
     # 3.
-    export DEPLOYMENT=production
     docker stack deploy -c ./setup/container/production.dockerStack.yml talebwebapp
 }
 
