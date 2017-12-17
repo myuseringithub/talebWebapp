@@ -11,7 +11,7 @@ let data = [
         label: {
             name: 'Template: Common functions'
         },
-        middlewareImplementation: '3544ab32-f236-4e66-aacd-6fdf20df069b',
+        unitKey: '3544ab32-f236-4e66-aacd-6fdf20df069b',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -66,7 +66,7 @@ let data = [
         label: {
             name: 'useragentDetection'
         },
-        middlewareImplementation: '3544ab32-f236-4e66-aacd-6fdf20df069b',
+        unitKey: '3544ab32-f236-4e66-aacd-6fdf20df069b',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -82,7 +82,7 @@ let data = [
         label: {
             name: 'commonFunctionality middlewares'
         },
-        middlewareImplementation: '73873bfd-a667-4de3-900c-c06320e8dc67',
+        unitKey: '73873bfd-a667-4de3-900c-c06320e8dc67',
         insertionPoint: [
             {
                 key: 'b5eec3f5-9fbc-48a6-840a-2279e7e7c5ce',
@@ -98,7 +98,7 @@ let data = [
         label: {
             name: 'notFound'
         },
-        middlewareImplementation: '5e93b08c-557a-4d67-adc7-a06447f4ebad',
+        unitKey: '5e93b08c-557a-4d67-adc7-a06447f4ebad',
         insertionPoint: [
             {
                 key: 'c587e9c0-7ef9-445d-8815-786ff9c6ce57',
@@ -118,7 +118,7 @@ let data = [
         label: {
             name: 'WebappUI container middleware nested unit.'
         },
-        middlewareImplementation: '3544ab32-f236-4e66-aacd-6fdf20df069b',
+        unitKey: '3544ab32-f236-4e66-aacd-6fdf20df069b',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -186,7 +186,7 @@ let data = [
         label: {
             name: 'Service worker file'
         },
-        middlewareImplementation: '7a33a77a-4679-41e0-984a-8be96e56526d',
+        unitKey: '7a33a77a-4679-41e0-984a-8be96e56526d',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -202,7 +202,7 @@ let data = [
         label: {
             name: 'Google verification'
         },
-        middlewareImplementation: '3ee0de2a-1e28-436a-bea0-8d5e4637dbe2',
+        unitKey: '3ee0de2a-1e28-436a-bea0-8d5e4637dbe2',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -218,7 +218,7 @@ let data = [
         label: {
             name: 'Static root file'
         },
-        middlewareImplementation: '20c4b7dd-66de-4b89-9188-f1601f9fc217',
+        unitKey: '20c4b7dd-66de-4b89-9188-f1601f9fc217',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -247,7 +247,7 @@ let data = [
         label: {
             name: 'renderTemplateDocument - homepage'
         },
-        middlewareImplementation: '122c9a40-5872-4219-ad4e-ad1c237deacd',
+        unitKey: '122c9a40-5872-4219-ad4e-ad1c237deacd',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -267,7 +267,7 @@ let data = [
         label: {
             name: 'StaticContent container middleware nested unit.'
         },
-        middlewareImplementation: '3544ab32-f236-4e66-aacd-6fdf20df069b',
+        unitKey: '3544ab32-f236-4e66-aacd-6fdf20df069b',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -349,7 +349,7 @@ let data = [
         label: {
             name: 'JSPM file'
         },
-        middlewareImplementation: 'fe175a7c-45ab-4d7a-9fba-57245eee0527',
+        unitKey: 'fe175a7c-45ab-4d7a-9fba-57245eee0527',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -365,7 +365,7 @@ let data = [
         label: {
             name: 'Static assets'
         },
-        middlewareImplementation: 'c2539d29-d217-41c9-a984-a17d741946c5',
+        unitKey: 'c2539d29-d217-41c9-a984-a17d741946c5',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -381,7 +381,7 @@ let data = [
         label: {
             name: 'Document element'
         },
-        middlewareImplementation: '07e1ba94-0808-4dc1-b832-f7a54b377692',
+        unitKey: '07e1ba94-0808-4dc1-b832-f7a54b377692',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -397,7 +397,7 @@ let data = [
         label: {
             name: 'Static upload files'
         },
-        middlewareImplementation: '2f862d7f-0ae9-4dd0-aae8-4796bbe0581f',
+        unitKey: '2f862d7f-0ae9-4dd0-aae8-4796bbe0581f',
         insertionPoint: [
             {
                 key: 'de45db35-5e0d-49b1-82bc-659fc787b0c1',
@@ -414,6 +414,6 @@ let data = [
 ];
 
 export default {
-    databaseTableName: 'middlewareNestedUnit',
+    databaseTableName: 'nestedUnit',
     data: data
 }

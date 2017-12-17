@@ -58,6 +58,6 @@ let data = [
 ];
 
 export default {
-  databaseTableName: 'middlewareFile',
+  databaseTableName: 'file',
   data: data
 }

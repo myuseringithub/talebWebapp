@@ -10,7 +10,7 @@ currentFileDirectory=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P ) # path of
 cd "$currentFileDirectory"
 
 run() { # first argument is 'directory' 
-    if [[ $# -eq 0 ]] ; then
+    if [[ $# -eq 0 || $1=="run" ]] ; then
         directory=$currentFileDirectory
     else 
         directory=$1

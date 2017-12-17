@@ -42,6 +42,6 @@ let data = [
 
 
 export default {
-  databaseTableName: 'valueReturningFile',
+  databaseTableName: 'file',
   data: data
 }

@@ -4,7 +4,7 @@ let data = [
         label: {
             name: 'entrypoint'
         },
-        viewNestedUnit: '0d65c113-acce-4f01-8eea-ab6cb7152405'
+        templateNestedUnit: '0d65c113-acce-4f01-8eea-ab6cb7152405' // view nested unit
     },
     
 ];

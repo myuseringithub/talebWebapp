@@ -1,8 +1,8 @@
 let tablePrefix = 'middleware_'
 let array = [ 
-    require('./middlewareFile.js'),
-    require('./middlewareImplementation.js'),
-    require('./middlewareNestedUnit.js'),
+    require('./file.js'),
+    require('./unit.js'),
+    require('./nestedUnit.js'),
 ].map(object => {
     object.databaseTableName = tablePrefix.concat(object.databaseTableName)
     return object

@@ -4,7 +4,7 @@ let data = [
         label: {
             name: 'entrypointHTML'
         },
-        viewImplementation: '73b661df-2f53-498c-a01b-d3db971f1a3e',
+        unitKey: '73b661df-2f53-498c-a01b-d3db971f1a3e',
         insertionPoint: [
             {
                 key: 'f0c1e26f-e1da-40b0-8084-444366615408',
@@ -60,7 +60,7 @@ let data = [
         label: {
             name: 'metadata'
         },
-        viewImplementation: '10870442-15e9-4b40-b4ba-95cfe437bb77',
+        unitKey: '10870442-15e9-4b40-b4ba-95cfe437bb77',
         insertionPoint: [
         ],
         children: [
@@ -72,7 +72,7 @@ let data = [
         label: {
             name: 'entrypointJavascript'
         },
-        viewImplementation: '4e485c9f-ad08-4117-b668-83aba51dac70',
+        unitKey: '4e485c9f-ad08-4117-b668-83aba51dac70',
         insertionPoint: [
         ],
         children: [
@@ -83,6 +83,6 @@ let data = [
 ];
 
 export default {
-    databaseTableName: 'viewNestedUnit',
+    databaseTableName: 'nestedUnit',
     data: data
 }

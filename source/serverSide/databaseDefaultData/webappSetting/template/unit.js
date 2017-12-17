@@ -6,7 +6,7 @@ let data = [
         },
         arguments: {},
         executionType: 'underscoreRendering',
-        templateFile: '9a856182-e0e0-485c-a4b6-4c409481b063'
+        fileKey: '9a856182-e0e0-485c-a4b6-4c409481b063'
     },
     {
         key: '10870442-15e9-4b40-b4ba-95cfe437bb77',
@@ -15,7 +15,7 @@ let data = [
         },
         arguments: {},
         executionType: 'underscoreRendering',
-        templateFile: '073852c5-5d70-4016-aacc-372161d2ae8c'
+        fileKey: '073852c5-5d70-4016-aacc-372161d2ae8c'
     },
     {
         key: '4e485c9f-ad08-4117-b668-83aba51dac70',
@@ -24,11 +24,11 @@ let data = [
         },
         arguments: {},
         executionType: 'underscoreRendering',
-        templateFile: '21c988c6-28a9-4487-8927-9a0b51dc6aff'
+        fileKey: '21c988c6-28a9-4487-8927-9a0b51dc6aff'
     }
 ];
 
 export default {
-    databaseTableName: 'viewImplementation',
+    databaseTableName: 'unit',
     data: data
 }

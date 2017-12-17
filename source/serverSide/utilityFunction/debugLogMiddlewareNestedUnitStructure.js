@@ -6,8 +6,8 @@ async function debugLogMiddleNestedUnitStructure(nestedUnitKeyMiddleware) {
             generate: require('appscript/utilityFunction/database/query/getTableDocumentAndFilter.query.js'),
             instance: []
         }
-        getTableDocument.instance['middleware_middlewareNestedUnit'] = getTableDocument.generate('middleware_middlewareNestedUnit')
-        let middleware  = await getTableDocument.instance['middleware_middlewareNestedUnit'](connection, { key: key })
+        getTableDocument.instance['middleware_nestedUnit'] = getTableDocument.generate('middleware_nestedUnit')
+        let middleware  = await getTableDocument.instance['middleware_nestedUnit'](connection, { key: key })
         
         let string = ''.concat(middleware.label.name, ' (', middleware.key, ') ')
         for (let child of middleware.children) {

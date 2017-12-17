@@ -23,6 +23,6 @@ let data = [
 ];
 
 export default {
-    databaseTableName: 'templateFile',
+    databaseTableName: 'file',
     data: data
 }
