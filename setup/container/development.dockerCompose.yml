@@ -69,3 +69,4 @@ services:
         - default
     environment:
         DEPLOYMENT: ${DEPLOYMENT:-development}
+    command: bash -c "sleep 100000"
