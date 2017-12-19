@@ -68,5 +68,6 @@ services:
     networks:
         - default
     environment:
-        DEPLOYMENT: ${DEPLOYMENT:-development}
-    command: bash -c "sleep 100000"
+        HOST: localhost
+        DEPLOYMENT: ${DEPLOYMENT:-production}
+    # command: bash -c "sleep 100000" # doesn't override the image command.
