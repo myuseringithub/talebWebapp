@@ -1,4 +1,5 @@
 import { default as Application } from 'appscript'
+import path from 'path'
 import _ from 'underscore'
 import filesystem from 'fs'
 import https from 'https'
@@ -91,10 +92,11 @@ class WebappUI extends Application {
                 }
             })
         // eventEmitter.on("listening", function () { console.log("catched listening on same script file"); })
+        // TODO: The below should work, but for some reason the paths stopped working 'no suck file', - relative paths don't work
         if(self.config.ssl) {
             let options = {
-                key: filesystem.readFileSync('port/webappUI/sampleSSL/server.key'),
-                cert: filesystem.readFileSync('port/webappUI/sampleSSL/server.crt')
+                key: filesystem.readFileSync(path.join(__dirname, '/sampleSSL/server.key')),
+                cert: filesystem.readFileSync(path.join(__dirname, './sampleSSL/server.crt'))
             }
             self.createdHttpServer = https.createServer(options, self.serverKoa.callback())
                 .on('connection', (socket) => {

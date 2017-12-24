@@ -2,7 +2,7 @@
   "name": "gulp-npmproject",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "entrypoint.js",
   "scripts": {
     "test": "",
     "start": "./entrypoint.sh build"

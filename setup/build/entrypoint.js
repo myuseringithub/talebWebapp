@@ -1,6 +1,8 @@
 const path = require('path')
 const confJson = require('./configuration/configuration.js')
 const moduleSystem = require('module')
+const filesystem = require('fs')
+const { execSync, spawn, spawnSync } = require('child_process')
 
 const appRootPath = path.normalize(`${__dirname}`)
 // add root path (app base path) to the resolved module paths.
@@ -10,6 +12,16 @@ console.log(`• Node additional module resolution paths: ${process.env.NODE_PAT
 moduleSystem._initPaths()
 
 // Run babel runtime compiler
+const gulpBuildToolFolder = path.normalize(`${confJson.appDeploymentLifecyclePath}/gulp_buildTool.js/`)
+function installModule({ currentDirectory }) { spawnSync('yarn', ["install --pure-lockfile --production=false"], { cwd: currentDirectory, shell: true, stdio:[0,1,2] }) }
+{
+    let directory = gulpBuildToolFolder
+    let isNodeModuleExist = filesystem.existsSync(`${directory}/node_modules`)
+    if (!isNodeModuleExist) {
+        installModule({ currentDirectory: directory })
+        // spawnSync('yarn', ["upgrade appscript"], { cwd: directory, shell: true, stdio:[0,1,2] });
+    }
+}
 const babelJSCompilerPath = path.normalize(`${confJson.appDeploymentLifecyclePath}/babel_javascriptTranspilation.js/entrypoint.js`)
 const babelJSCompiler = require(babelJSCompilerPath)
 babelJSCompiler({
