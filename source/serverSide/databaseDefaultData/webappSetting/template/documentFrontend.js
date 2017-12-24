@@ -96,10 +96,7 @@ let data = [
         }
     },
     
-];
+]
 
 
-export default {
-    databaseTableName: 'documentFrontend',
-    data: data
-}
+export default data

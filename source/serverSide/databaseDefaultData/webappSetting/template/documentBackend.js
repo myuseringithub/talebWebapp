@@ -7,9 +7,6 @@ let data = [
         templateNestedUnit: '0d65c113-acce-4f01-8eea-ab6cb7152405' // view nested unit
     },
     
-];
+]
 
-export default {
-    databaseTableName: 'documentBackend',
-    data: data
-}
+export default data

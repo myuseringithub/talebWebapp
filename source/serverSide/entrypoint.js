@@ -1,5 +1,6 @@
 const moduleSystem = require('module')
 const path = require('path')
+const configuration = require('../../setup/configuration/configuration.json')
 
 const appRootPath = path.normalize(__dirname)
 // add root path (app base path) to the resolved module paths.
@@ -16,8 +17,7 @@ switch (process.env.DEPLOYMENT) {
         // Transpile js scripts on runtime using Babel.
         // global.SZN = {}
         // global.SZN.APP = require('appscript/configuration/configuration.export.js') // Load configuration settings. NOTE: babel doesn't order import correctly when compiling, therefore global.SZN is required in this file not in app.js.
-        const confJson = require('./configuration/configuration.export.js')
-        const babelJSCompilerPath = path.normalize(`${confJson.appDeploymentLifecyclePath}/babel_javascriptTranspilation.js/entrypoint.js`)
+        const babelJSCompilerPath = path.normalize(`${configuration.appDeploymentLifecyclePath}/babel_javascriptTranspilation.js/entrypoint.js`)
         const babelJSCompiler = require(babelJSCompilerPath)
         babelJSCompiler({
             babelConfigurationFile: 'es2015.BabelConfig.js'

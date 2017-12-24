@@ -1,13 +1,12 @@
-let tablePrefix = 'oAuth_'
+import databaseNestedUnitDataAggregator from 'appscript/utilityFunction/database/databaseNestedUnitDataAggregator.js'
+let implementation = 'oAuth'
+let dataArray = ['client', 'token', 'user']
 
 /**
  * {Array of Objects}
  */
-export default [ 
-    require('./client.js'),
-    require('./token.js'),
-    require('./user.js'),
-].map(object => {
-    object.databaseTableName = tablePrefix.concat(object.databaseTableName)
-    return object
+export default databaseNestedUnitDataAggregator({
+    localPath: __dirname,
+    implementation,
+    dataArray
 })
