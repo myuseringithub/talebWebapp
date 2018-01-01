@@ -38,8 +38,8 @@ services:
     volumes:
       - ${hostPath}/dependency:/project/dependency # The hostPath is forwarded from the manager contaienr to the host vm. i.e. the manager doesn't container `/c/Users/` but the host vm does.
       - ${hostPath}/setup:/project/application/setup
-      - ${hostPath}/source:/project/application/source/
-      - ${hostPath}/distribution:/project/application/distribution/
+      - ${hostPath}/source:/project/application/source
+      - ${hostPath}/distribution:/project/application/distribution
     working_dir: /project/application
     command: bash -c "sleep 100000000;"
 
