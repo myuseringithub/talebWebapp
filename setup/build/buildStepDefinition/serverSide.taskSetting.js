@@ -9,7 +9,7 @@ const FileSource = [
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'npm.js'),
             argument: [
-				source('serverSide/')
+				source('/../setup/packageManager/server.yarn')
 			]
         }
     },

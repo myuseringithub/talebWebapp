@@ -9,7 +9,7 @@ const FileSource = [
             path: path.join(config.TaskModulePath, 'jspm.js'),
             argument: [
 				process.env.NODEJS_VERSION,
-				source('/clientSide/jspm_packageManager/')
+				source('/../setup/packageManager/browser.jspm')
 			]
         }
     },
@@ -18,7 +18,7 @@ const FileSource = [
         gulpTaskFunction: {
             path: path.join(config.TaskModulePath, 'bower.js'),
             argument: [
-				source('/clientSide/bower_packageManager/')
+				source('/../setup/packageManager/browser.bower')
 			]
         }
     },

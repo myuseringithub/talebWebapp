@@ -1,8 +1,8 @@
 SystemJS.config({
   paths: {
-    "npm:": "jspm_packages/npm/",
-    "github:": "jspm_packages/github/",
-    "bower:": "jspm_packages/bower/",
+    "npm:": "js.package/npm/",
+    "github:": "js.package/github/",
+    "bower:": "js.package/bower/",
     "app/": ""
   },
   devConfig: {
