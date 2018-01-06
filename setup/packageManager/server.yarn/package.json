@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "./entrypoint.sh",
+    "preinstall": "test -d \"../../../source/serverSide/node_modules/appscript/.git\" && echo SZN - Warning ! .git file detected, prevent wipping new changes ! && exit 1 || echo .git does not exist, safe to proceed... ",
     "postinstall": "(cd ./node_modules/appscript; yarn install --pure-lockfile --production=true)"
   },
   "author": "",
