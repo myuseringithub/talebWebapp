@@ -154,6 +154,7 @@ let data = [
                     insertionPoint: '2299cc1e-238f-4fe5-9069-51351ded59a7'
                 }
             },
+            { nestedUnit: '15a01ebf-8902-437c-a6e1-4a7082f3b281', pathPointerKey: 'XYZ4', insertionPosition: { insertionPathPointer: null, insertionPoint: '2299cc1e-238f-4fe5-9069-51351ded59a7' } },
         ],
     },
     {

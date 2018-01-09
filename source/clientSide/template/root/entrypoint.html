@@ -16,12 +16,12 @@
             ceShimContainer.parentElement.removeChild(ceShimContainer);
           }
         </script>
-        <script type="text/javascript" src="/asset/webcomponent/bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+        <script type="text/javascript" src="/asset/webcomponent/component.package/webcomponentsjs/custom-elements-es5-adapter.js"></script>
       </div>
       <script>console.info('☕ Serving ES5 compiled app version.');</script>
-      <script src="/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+      <script src="/asset/webcomponent/component.package/webcomponentsjs/webcomponents-lite.js"></script>
     {% } else { %}
-      <script src="/asset/webcomponent/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+      <script src="/asset/webcomponent/component.package/webcomponentsjs/webcomponents-loader.js"></script>
     {% } %}
 
 
@@ -38,9 +38,9 @@
     
     <!-- 
       NOTE: Loading Polymer on the main document, in addition to the elements causes issues for some reason.
-      <link rel="import" href="/asset/webcomponent/bower_components/polymer/polymer-element.html"> 
+      <link rel="import" href="/asset/webcomponent/component.package/polymer/polymer-element.html"> 
     -->
-    <link rel="import" href="/asset:render/webcomponent/document-element/document-element.html">
+    <link rel="import" href="/asset/webcomponent/document-element/document-element.html$">
     
     <style>
       h1.loader {

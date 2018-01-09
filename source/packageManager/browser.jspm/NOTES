@@ -1,0 +1,8 @@
+jspm only works with `n stable` i.e. stable version of NodeJS.
+
+Examples:
+NOTE: without the `v` in `@v1.0.0-rc.4`
+npm install -g jspm@beta
+jspm install  github:webcomponents/webcomponentsjs@1.0.0-rc.4
+
+

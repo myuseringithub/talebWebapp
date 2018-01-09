@@ -1,8 +1,0 @@
-{
-    "projectPath": "/project",
-    "databaseVersion": 1,
-    "appDeploymentLifecyclePath": "/project/dependency/appDeploymentLifecycle/",
-    "GulpPath": "/project/application/setup/build/",
-    "SourceCodePath": "/project/application/source/",
-    "DestinationPath": "/project/application/distribution/"
-}
