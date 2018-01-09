@@ -1,28 +1,14 @@
 process.env.SZN_DEBUG = true // show/hide console messages.
 
-import path from 'path'
-import { default as Application } from 'appscript'
-import configuration from '../../setup/configuration/configuration.json' 
+import configuration from '../../setup/configuration/configuration.js' 
+import { microservice } from 'appscript'
+import databaseData from '../databaseData/databaseData.js'
 
-import initializeDatabaseData from 'appscript/utilityFunction/database/initializeDatabaseData.js'
-Application.eventEmitter.on('initializationEnd', initializeDatabaseData({ databaseVersion: configuration.databaseVersion }))
-
-import oAuthInitializePortServer from 'appscript/class/port/oAuth/initializePortServer.js'
-Application.eventEmitter.on('initializationEnd', oAuthInitializePortServer())
-
-import webappUIInitializePortServer from 'appscript/class/port/webappUI/initializePortServer.js'
-Application.eventEmitter.on('initializationEnd', webappUIInitializePortServer())
-
-import staticContentInitializePortServer from 'appscript/class/port/staticContent/initializePortServer.js'
-Application.eventEmitter.on('initializationEnd', staticContentInitializePortServer({ entrypointConditionKey: '78f91938-f9cf-4cbf-9bc8-f97836ff23dd'}))
-
-import apiInitializePortServer from 'appscript/class/port/api/initializePortServer.js'
-Application.eventEmitter.on('initializationEnd', apiInitializePortServer())
-
-import websocketInitializePortServer from 'appscript/class/port/webSocket/initializePortServer.js'
-Application.eventEmitter.on('initializationEnd', websocketInitializePortServer())
-
-Application.initialize() // allows calling a child class from its parent class.
+microservice({
+    configuration,
+    entrypointConditionKey: '78f91938-f9cf-4cbf-9bc8-f97836ff23dd',
+    databaseData
+})
 
 // _____________________________________________
 

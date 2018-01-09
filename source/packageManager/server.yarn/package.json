@@ -1,0 +1,15 @@
+{
+  "name": "yarn",
+  "version": "1.0.0",
+  "main": "entrypoint.js",
+  "license": "MIT",
+  "flat": false,
+  "scripts": {
+    "preinstall": "test -d \"../../../source/serverSide/node_modules/appscript/.git\" && echo SZN - Warning ! .git file detected, prevent wipping new changes ! && exit 1 || echo .git does not exist, safe to proceed... ",
+    "postinstall": "(cd ../../../source/serverSide/node_modules/appscript && yarn install --pure-lockfile --production=true)"
+  },
+  "dependencies": {
+    "appscript": "git+https://github.com/AppScriptIO/DecoupledCMS.git",
+    "babel-runtime": "^6.26.0"
+  }
+}

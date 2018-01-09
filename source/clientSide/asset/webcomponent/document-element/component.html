@@ -1,0 +1,64 @@
+<!-- Bind to URL - Proxy for window.location -->
+<app-location route="{{route}}"></app-location>
+<!-- Managing top-level routes -->
+<app-route
+    route="{{route}}"
+    pattern="/:pathTopLevel"
+    data="{{routeData}}"
+    tail="{{subroute}}"></app-route>
+<!-- main document element is placed in side the js main template entrypoint file to allow server-side manipulations. -->
+<!--<document-element layout="{{layout}}" page="{{page}}" subroute="{{subroute}}" app="{{app}}">-->
+    <iron-pages
+        selected="{{layout}}"
+        attr-for-selected="name"
+        fallback-selection="{%= argument['layoutElement'] %}"
+        role="main">
+        {%= `<${argument['layoutElement']}  name="layout-unused" page="{{page}}" route="{{subroute}}" app="[[app]]">` %}
+            <view-university-single slot="page" name="universitySingle"></view-university-single>
+            <view-university-multiple slot="page" name="universityMultiple"></view-university-multiple>
+            <view-country-single slot="page" name="countrySingle"></view-country-single>
+            <view-country-multiple slot="page" name="countryMultiple"></view-country-multiple>
+            <view-subject-single slot="page" name="subjectSingle"></view-subject-single>
+            <view-subject-multiple slot="page" name="subjectMultiple"></view-subject-multiple>
+            <view-degree-single slot="page" name="degreeSingle"></view-degree-single>
+            <view-degree-multiple slot="page" name="degreeMultiple"></view-degree-multiple>
+            <view-view1 slot="page" name="view-view1"></view-view1>
+            <view-view2 slot="page" name="view-view2"></view-view2>
+            <view-view3 slot="page" name="view-view3"></view-view3>
+            <view-view404 slot="page" name="view-view404"></view-view404>
+        {%=`</${argument['layoutElement']}>` %}
+        <!-- <webapp-layout-list name="webapp-layout-list" page="{{page}}" route="{{subroute}}" app="[[app]]">
+            <a slot="tab" name="view-view1" href$="{{app.setting.location.routeBasePath}}/view1">مقدمة عن التعليم في رومانيا</a>
+            <a slot="tab" name="view-view2" href$="{{app.setting.location.routeBasePath}}/view2">تسجيل فردي</a>
+            <a slot="tab" name="view-view3" href$="{{app.setting.location.routeBasePath}}/view3">تسجيل عن طريق وكيل</a>
+            <view-view1 slot="page" name="view-view1"></view-view1>
+            <view-view2 slot="page" name="view-view2"></view-view2>
+            <view-view3 slot="page" name="view-view3"></view-view3>
+            <view-view404 slot="page" name="view-view404"></view-view404>
+        </webapp-layout-list> -->
+        <webapp-layout-toolbar name="webapp-layout-toolbar" page="{{page}}" route="{{subroute}}" app="[[app]]">
+            <a class="drawerlink" slot="drawertab" name="frontPage" href$="{{app.setting.location.routeBasePath}}/">المقدمة</a>
+            <a class="drawerlink" slot="drawertab" name="registration-agency" href$="{{app.setting.location.routeBasePath}}/registration/agency">تسجيل عن طريق وكيل</a>
+            <a class="drawerlink" slot="drawertab" name="registration-single" href$="{{app.setting.location.routeBasePath}}/registration/single">خطوات التسجيل والمتطلبات</a>
+            <a class="drawerlink" slot="drawertab" name="about" href$="{{app.setting.location.routeBasePath}}/contact">تواصل معنا</a>
+            <!--<paper-tab slot="toolbartab" link name="studyfieldSingleArticle">
+                <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield/medicine" tabindex="-1">موضوع الطب</a>
+            </paper-tab>-->
+            <paper-tab slot="toolbartab" link name="studyfieldPage">
+                <a class="link" href$="{{app.setting.location.routeBasePath}}/studyfield" tabindex="-1">مواضيع التعليم</a>
+            </paper-tab>
+            <paper-tab slot="toolbartab" link name="universityPage">
+                <a class="link" href$="{{app.setting.location.routeBasePath}}/university" tabindex="-1">الجامعات</a>
+            </paper-tab>
+            <paper-tab slot="toolbartab" link name="countryPage">
+                <a class="link" href$="{{app.setting.location.routeBasePath}}/country" tabindex="-1">الدول</a>
+            </paper-tab>
+        </webapp-layout-toolbar>
+        <!--<webapp-layout-step name="webapp-layout-step" page="{{page}}" route="{{subroute}}" app="[[app]]">
+            
+        </webapp-layout-step>-->
+        <!--<webapp-layout-frontpage name="webapp-layout-frontpage" page="{{page}}" route="{{subroute}}" app="[[app]]">
+            
+        </webapp-layout-frontpage>-->
+    </iron-pages>
+<!--</document-element>-->

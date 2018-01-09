@@ -1,11 +1,13 @@
 const moduleSystem = require('module')
 const path = require('path')
-const configuration = require('../../setup/configuration/configuration.json')
+const configuration = require('../../setup/configuration/configuration.js')
 
 const appRootPath = path.normalize(__dirname)
 // add root path (app base path) to the resolved module paths.
 // Define server base path. Hackish way to make sure the path is always consistent. Base path in Nodejs is where the closest parent node_modules is located to the initiated js script.
-process.env.NODE_PATH = `${process.env.NODE_PATH || ''}:${appRootPath}`.replace(/(^\:+)/, '')
+// '${appRootPath}' allows for folders/modules inside the main folder to be called with out using relative paths.
+// '${appRootPath}/node_modules' allows for modules from upper herarchies to call modules from sibling folders. e.g. source/x calls source/y/node_modules/module
+process.env.NODE_PATH = `${process.env.NODE_PATH || ''}:${appRootPath}:${appRootPath}/node_modules`.replace(/(^\:+)/, '')
 console.log(`• Node additional module resolution paths: ${process.env.NODE_PATH}`)
 moduleSystem._initPaths()
 

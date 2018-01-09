@@ -11,5 +11,5 @@ docker run \
     --volume $applicationHostPath:/project/application \
     --volume /var/run/docker.sock:/var/run/docker.sock \
     --env "hostPath=$applicationHostPath" \
-    myuserindocker/deployment-environment:latest \
+    myuserindocker/container-manager:latest \
     containerCommand "$@"
