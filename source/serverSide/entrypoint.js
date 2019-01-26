@@ -19,7 +19,7 @@ switch (process.env.DEPLOYMENT) {
         // Transpile js scripts on runtime using Babel.
         // global.SZN = {}
         // global.SZN.APP = require('appscript/configuration/configuration.export.js') // Load configuration settings. NOTE: babel doesn't order import correctly when compiling, therefore global.SZN is required in this file not in app.js.
-        const babelJSCompilerPath = path.normalize(`${configuration.appDeploymentLifecyclePath}/babel_javascriptTranspilation.js/entrypoint.js`)
+        const babelJSCompilerPath = path.normalize(`${configuration.deploymentScriptPath}/babel_javascriptTranspilation.js/entrypoint.js`)
         const babelJSCompiler = require(babelJSCompilerPath)
         babelJSCompiler({
             babelConfigurationFile: 'es2015.BabelConfig.js'

@@ -1,24 +1,35 @@
+const path = require('path')
 const projectPath = "/project",
-      appDeploymentLifecyclePath = `${projectPath}/application/dependency/appDeploymentLifecycle`
+      resolvedModule = {
+        deploymentScript = `${projectPath}/application/dependency/deploymentScript`
+    }
 
 module.exports = {
+    directory: {
+        application: {
+            rootPath: path.normalize(`${__dirname}/..`)
+        }
+    },
     projectPath, 
-    appDeploymentLifecyclePath,
+    deploymentScriptPath: resolvedModule.deploymentScript,
     databaseVersion: 1,
     GulpPath: `${projectPath}/application/setup/build`, // TODO: is it actually needed. remove if possible.
     SourceCodePath: `${projectPath}/application/source`,
     DestinationPath: `${projectPath}/application/distribution`,
     dockerImageName: 'taleb-webapp',
-    entrypoint: {
-        build: {
-            file: `${appDeploymentLifecyclePath}/entrypoint/build/build.js`,
+    entrypoint: [
+        {
+            key: 'build',
+            file: `${resolvedModule.deploymentScript}/entrypoint/build/build.js`,
             argument: {}
         },
-        run: {
-            file: `${appDeploymentLifecyclePath}/entrypoint/run/run.js`,
+        {
+            key: 'run',
+            file: `${resolvedModule.deploymentScript}/entrypoint/run/run.js`,
         },
-        test: {
-            file: `${appDeploymentLifecyclePath}/entrypoint/test/test.js`,
+        {
+            key: 'test',
+            file: `${resolvedModule.deploymentScript}/entrypoint/test/test.js`,
         },
-    }
+    ]
 }
