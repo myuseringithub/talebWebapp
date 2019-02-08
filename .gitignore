@@ -11,3 +11,4 @@ component.package
 jspm_packages
 npm-debug.log
 source/serverSide/yarn-error\.log
+yarn-error.log

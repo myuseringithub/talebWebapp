@@ -6,9 +6,7 @@ const projectPath = "/project",
 
 module.exports = {
     directory: {
-        application: {
-            rootPath: path.normalize(`${__dirname}/..`)
-        }
+        root: path.normalize(`${__dirname}/..`)
     },
     projectPath, 
     deploymentScriptPath: resolvedModule.deploymentScript,
