@@ -8,7 +8,6 @@ module.exports = {
     directory: {
         root: path.normalize(`${__dirname}/..`)
     },
-    projectPath, 
     deploymentScriptPath: resolvedModule.deploymentScript,
     databaseVersion: 1,
     GulpPath: `${projectPath}/application/setup/build`, // TODO: is it actually needed. remove if possible.
