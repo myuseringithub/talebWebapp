@@ -1,0 +1,61 @@
+<link rel="import" href="./component.package/polymer/polymer.html">
+<link rel="import" href="./shared-styles.html">
+<link rel="import" href="./component.package/paper-button/paper-button.html">
+<link rel="import" href="./component.package/iron-icons/iron-icons.html">
+
+<dom-module id="registration-single">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+        text-align: center;
+      }
+      h1 {
+        text-align: center;
+      }
+      paper-button {
+        padding: 0 7px;
+        height: 36px;
+        display: inline-flex;
+        margin: 7px auto 15px auto;
+        background-color: #4285f4;
+        transition: color .2s;
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      iron-icon {
+        margin-right: 5px;
+      }
+    </style>
+
+    <!--<div class="card">
+    </div>-->
+    <div class="card" style="text-align: center;">
+      <h1>خطوات وتكاليف التسجيل في رومانيا:</h1>
+      <a href="https://docs.google.com/document/d/1IMFvDebPHpfbngPZ77WNQXBW9L8HsBDSeUsAO6QIJNQ/" target="_blank" style="text-decoration: none;">
+        <paper-button class="play"><span>فتح المستند</span><iron-icon icon="icons:description"></iron-icon></paper-button>
+      </a>
+      <iframe style="width: 100%; border-width: 0; height: 650px; overflow-x: hidden;" frameborder='0' seamless src="https://docs.google.com/document/d/1IMFvDebPHpfbngPZ77WNQXBW9L8HsBDSeUsAO6QIJNQ/edit?usp=sharing&rm=minimal&embedded=true" >
+      </iframe>
+    </div>
+    <!--<div class="card">
+      <div class="circle">1</div>
+    </div>-->
+  </template>
+
+  <script>
+  {
+    class Element extends Polymer.Element {
+      static get is() { return 'registration-single'; }
+      static get properties() {
+        return {}
+      }
+    }
+    customElements.define(Element.is, Element);
+  }
+  </script>
+</dom-module>
