@@ -1,0 +1,151 @@
+<link rel="import" href="../component.package/polymer/polymer.html">
+<link rel="import" href="../component.package/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../component.package/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../component.package/app-layout/app-header/app-header.html">
+<link rel="import" href="../component.package/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../component.package/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../component.package/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../component.package/iron-pages/iron-pages.html">
+<link rel="import" href="../component.package/iron-selector/iron-selector.html">
+<link rel="import" href="../component.package/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../view-icons.html">
+
+<dom-module id="webapp-layout-list">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+        direction: ltr;
+      }
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+
+      app-drawer-layout:not([narrow]) [drawer-toggle] {
+        display: none;
+      }
+      
+      app-drawer > app-toolbar {
+        font-weight: bold;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a, slot[name='tab']::slotted(a) {
+        display: block;
+        padding: 0 16px;
+        text-decoration: none;
+        color: var(--app-secondary-color);
+        line-height: 40px;
+      }
+
+      .drawer-list a.iron-selected, slot[name='tab']::slotted(a.iron-selected) {
+        color: black;
+        font-weight: bold;
+      }
+    </style>
+
+
+    <app-drawer-layout fullbleed>
+      <!-- Drawer content -->
+      <app-drawer id="drawer" slot="drawer" align="right">
+        <app-toolbar>موقع طالب</app-toolbar>
+        <iron-selector selected="[[page.selectorName]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <slot name="tab"></slot>
+        </iron-selector>
+      </app-drawer>
+
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region>
+
+        <app-header condenses reveals effects="waterfall">
+          <app-toolbar>
+            <div main-title>الدراسة في الخارج</div>
+            <paper-icon-button icon="view-icons:menu" drawer-toggle></paper-icon-button>
+          </app-toolbar>
+        </app-header>
+
+        <iron-pages
+            selected="[[page.selectorName]]"
+            attr-for-selected="name"
+            fallback-selection="view404"
+            role="main">
+            <slot name="page"></slot>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+  {
+    class Element extends Polymer.Element {
+      static get is() { return 'webapp-layout-list'; }
+      static get properties() {
+        return { /* properties metadata */ 
+          route: Object,
+          app: Object,
+          page: {
+            type: Object,
+            notify: true,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+        }
+      }
+
+      static get observers() { return [ /* observer descriptors */
+      ] }
+
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      ready() {
+        super.ready();
+        
+        if('ontouchstart' in window) this.$.drawer.swipeOpen = true // allow open swipe on drawer for touchscreen devices.
+      }
+
+      _pageChanged(page, oldPage) {
+        // Load page import on demand. Show 404 page if fails
+        if (page.selectorName != null) {
+            var callback = this._showPage404;
+            var resolvedPageUrl = this.resolveUrl(`../${page.file}`);
+            Polymer.importHref(
+              resolvedPageUrl,
+              null, callback, true);
+        }
+
+        if (!this.$.drawer.persistent) {
+            this.$.drawer.close();  
+        }
+      }
+
+      _showPage404() {
+        this.page.selectorName = 'view404';
+      }
+
+    }
+    // Register custom element definition using standard platform API
+    customElements.define(Element.is, Element);
+  }
+  </script>
+</dom-module>

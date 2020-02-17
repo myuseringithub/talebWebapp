@@ -1,0 +1,37 @@
+<link rel="import" href="./component.package/polymer/polymer.html">
+<link rel="import" href="./shared-styles.html">
+
+<dom-module id="view-view404">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px 20px;
+      }
+    </style>
+
+    <div class="card" style="text-align: center;">
+      <h1>😨 أووبس.. خطأ 404 - الصفحة غير موجودة, كيف وصلت إلى هنا ! </h1>
+      <p><a href="{{baseUrl}}">الرجوع للصفحة الرئيسية.</a></p>
+    </div>
+  </template>
+
+  <script>
+  {
+    class Element extends Polymer.Element {
+      static get is() { return 'view-view404'; }
+      static get properties() {
+        return {
+          baseUrl: {
+            type: String,
+            reflectToAttribute: true,
+            value: `${App.config.PROTOCOL}${App.config.HOST}`
+          },
+        }
+      }
+    }
+    customElements.define(Element.is, Element);
+  }
+  </script>
+</dom-module>
