@@ -1,3 +1,3 @@
 # talebWebapp موقع طالب
 
-![Screencast](/documentation/نموذج.PNG)
+![Screencast](/documentation/screenshot.PNG)
